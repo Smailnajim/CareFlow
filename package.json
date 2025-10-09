@@ -1,0 +1,17 @@
+{
+  "name": "careflow",
+  "version": "1.0.0",
+  "description": "le socle backend d'un EHR (Electronic Health Record) destiné à des cliniques et cabinets. L'objectif est d'exposer une API REST versionnée permettant la gestion des utilisateurs, des patients et des rendez-vous avec prévention de conflits.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon ./server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10"
+  }
+}
