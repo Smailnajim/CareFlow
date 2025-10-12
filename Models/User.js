@@ -15,6 +15,7 @@ const Schem = new mongoose.Schema({
         required: true
     },
     dateNasonse: {type: Date},
+    refreshTokens: [String]
 },{collation: 'users'});
 
 Schem.pre('save', async function(next) {
@@ -23,5 +24,9 @@ Schem.pre('save', async function(next) {
     this.password = await bcrypt.hash(this.password, salt);
     next();
 });
+
+schem.methods.comparePassword = function(password) {
+    return bcrypt.compare(password, this.password);
+};
 
 module.exports = mongoose.model("User", Schem);

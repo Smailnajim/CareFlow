@@ -32,8 +32,13 @@ exports.login = async (req, res) => {
         return res.send('error', 'email or password not corect');
     }
 
-    const check = await bcrypt.compare(password, user.password);
-    if(!check){
+    // const check = await bcrypt.compare(password, user.password);
+    // if(!check){
+    //     return res.send('error', 'email or password not corect');
+    // }
+
+    const compar = await user.comparePassword(password);
+    if(!compar){
         return res.send('error', 'email or password not corect');
     }
 
