@@ -1,5 +1,6 @@
 const User = require('./../Models/User');
 const Role = require('./../Models/Role');
+const {geanerateAccessToken, generateRefreshToken} = require('./../Utils/Token');
 
 exports.register = async (req, res) => {
     const {firstName, lastName, email, password} = req.body;
@@ -29,7 +30,7 @@ exports.login = async (req, res) => {
 
     const user = await User.findOne({email});
     if(!user){
-        return res.send('error', 'email or password not corect');
+        return res.json('error', 'email or password not corect');
     }
 
     // const check = await bcrypt.compare(password, user.password);
@@ -39,8 +40,15 @@ exports.login = async (req, res) => {
 
     const compar = await user.comparePassword(password);
     if(!compar){
-        return res.send('error', 'email or password not corect');
+        return res.json('error', 'email or password not corect');
     }
+    const Access = geanerateAccessToken(user);
+    const Refresh = generateRefreshToken(user);
 
-    
+    user.refreshTokens.push(Refresh);
+    user.save();
+
+    res
+    .cookie('refreshToken', Refresh, { httpOnly: true, secure: true, sameSite: 'strict' })
+    .json({ accessToken: Access });
 }
