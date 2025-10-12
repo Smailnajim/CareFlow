@@ -9,7 +9,7 @@ exports.geanerateAccessToken = (user) => {
     );
 }
 
-export const generateRefreshToken = function (user) {
+exports.generateRefreshToken = function (user) {
     return jwt.sign(
         { id: user._id, roleId: user.roleId, name: user.name },
         process.env.REFRESH_SECRET,
