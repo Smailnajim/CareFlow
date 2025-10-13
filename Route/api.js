@@ -16,10 +16,10 @@ router.post(
     '/register',
     [
         // {firstName, lastName, email, password}
-        body('email').isEmail().withMessage('email is not corect'),
+        body('email').isEmail().withMessage('email is not corect').escape(),
         body('password').isLength({min: 6}).withMessage('password must be greet thenor equal 6 charachters'),
-        body('firstName').trim().notEmpty().withMessage('first name must be not empty'),
-        body('lastName').trim().notEmpty().withMessage('last name must be not empty'),
+        body('firstName').trim().notEmpty().withMessage('first name must be not empty').escape(),
+        body('lastName').trim().notEmpty().withMessage('last name must be not empty').escape(),
     ],
 
     function(req, res) {
@@ -38,19 +38,13 @@ router.post('/login',
     function (req, res) {
         const errors = validationResult(req);
         if (!errors.isEmpty()) return res.json({errors});
-        
+
         login(req, res);
 });
-
-
-
 
 router.post('/refresh', function(req, res){
     refreshTokens(req, res)
 });
-
-
-
 
 
 router.get('/test', touteMiddelware.isAuth, function (req, res) {
