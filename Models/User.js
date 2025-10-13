@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 const Schem = new mongoose.Schema({
     roleId: {type: mongoose.Schema.Types.ObjectId, ref: 'Role', required: true},
@@ -16,7 +16,7 @@ const Schem = new mongoose.Schema({
     },
     dateNasonse: {type: Date},
     refreshTokens: [String]
-},{collation: 'users'});
+},{collection: 'users', timestamps: true });
 
 Schem.pre('save', async function(next) {
     if (!this.isModified('password')) return next();
@@ -25,7 +25,7 @@ Schem.pre('save', async function(next) {
     next();
 });
 
-schem.methods.comparePassword = function(password) {
+Schem.methods.comparePassword = function(password) {
     return bcrypt.compare(password, this.password);
 };
 

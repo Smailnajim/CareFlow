@@ -6,6 +6,6 @@ const schem = mongoose.Schema({
         enum:['Patient', 'Admin', 'Infirmiers', 'medecin', 'secritaire'],
         required: true
     }
-},{collation: 'roles'});
+},{collection: 'roles', timestamps: true });
 
 module.exports = mongoose.model('Role', schem);

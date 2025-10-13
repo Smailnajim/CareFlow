@@ -2,7 +2,8 @@
     const express = require('express');
     const path = require('path');
     const mongoose = require('mongoose');
-
+    const routes = require('./Route/api');
+    const Role = require('./Models/Role');
 
 
     const app = express();
@@ -21,13 +22,12 @@
 
 
     mongoose.connect(process.env.URL_TO_CONNECT)
-    .then(()=>console.log('\nconsole\n'))
+    .then(()=>console.log('\nconect\n'))
+    .then(()=>{return Role.find()})
+    .then((res)=>console.log(res))
     .catch(error => console.log('\nthere is error\n', error));
 
-
-
-    app.get('/', (req, res)=>res.send('all greet'));
-
+    app.use('/api', routes);
 
 
     app.listen(3000, ()=>console.log('app work on http://localhost:3000'));
