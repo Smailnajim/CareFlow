@@ -1,6 +1,8 @@
+require('dotenv').config();
 const User = require('./../Models/User');
 const Role = require('./../Models/Role');
 const {geanerateAccessToken, generateRefreshToken} = require('./../Utils/Token');
+const jwt = require('jsonwebtoken');
 
 exports.register = async (req, res) => {
     
@@ -56,4 +58,28 @@ exports.login = async (req, res) => {
     return res
     .cookie('refreshToken', Refresh, { httpOnly: true, secure: true, sameSite: 'strict' })
     .json({ accessToken: Access });
+}
+
+
+
+
+
+exports.refreshTokens = async (req, res) => {
+    const tokenToRefresh = req.cookies.refreshTokens;
+    if (!tokenToRefresh) return res.json({error: 'refresh Token not faound'});
+
+    try {
+        const user = await User.findOne({refreshTokens: tokenToRefresh});     
+        jwt.verify(tokenToRefresh, process.env.REFRESH_SECRET, (er, decoded)=>{
+            if (er) {
+                console.log('error -----\n', er);
+                return res.json({error: 'your refresh token is expired'})
+            }
+
+            const access = geanerateAccessToken(user);
+            return res.json({newAccess: access});
+        })
+    } catch (error) {
+        console.log('\nerrror\n', error);
+    }
 }

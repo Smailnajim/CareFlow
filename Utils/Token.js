@@ -11,7 +11,7 @@ exports.geanerateAccessToken = (user) => {
 
 exports.generateRefreshToken = function (user) {
     return jwt.sign(
-        { id: user._id, roleId: user.roleId, name: user.name },
+        {id: user._id, roleId: user.roleId, email: user.email,firstName: user.firstName, lastName: user.lastName},
         process.env.REFRESH_SECRET,
         { expiresIn: "15d" }
     );
