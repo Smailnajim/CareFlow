@@ -4,7 +4,7 @@
     const mongoose = require('mongoose');
     const routes = require('./Route/api');
     const Role = require('./Models/Role');
-
+    const cookieParser = require('cookie-parser');
 
     const app = express();
 
@@ -18,6 +18,7 @@
     app.use(express.static('public'));
     app.use(express.urlencoded({extended: true}));
     app.use(express.json());
+    app.use(cookieParser());
 
 
 

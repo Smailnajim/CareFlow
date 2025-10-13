@@ -65,8 +65,11 @@ exports.login = async (req, res) => {
 
 
 exports.refreshTokens = async (req, res) => {
-    const tokenToRefresh = req.cookies.refreshTokens;
-    if (!tokenToRefresh) return res.json({error: 'refresh Token not faound'});
+    const tokenToRefresh = req.cookies.refreshToken;
+    if (!tokenToRefresh) {
+        console.log('re-----\n', tokenToRefresh);
+        return res.json({error: 'refresh Token not faound'});
+}
 
     try {
         const user = await User.findOne({refreshTokens: tokenToRefresh});     

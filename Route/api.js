@@ -15,7 +15,9 @@ router.post('/login', function (req, res) {
 
 
 
-router.post('/refresh', refreshTokens(req, res));
+router.post('/refresh', function(req, res){
+    refreshTokens(req, res)
+});
 
 
 
