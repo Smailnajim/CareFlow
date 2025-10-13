@@ -4,12 +4,42 @@ const router = express.Router();
 const { register, login, refreshTokens } = require('./../Controller/AuthController');
 const touteMiddelware = require('./../middleware');
 
-router.post('/register', function(req, res) {
-    register(req, res);
+const {body, validationResult} = require('express-validator');
+
+
+
+
+
+
+
+router.post(
+    '/register',
+    [
+        // {firstName, lastName, email, password}
+        body('email').isEmail().withMessage('email is not corect'),
+        body('password').isLength({min: 6}).withMessage('password must be greet thenor equal 6 charachters'),
+        body('firstName').trim().notEmpty().withMessage('first name must be not empty'),
+        body('lastName').trim().notEmpty().withMessage('last name must be not empty'),
+    ],
+
+    function(req, res) {
+        const errors = validationResult(req)
+        if(!errors.isEmpty()){
+            return res.json({errors})
+        }
+        register(req, res);
 });
 
-router.post('/login', function (req, res) {
-    login(req, res);
+router.post('/login',
+    [
+        body('email').isEmail().withMessage('email is not corect'),
+        body('password').isLength({min: 6}).withMessage('password must be great then or equal 6 char'),
+    ],
+    function (req, res) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.json({errors});
+        
+        login(req, res);
 });
 
 
