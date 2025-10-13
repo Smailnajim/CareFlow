@@ -9,9 +9,6 @@ const {body, validationResult} = require('express-validator');
 
 
 
-
-
-
 router.post(
     '/register',
     [
