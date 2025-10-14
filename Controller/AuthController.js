@@ -19,7 +19,8 @@ exports.register = async (req, res) => {
         }
     
         console.log('zzz');
-        const roleId = await Role.findOne({name: 'Patient'});
+        const roleId = await Role.findOne({name: 'Patient'}).select('_id');
+        console.log('zzz\n', roleId);
 
         if(!roleId){
             return res.status(500).send({'error': roleId});
