@@ -2,12 +2,12 @@ require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const { register, login, refreshTokens } = require('./../Controller/AuthController');
-const {getAll, getOne} = require('./../Controller/UserController');
+const {getAll, getAllHasRole} = require('./../Controller/UserController');
 const touteMiddelware = require('./../middleware');
 
 const {body, validationResult} = require('express-validator');
 
-router.get('/all/:id', getOne);
+router.get('/all/:roleName', getAllHasRole);
 
 
 router.post(

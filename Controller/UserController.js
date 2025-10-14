@@ -15,7 +15,7 @@ exports.createUser = async (req, res) => {
             email: 'ti@g.com',
             password: "1230",
             status: "active",
-        })
+        });
     } catch (error) {
         console.log('--------\n', error);
     }
@@ -54,7 +54,7 @@ exports.getAll = async () => {
         console.log('-----\n', error);
     }
 }
-exports.getOne = async (req, res) => {
+exports.getOne = async (req, res) => {// .../:id
     const user = await User.findById(req.params.id);
 
     if(!user) return res.json({error: `no yoser has id: ${req.params.id}`});
@@ -72,7 +72,16 @@ exports.getOne = async (req, res) => {
         status: user.status
     });
 }
+exports.getAllHasRole = async (req, res) => {
+    const {roleName} = req.params;
 
+    const role = await Role.findOne({name: roleName});
+    if(!role) return res.json({error: 'no rol : '+roleName})
+    
+    const users = await User.find({roleId: role._id});
+
+    return res.json({users: users});
+}
 
 //delete
 exports.deletUserById = async (id) => {
