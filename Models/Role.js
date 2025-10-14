@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const schem = mongoose.Schema({
+const schem = new mongoose.Schema({
     name: {
         type: String,
         enum:['Patient', 'Admin', 'Infirmiers', 'medecin', 'secritaire'],
