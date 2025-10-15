@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const { register, login, refreshTokens } = require('./../Controller/AuthController');
-const {getAll, getAllHasRole} = require('./../Controller/UserController');
+const {getAll, getAllHasRole, createUser} = require('./../Controller/UserController');
 const touteMiddelware = require('./../middleware');
 
 const {body, validationResult} = require('express-validator');
@@ -49,5 +49,9 @@ router.get('/test', touteMiddelware.isAuth, function (req, res) {
     const u = req.user;
     return res.json({ message: 'heeeellllloooo', u });
 });
+
+//admin
+
+router.post('/create/user', createUser);
 
 module.exports = router;

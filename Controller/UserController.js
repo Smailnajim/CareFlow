@@ -7,15 +7,20 @@ const {Types} = require('mongoose');
 exports.createUser = async (req, res) => {
     try {
         console.log('--------\n');
+        const {roleName, firstName, lastName, email, password} = req.body;
         
+        const role = await Role.findOne({name: roleName});
+        if(!role) res.json({error: 'ther is no role has name: '+roleName});
+
         await User.create({
-            roleId: new Types.ObjectId('68ec1f6e918d473d23cebea4'),
-            firstName: 'ana',
-            lastName: 'ana',
-            email: 'ti@g.com',
-            password: "1230",
+            roleId: role._id,
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            password: password,
             status: "active",
         });
+        res.json({valid: 'create user seccessfly ;)'});
     } catch (error) {
         console.log('--------\n', error);
     }
@@ -44,7 +49,6 @@ exports.createUsers = async (req, res) => {
         console.log('--------\n', error);
     }
 }
-
 //reade
 exports.getAll = async () => {
     try {
