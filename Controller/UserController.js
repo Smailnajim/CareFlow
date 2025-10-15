@@ -1,5 +1,6 @@
 const Role = require('../Models/Role');
 const User = require('./../Models/User');
+const RendezVous = require('./../Models/RendezVous');
 const {Types} = require('mongoose');
 const userStatus = require('../Enum/Status');
 
@@ -7,7 +8,7 @@ const {matchedData} = require('express-validator');
 
 //create
 {
-exports.createUser = async (req, res) => {
+var createUser = async (req, res) => {
     try {
         console.log('--------\n');
         const {roleName, firstName, lastName, email, password} = req.body;
@@ -28,7 +29,7 @@ exports.createUser = async (req, res) => {
         console.log('--------\n', error);
     }
 }
-exports.createUsers = async (req, res) => {
+var createUsers = async (req, res) => {
     try {
         await User.insertMany([
             {
@@ -56,7 +57,7 @@ exports.createUsers = async (req, res) => {
 
 //reade
 {
-exports.getAll = async () => {
+var getAll = async () => {
     try {
         const users = await User.find();
         console.log('-----\n', users);
@@ -64,7 +65,7 @@ exports.getAll = async () => {
         console.log('-----\n', error);
     }
 }
-exports.getOne = async (req, res) => {// .../:id
+var getOne = async (req, res) => {// .../:id
     const user = await User.findById(req.params.id);
 
     if(!user) return res.json({error: `no yoser has id: ${req.params.id}`});
@@ -82,7 +83,7 @@ exports.getOne = async (req, res) => {// .../:id
         status: user.status
     });
 }
-exports.filterByRole = async (req, res) => {
+var filterByRole = async (req, res) => {
     const {roleName} = req.params;
 
     const role = await Role.findOne({name: roleName});
@@ -92,7 +93,7 @@ exports.filterByRole = async (req, res) => {
 
     return res.json({users: users});
 }
-exports.patientHasRendezvous = async (req, res) => {
+var patientHasRendezvous = async (req, res) => {
     try {
         const users = await User.aggregate([
             {
@@ -113,11 +114,41 @@ exports.patientHasRendezvous = async (req, res) => {
         return res.json({error});
     }
 }
+var VoirTousLesRendezVousDeLaClinique = async (req, res) => {
+    try {
+        const tousRendezVous = await RendezVous.aggregate([
+            {
+                $lookup: {
+                    from: 'users',
+                    localField: 'medecinId',
+                    foreignField: '_id',
+                    as: 'medecin'
+                }
+            },{
+                $lookup: {
+                    from: 'users',
+                    localField: 'patientId',
+                    foreignField: '_id',
+                    as: 'patient'
+                }
+            },{
+                $project: {
+                    'medecin.password': 0,
+                    'patient.password': 0,
+                }
+            }
+        ]);
+        return res.json({tousRendezVous});
+    } catch (error) {
+        return res.json({error});
+        
+    }
+}
 }
 
 //delete
 {
-exports.deletUserById = async (id) => {
+var deletUserById = async (id) => {
     var id = parseInt(id);
 
     try {
@@ -131,7 +162,7 @@ exports.deletUserById = async (id) => {
 
 // Update
 {
-exports.CompteStatus = async (req, res) => {
+var CompteStatus = async (req, res) => {
     const {status, userId} = matchedData(req, {location: ['body']});
 
     if (!userStatus.includes(status)) return res.json({error: `you must chois one of :${[...userStatus]}`});
@@ -147,4 +178,16 @@ exports.CompteStatus = async (req, res) => {
         return res.json({error: er});
     }
 }
+}
+
+module.exports = {
+    createUser,
+    createUsers,
+    getAll,
+    getOne,
+    filterByRole,
+    patientHasRendezvous,
+    VoirTousLesRendezVousDeLaClinique,
+    deletUserById,
+    CompteStatus,
 }
