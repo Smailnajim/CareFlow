@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const status = require('./../Enum/status');
+const status = require('../Enum/Status');
 
 const Schem = new mongoose.Schema({
     roleId: {type: mongoose.Schema.Types.ObjectId, ref: 'Role', required: true},

@@ -1,7 +1,7 @@
 const Role = require('../Models/Role');
 const User = require('./../Models/User');
 const {Types} = require('mongoose');
-const userStatus = require('./../Enum/status');
+const userStatus = require('../Enum/Status');
 
 const {matchedData} = require('express-validator');
 
@@ -91,6 +91,27 @@ exports.filterByRole = async (req, res) => {
     const users = await User.find({roleId: role._id});
 
     return res.json({users: users});
+}
+exports.patientHasRendezvous = async (req, res) => {
+    try {
+        const users = await User.aggregate([
+            {
+                $lookup: {
+                    from: 'rendezvous',
+                    localField: '_id',
+                    foreignField: 'patientId',
+                    as: 'tousRendezvous'
+                }
+            },
+            {
+                $match: {'tousRendezvous.0': { $exists: true }}
+            }
+        ]);
+        return res.json({users});
+    } catch (error) {
+        console.log(error,'\n----');
+        return res.json({error});
+    }
 }
 }
 

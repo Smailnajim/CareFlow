@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
+const roles = require('./../Enum/Roles');
 
 const schem = new mongoose.Schema({
     name: {
         type: String,
-        enum:['Patient', 'Admin', 'Infirmiers', 'medecin', 'secritaire'],
+        enum: roles,
         required: true
     }
 },{collection: 'roles', timestamps: true });

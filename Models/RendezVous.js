@@ -7,6 +7,6 @@ const rendezVousSchema = new mongoose.Schema({
     dateStar: Date,
     dateFine: Date,
     cause: String
-});
+},{collection: 'rendezvous', timeseries: true});
 
 module.exports = mongoose.model('RendezVous', rendezVousSchema);
