@@ -6,6 +6,7 @@ const userStatus = require('./../Enum/status');
 const {matchedData} = require('express-validator');
 
 //create
+{
 exports.createUser = async (req, res) => {
     try {
         console.log('--------\n');
@@ -51,7 +52,10 @@ exports.createUsers = async (req, res) => {
         console.log('--------\n', error);
     }
 }
+}
+
 //reade
+{
 exports.getAll = async () => {
     try {
         const users = await User.find();
@@ -78,7 +82,7 @@ exports.getOne = async (req, res) => {// .../:id
         status: user.status
     });
 }
-exports.getAllHasRole = async (req, res) => {
+exports.filterByRole = async (req, res) => {
     const {roleName} = req.params;
 
     const role = await Role.findOne({name: roleName});
@@ -88,8 +92,10 @@ exports.getAllHasRole = async (req, res) => {
 
     return res.json({users: users});
 }
+}
 
 //delete
+{
 exports.deletUserById = async (id) => {
     var id = parseInt(id);
 
@@ -100,9 +106,10 @@ exports.deletUserById = async (id) => {
         return res.json({error: "delete user is bad :) becouse: "+err});
     }
 }
-
+}
 
 // Update
+{
 exports.CompteStatus = async (req, res) => {
     const {status, userId} = matchedData(req, {location: ['body']});
 
@@ -118,4 +125,5 @@ exports.CompteStatus = async (req, res) => {
     } catch (er) {
         return res.json({error: er});
     }
+}
 }

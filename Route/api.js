@@ -2,13 +2,20 @@ require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const { register, login, refreshTokens } = require('./../Controller/AuthController');
-const {getAll, getAllHasRole, createUser, CompteStatus} = require('./../Controller/UserController');
+const {getAll, filterByRole, createUser, CompteStatus} = require('./../Controller/UserController');
 const touteMiddelware = require('./../middleware');
 
-const {body, validationResult} = require('express-validator');
+const {body, param, validationResult} = require('express-validator');
+//filter
+{
+router.get('/all/:roleName', 
+    [
+        param('roleName').trim().notEmpty().withMessage('there is no role param'),
+    ],
+    filterByRole
+);
 
-router.get('/all/:roleName', getAllHasRole);
-
+}
 
 router.post(
     '/register',
