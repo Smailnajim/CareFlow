@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const { register, login, refreshTokens } = require('./../Controller/AuthController');
-const {getAll, getAllHasRole, createUser} = require('./../Controller/UserController');
+const {getAll, getAllHasRole, createUser, CompteStatus} = require('./../Controller/UserController');
 const touteMiddelware = require('./../middleware');
 
 const {body, validationResult} = require('express-validator');
@@ -51,7 +51,15 @@ router.get('/test', touteMiddelware.isAuth, function (req, res) {
 });
 
 //admin
-
+//->Créer des comptes
 router.post('/create/user', createUser);
 
+//->Suspendre ou réactiver des comptes
+router.put('/comptes-status',
+    [
+        body('status').trim().notEmpty().withMessage('you must select a status'),
+        body('userId').notEmpty().withMessage('select user')
+    ],
+    CompteStatus
+);
 module.exports = router;

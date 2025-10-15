@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const status = require('./../Enum/status');
 
 const Schem = new mongoose.Schema({
     roleId: {type: mongoose.Schema.Types.ObjectId, ref: 'Role', required: true},
@@ -11,7 +12,7 @@ const Schem = new mongoose.Schema({
     password: {type: String, required: true},
     status: {
         type: String,
-        enum: ['active', 'suspended'],
+        enum: status,
         required: true
     },
     dateNasonse: {type: Date},

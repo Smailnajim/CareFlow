@@ -1,7 +1,9 @@
 const Role = require('../Models/Role');
 const User = require('./../Models/User');
 const {Types} = require('mongoose');
+const userStatus = require('./../Enum/status');
 
+const {matchedData} = require('express-validator');
 
 //create
 exports.createUser = async (req, res) => {
@@ -101,7 +103,19 @@ exports.deletUserById = async (id) => {
 
 
 // Update
-// exports.updateById = async (data) => {
-//     const keys = Object.keys(data);
+exports.CompteStatus = async (req, res) => {
+    const {status, userId} = matchedData(req, {location: ['body']});
 
-// }
+    if (!userStatus.includes(status)) return res.json({error: `you must chois one of :${[...userStatus]}`});
+    try {
+        const user = await User.findById(userId);
+        if (!user) return res.json({error: 'ther is no user has '+ userId});
+
+        user.status = status;
+        user.save();
+        return res.json({valid: 'update status to '+status+' by seccessfly'});
+        
+    } catch (er) {
+        return res.json({error: er});
+    }
+}
