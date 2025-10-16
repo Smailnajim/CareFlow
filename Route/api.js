@@ -62,11 +62,19 @@ router.get('/test', touteMiddelware.isAuth, function (req, res) {
 router.post('/create/user', UserController.createUser);
 
 //->Suspendre ou réactiver des comptes
-router.put('/comptes-status',
+router.put('/comptes-status',                   
     [
         body('status').trim().notEmpty().withMessage('you must select a status'),
-        body('userId').notEmpty().withMessage('select user')
+        body('userId').trim().notEmpty().withMessage('select user')
     ],
     UserController.CompteStatus
 );
+
+router.get('/profil/:id',
+    [
+        param("id").trim().notEmpty().withMessage('there in no param id at url')
+    ],
+    UserController.ConsulterProfilCompletPatient
+);
+
 module.exports = router;

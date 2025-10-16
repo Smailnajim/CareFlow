@@ -144,7 +144,56 @@ var VoirTousLesRendezVousDeLaClinique = async (req, res) => {
         
     }
 }
+var ConsulterProfilCompletPatient = async (req, res) => {
+    let {id} = req.params;
+    // id = parseInt(id);
+    try {
+        // const user = await User.findOne({_id: id})
+        const user = await User.aggregate([
+            {
+                $match: {
+                    _id: new Types.ObjectId(id)
+                }
+            },{
+                $lookup: {
+                    from: 'roles',
+                    localField: 'roleId',
+                    foreignField: '_id',
+                    as: 'role'
+                }
+            },{
+                $lookup: {
+                    from: 'rendezVous',
+                    localField: '_id',
+                    foreignField: 'patientId',
+                    as: 'mesRendezvous'
+                }
+            },{
+                $lookup: {
+                    from: 'tritments',
+                    localField: 'mesRendezvous._id',
+                    foreignField: 'rendezVousId',
+                    as: 'tritment'
+                }
+            },{
+                $lookup: {
+                    from: 'notifications',
+                    localField: 'mesRendezvous._id',
+                    foreignField: 'rendezVousId',
+                    as: 'notifications'
+                }
+            },{
+                $project: {
+                    'password': 0,
+                }
+            }
+        ]);
+        return res.json({user: user});
+    } catch (error) {
+        return res.json({error});
+    }
 }
+} 
 
 //delete
 {
@@ -190,4 +239,5 @@ module.exports = {
     VoirTousLesRendezVousDeLaClinique,
     deletUserById,
     CompteStatus,
+    ConsulterProfilCompletPatient
 }
