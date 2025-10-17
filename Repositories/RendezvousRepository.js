@@ -64,3 +64,36 @@ exports.medecinsDisponibilites = async (req, res) => {
     ]);
     return Disponibilites;
 }
+
+exports.VoirTousLesRendezVousDeLaClinique = async (req, res) => {
+    try {
+        const tousRendezVous = await Rendezvous.aggregate([
+            {
+                $lookup: {
+                    from: 'users',
+                    localField: 'medecinId',
+                    foreignField: '_id',
+                    as: 'medecin'
+                }
+            },{
+                $lookup: {
+                    from: 'users',
+                    localField: 'patientId',
+                    foreignField: '_id',
+                    as: 'patient'
+                }
+            },{
+                $project: {
+                    'medecin.password': 0,
+                    'medecin.refreshTokens': 0,
+                    'patient.password': 0,
+                    'patient.refreshTokens': 0,
+                }
+            }
+        ]);
+        return res.json({tousRendezVous});
+    } catch (error) {
+        return res.json({error});
+        
+    }
+}

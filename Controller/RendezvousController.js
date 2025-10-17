@@ -19,4 +19,8 @@ exports.medecinsDisponibilites = async (req, res) => {
     const Disponibilites = await RendezvousService.medecinsDisponibilites(req, res);
     return res.json({Disponibilites});
 }
+
+exports.VoirTousLesRendezVousDeLaClinique = async (req, res) => {
+    RendezvousService.VoirTousLesRendezVousDeLaClinique(req, res);
+}
 }

@@ -8,7 +8,7 @@ const {matchedData, validationResult} = require('express-validator');
 
 //create
 {
-var createUser = async (req, res) => {
+exports.createUser = async (req, res) => {
     try {
         console.log('--------\n');
         const {roleName, firstName, lastName, email, password} = req.body;
@@ -29,7 +29,7 @@ var createUser = async (req, res) => {
         console.log('--------\n', error);
     }
 }
-var createUsers = async (req, res) => {
+exports.createUsers = async (req, res) => {
     try {
         await User.insertMany([
             {
@@ -57,7 +57,7 @@ var createUsers = async (req, res) => {
 
 //reade
 {
-var getAll = async () => {
+exports.getAll = async () => {
     try {
         const users = await User.find();
         console.log('-----\n', users);
@@ -65,7 +65,7 @@ var getAll = async () => {
         console.log('-----\n', error);
     }
 }
-var getOne = async (req, res) => {// .../:id
+exports.getOne = async (req, res) => {// .../:id
     const user = await User.findById(req.params.id);
 
     if(!user) return res.json({error: `no yoser has id: ${req.params.id}`});
@@ -83,7 +83,7 @@ var getOne = async (req, res) => {// .../:id
         status: user.status
     });
 }
-var filterByRole = async (req, res) => {
+exports.filterByRole = async (req, res) => {
     const {roleName} = req.params;
 
     const role = await Role.findOne({name: roleName});
@@ -93,7 +93,7 @@ var filterByRole = async (req, res) => {
 
     return res.json({users: users});
 }
-var patientHasRendezvous = async (req, res) => {
+exports.patientHasRendezvous = async (req, res) => {
     try {
         const users = await User.aggregate([
             {
@@ -114,37 +114,8 @@ var patientHasRendezvous = async (req, res) => {
         return res.json({error});
     }
 }
-var VoirTousLesRendezVousDeLaClinique = async (req, res) => {
-    try {
-        const tousRendezVous = await RendezVous.aggregate([
-            {
-                $lookup: {
-                    from: 'users',
-                    localField: 'medecinId',
-                    foreignField: '_id',
-                    as: 'medecin'
-                }
-            },{
-                $lookup: {
-                    from: 'users',
-                    localField: 'patientId',
-                    foreignField: '_id',
-                    as: 'patient'
-                }
-            },{
-                $project: {
-                    'medecin.password': 0,
-                    'patient.password': 0,
-                }
-            }
-        ]);
-        return res.json({tousRendezVous});
-    } catch (error) {
-        return res.json({error});
-        
-    }
-}
-var ConsulterProfilCompletPatient = async (req, res) => {
+
+exports.ConsulterProfilCompletPatient = async (req, res) => {
     let {id} = req.params;
     console.log('-----\n', id);
     // id = parseInt(id);
@@ -199,7 +170,7 @@ var ConsulterProfilCompletPatient = async (req, res) => {
 
 //delete
 {
-var deletUserById = async (id) => {
+exports.deletUserById = async (id) => {
     var id = parseInt(id);
 
     try {
@@ -213,7 +184,7 @@ var deletUserById = async (id) => {
 
 // Update
 {
-var CompteStatus = async (req, res) => {
+exports.CompteStatus = async (req, res) => {
     const {status, userId} = matchedData(req, {location: ['body']});
 
     if (!userStatus.includes(status)) return res.json({error: `you must chois one of :${[...userStatus]}`});
@@ -229,17 +200,4 @@ var CompteStatus = async (req, res) => {
         return res.json({error: er});
     }
 }
-}
-
-module.exports = {
-    createUser,
-    createUsers,
-    getAll,
-    getOne,
-    filterByRole,
-    patientHasRendezvous,
-    VoirTousLesRendezVousDeLaClinique,
-    deletUserById,
-    CompteStatus,
-    ConsulterProfilCompletPatient
 }

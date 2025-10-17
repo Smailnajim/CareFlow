@@ -15,7 +15,7 @@ router.get('/filter-role/:roleName',
     ],
     UserController.filterByRole
 );
-router.get('/tous-rendezvous', UserController.VoirTousLesRendezVousDeLaClinique);
+router.get('/tous-rendezvous', RendezvousController.VoirTousLesRendezVousDeLaClinique);
 }
 
 router.post('/register',

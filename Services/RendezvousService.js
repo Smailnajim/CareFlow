@@ -13,6 +13,8 @@ exports.CreerUnRendezvousPourPatient = async (req, res) => {
     data.dateFine = req.body.dateFine;
     data.cause = req.body.cause;
     
+    if (RoleRepository.roleDeUser(req.body.pmedicalId) != 'medecin') return res.json({error: `this is ${req.body.pmedicalId} not medecin`});
+
     const role = await RoleRepository.roleDeUser('68f0e9fe5f90a12e56122a42');
     if (role == 'Patient') {
         // if  (req.user._id != data.patientId) return res.json({error: 'you cant create rendezvou for another Patient'});
@@ -27,4 +29,8 @@ exports.CreerUnRendezvousPourPatient = async (req, res) => {
 exports.medecinsDisponibilites = async (req, res) => {
     const Disponibilites = await RendezvousRepository.medecinsDisponibilites(req, res);
     return Disponibilites;
+}
+
+exports.VoirTousLesRendezVousDeLaClinique = async (req, res) => {
+    RendezvousRepository.VoirTousLesRendezVousDeLaClinique(req, res);
 }
