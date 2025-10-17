@@ -12,3 +12,11 @@ exports.CreerUnRendezvousPourPatient = async (req, res) => {
     return res.json({rendezvou});
 }
 }
+
+//reade
+{
+exports.medecinsDisponibilites = async (req, res) => {
+    const Disponibilites = await RendezvousService.medecinsDisponibilites(req, res);
+    return res.json({Disponibilites});
+}
+}

@@ -23,3 +23,8 @@ exports.CreerUnRendezvousPourPatient = async (req, res) => {
 
     await RendezvousRepository.createRendezvou(data);
 }
+
+exports.medecinsDisponibilites = async (req, res) => {
+    const Disponibilites = await RendezvousRepository.medecinsDisponibilites(req, res);
+    return Disponibilites;
+}

@@ -18,8 +18,7 @@ router.get('/filter-role/:roleName',
 router.get('/tous-rendezvous', UserController.VoirTousLesRendezVousDeLaClinique);
 }
 
-router.post(
-    '/register',
+router.post('/register',
     [
         // {firstName, lastName, email, password}
         body('email').isEmail().withMessage('email is not corect').escape(),
@@ -99,6 +98,11 @@ router.post('/create-rendezvou',
 
         RendezvousController.CreerUnRendezvousPourPatient(req, res);
     });
+
+//Vérifier mes disponibilités et celles de mes collègues
+router.get('/medecins-disponibilites',
+    RendezvousController.medecinsDisponibilites
+);
 
 //
 router.get('/test', RendezvousController.CreerUnRendezvousPourPatient);

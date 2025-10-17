@@ -1,4 +1,6 @@
+const User = require('../Models/User');
 const Rendezvous = require('./../Models/RendezVous');
+const {Types} = require('mongoose');
 
 exports.createRendezvou = async (data) => {
     try {
@@ -14,4 +16,51 @@ exports.createRendezvou = async (data) => {
     } catch (error) {
         console.log('eee', error);
     }
+}
+
+exports.medecinsDisponibilites = async (req, res) => {
+    const Disponibilites = await User.aggregate([
+        {
+            $lookup: {
+                from: 'roles',
+                localField: 'roleId',
+                foreignField: '_id',
+                as: 'role'
+            }
+        },{
+            $match: {
+                'role.name': 'medecin'
+            }
+        },{
+            $lookup: {
+                from: 'rendezvous',
+                localField: '_id',
+                foreignField: 'medecinId',
+                as: 'rendezvous'
+            }
+        },{
+            $lookup: {
+                from: 'timesworks',
+                localField: '_id',
+                foreignField: 'medecinId',
+                as: 'timesworks'
+            }
+        },{
+            $addFields:{
+                iWantFirst: {
+                    // $cond: [{$eq:['$_id', req.user._id]}, 1, 0]
+                    $cond: [{$eq:['$_id', new Types.ObjectId('68ec3d11a67f6d5bbff95279') ]}, 1, 0]
+                }
+            }
+        },{
+            $sort: {
+                iWantFirst: -1
+            }
+        },{
+            $project: {
+                'password': 0,
+            }
+        }
+    ]);
+    return Disponibilites;
 }
