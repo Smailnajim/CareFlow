@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const { register, login, refreshTokens } = require('./../Controller/AuthController');
 const UserController = require('./../Controller/UserController');
+const RendezvousController = require('./../Controller/RendezvousController');
 const touteMiddelware = require('./../middleware');
 
 const {body, param, validationResult} = require('express-validator');
@@ -52,10 +53,10 @@ router.post('/refresh', function(req, res){
 });
 
 
-router.get('/test', touteMiddelware.isAuth, function (req, res) {
-    const u = req.user;
-    return res.json({ message: 'heeeellllloooo', u });
-});
+// router.get('/test', touteMiddelware.isAuth, function (req, res) {
+//     const u = req.user;
+//     return res.json({ message: 'heeeellllloooo', u });
+// });
 
 //admin
 //->Créer des comptes
@@ -72,9 +73,33 @@ router.put('/comptes-status',
 
 router.get('/profil/:id',
     [
-        param("id").trim().notEmpty().withMessage('there in no param id at url')
+        param("id").trim().notEmpty().withMessage('there is no param id at url')
     ],
-    UserController.ConsulterProfilCompletPatient
+    function(req, res) {
+        const errors = validationResult(req)
+        if(!errors.isEmpty()){
+            return res.json({errors})
+        }
+    UserController.ConsulterProfilCompletPatient;
+    }
 );
 
+//create rendezvou
+router.post('/create-rendezvou',
+    [
+        body('medecinId').trim().notEmpty().withMessage('you must select medecin'),
+        body('patientId').trim().notEmpty().withMessage("you don't select patient"),
+        body('cause').trim().notEmpty().withMessage("what is your cause"),
+    ],
+    function(req, res){
+        const errors = validationResult(req);
+        console.log(errors);
+        if(!errors.isEmpty()) return res.json({errors});
+        console.log(errors.isEmpty());
+
+        RendezvousController.CreerUnRendezvousPourPatient(req, res);
+    });
+
+//
+router.get('/test', RendezvousController.CreerUnRendezvousPourPatient);
 module.exports = router;

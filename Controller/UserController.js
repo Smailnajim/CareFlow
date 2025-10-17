@@ -4,7 +4,7 @@ const RendezVous = require('./../Models/RendezVous');
 const {Types} = require('mongoose');
 const userStatus = require('../Enum/Status');
 
-const {matchedData} = require('express-validator');
+const {matchedData, validationResult} = require('express-validator');
 
 //create
 {
@@ -146,6 +146,7 @@ var VoirTousLesRendezVousDeLaClinique = async (req, res) => {
 }
 var ConsulterProfilCompletPatient = async (req, res) => {
     let {id} = req.params;
+    console.log('-----\n', id);
     // id = parseInt(id);
     try {
         // const user = await User.findOne({_id: id})
@@ -190,7 +191,8 @@ var ConsulterProfilCompletPatient = async (req, res) => {
         ]);
         return res.json({user: user});
     } catch (error) {
-        return res.json({error});
+        console.log(error);
+        return res.json({ff: error});
     }
 }
 } 

@@ -56,6 +56,9 @@ exports.login = async (req, res) => {
     user.refreshTokens.push(Refresh);
     user.save();
 
+    req.session.user = user;
+    console.log(req.session.user);
+
     return res
     .cookie('refreshToken', Refresh, { httpOnly: true, secure: true, sameSite: 'strict' })
     .json({ accessToken: Access });

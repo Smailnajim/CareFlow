@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
+const status = require('./../Enum/RendezvouStatus');
 
 const rendezVousSchema = new mongoose.Schema({
     medecinId: {type: mongoose.Types.ObjectId, ref: 'User', required: true},
     patientId: {type: mongoose.Types.ObjectId, ref: 'User', required: true},
-    status: {type: String, enum: ['created', 'enCoure', 'anneler', 'complex'], required: true},
+    status: {type: String, enum: status, required: true},
     dateStar: Date,
     dateFine: Date,
-    cause: String
+    cause:{ type: String, required: true}
 },{collection: 'rendezvous', timeseries: true});
 
 module.exports = mongoose.model('RendezVous', rendezVousSchema);
