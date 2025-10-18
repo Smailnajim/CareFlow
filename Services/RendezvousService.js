@@ -62,13 +62,12 @@ exports.updateRendez = async (req, res) => {
         console.log('medecin--------\n', Keys);
         console.log('medecin--------\n', Keys.includes('medecinId'));
         if (Keys.includes('medecinId')){
-            const medecin = await UserRepository.getOne(new Types.ObjectId(medecinId), res);
+            const medecin = await UserRepository.getOne(new Types.ObjectId(data.medecinId), res);
             if (!medecin) return res.json({error: 'there is no medecin with this id'});
             rendez.medecinId = data.medecinId;
         }
         if (Keys.includes('patientId')){
-            console.log('patient--------\n');
-            const patient = await UserRepository.getOne(new Types.ObjectId(patientId), res);
+            const patient = await UserRepository.getOne(new Types.ObjectId(data.patientId), res);
             console.log('patient--------\n',patient);
             if (!patient) return res.json({error: 'there is no patient with this id'});
             rendez.patientId = data.patientId;
