@@ -55,12 +55,8 @@ exports.updateRendez = async (req, res) => {
     const data = matchedData(req, {locations: ['body']});
 
     const Keys = Object.keys(data);
-    console.log('data--------\n', data);
     try {
         const rendez = await RendezvousRepository.getRendezvousById(new Types.ObjectId(data.rendezvousId));
-        // console.log('jjj--------\n',rendez);
-        console.log('medecin--------\n', Keys);
-        console.log('medecin--------\n', Keys.includes('medecinId'));
         if (Keys.includes('medecinId')){
             const medecin = await UserRepository.getOne(new Types.ObjectId(data.medecinId), res);
             if (!medecin) return res.json({error: 'there is no medecin with this id'});
@@ -78,14 +74,16 @@ exports.updateRendez = async (req, res) => {
             rendez.status = data.status;
         }
     
-        if(Keys.includes('dateStar')){
-            rendez.dateStar = data.dateStar;
-        }
         if(Keys.includes('dateFine')){
             rendez.dateFine = data.dateFine;
         }
         if(Keys.includes('cause')){
             rendez.cause = data.cause;
+        }
+        if(Keys.includes('status')){
+            if(rendez.status == 'complex') return res.json({error: 'you cant change status of complex rendezvou'});
+            if(data.status == 'complex') return res.json({error: 'if you want change status to complex you nedd to create a tritment to this rendezvou'});
+            rendez.status = data.status;
         }
         await rendez.save();
         return res.json({rendez});
