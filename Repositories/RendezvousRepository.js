@@ -97,3 +97,7 @@ exports.VoirTousLesRendezVousDeLaClinique = async (req, res) => {
         
     }
 }
+
+exports.getRendezvousById = async (rendezvousId) => {
+    return await Rendezvous.findById(rendezvousId);
+}

@@ -104,6 +104,41 @@ router.get('/medecins-disponibilites',
     RendezvousController.medecinsDisponibilites
 );
 
+
+//Modifier ou annuler un rendez-vous
+    //  change status-->annuler un rendez-vous
+router.put('/change-rendezvous-status',
+    [
+        body('rendezvousId').trim().notEmpty().withMessage('you must chose a rendezvous'),
+        body('status').trim().notEmpty().withMessage('you must provide status'),
+    ],
+    function(req, res){
+        const errors = validationResult(req);
+        if(!errors.isEmpty()) return res.json({errors});
+        RendezvousController.changeStatusRendezvous(req, res);
+    }
+);
+
+    //  Modifier un rendez-vous
+router.put('/Modifier-rendez',
+    [
+        body('rendezvousId').trim().notEmpty().withMessage('there is no rendez selected'),
+        body('medecinId').optional({checkFalsy: true}).trim().notEmpty().withMessage('maybe this is not metecin'),
+        body('patientId').optional({checkFalsy: true}).trim().notEmpty().withMessage('there is no patient'),
+        body('status').optional({checkFalsy: true}).trim().notEmpty().escape().withMessage("there is problem in  status's section!"),
+        body('dateStar').optional({checkFalsy: true}).isDate().escape().withMessage('error at date of start'),
+        body('dateFine').optional({checkFalsy: true}).isDate().escape().withMessage('error at date of fine'),
+        body('cause').optional({checkFalsy: true}).trim().notEmpty().withMessage('error at cause')
+    ],
+    function(req, res){
+        const errors = validationResult(req);
+        console.log(errors);
+        if(!errors.isEmpty()) return res.json({errors}); 
+
+        RendezvousController.updateRendez(req, res);
+    }
+);
+
 //
 router.get('/test', RendezvousController.CreerUnRendezvousPourPatient);
 module.exports = router;

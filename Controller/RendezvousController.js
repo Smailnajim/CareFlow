@@ -24,3 +24,15 @@ exports.VoirTousLesRendezVousDeLaClinique = async (req, res) => {
     RendezvousService.VoirTousLesRendezVousDeLaClinique(req, res);
 }
 }
+
+//update
+{
+    exports.changeStatusRendezvous = async (req, res) => {
+        RendezvousService.changeStatusRendezvous(req, res);
+    }
+    exports.updateRendez = (req, res) => {
+        const validData = matchedData(req, {locations: ['body']});
+        console.log(Object.keys(validData));
+        RendezvousService.updateRendez(validData);
+    }
+}

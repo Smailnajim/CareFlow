@@ -1,6 +1,7 @@
 const User = require('./../Models/User');
 const RoleRepository = require('./../Repositories/RoleRepository');
 const RendezvousRepository = require('./../Repositories/RendezvousRepository');
+const {Types} = require('mongoose');
 
 exports.CreerUnRendezvousPourPatient = async (req, res) => {
 
@@ -33,4 +34,24 @@ exports.medecinsDisponibilites = async (req, res) => {
 
 exports.VoirTousLesRendezVousDeLaClinique = async (req, res) => {
     RendezvousRepository.VoirTousLesRendezVousDeLaClinique(req, res);
+}
+
+exports.changeStatusRendezvous = async (req, res) => {
+    const rendezvousId = new Types.ObjectId(req.body.rendezvousId);
+    const rendezvous = await RendezvousRepository.getRendezvousById(rendezvousId);
+    if(!rendezvous) return res.json({error: 'rendezvous not found'});
+
+    rendezvous.status = req.body.status;
+    await rendezvous.save();
+    return res.json({rendezvous});
+
+}
+
+exports.updateRendez = async (data) => {
+    console.log('data', data);
+    const rendez = await RendezvousRepository.getRendezvousById(new Types.ObjectId(data.rendezvousId));
+    console.log('rendez',rendez);
+    
+    
+
 }
