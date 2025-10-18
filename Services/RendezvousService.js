@@ -2,6 +2,10 @@ const User = require('./../Models/User');
 const RoleRepository = require('./../Repositories/RoleRepository');
 const RendezvousRepository = require('./../Repositories/RendezvousRepository');
 const {Types} = require('mongoose');
+const {matchedData} = require('express-validator');
+const UserRepository = require('./../Repositories/UserRepository');
+const statusEnum = require('./../Enum/RendezvouStatus');
+
 
 exports.CreerUnRendezvousPourPatient = async (req, res) => {
 
@@ -47,11 +51,47 @@ exports.changeStatusRendezvous = async (req, res) => {
 
 }
 
-exports.updateRendez = async (data) => {
-    console.log('data', data);
-    const rendez = await RendezvousRepository.getRendezvousById(new Types.ObjectId(data.rendezvousId));
-    console.log('rendez',rendez);
-    
-    
+exports.updateRendez = async (req, res) => {
+    const data = matchedData(req, {locations: ['body']});
 
+    const Keys = Object.keys(data);
+    console.log('data--------\n', data);
+    try {
+        const rendez = await RendezvousRepository.getRendezvousById(new Types.ObjectId(data.rendezvousId));
+        // console.log('jjj--------\n',rendez);
+        console.log('medecin--------\n', Keys);
+        console.log('medecin--------\n', Keys.includes('medecinId'));
+        if (Keys.includes('medecinId')){
+            const medecin = await UserRepository.getOne(new Types.ObjectId(medecinId), res);
+            if (!medecin) return res.json({error: 'there is no medecin with this id'});
+            rendez.medecinId = data.medecinId;
+        }
+        if (Keys.includes('patientId')){
+            console.log('patient--------\n');
+            const patient = await UserRepository.getOne(new Types.ObjectId(patientId), res);
+            console.log('patient--------\n',patient);
+            if (!patient) return res.json({error: 'there is no patient with this id'});
+            rendez.patientId = data.patientId;
+        }
+    
+        if(Keys.includes('dateStar'))
+        if(statusEnum.includes(data.status)){
+            rendez.status = data.status;
+        }
+    
+        if(Keys.includes('dateStar')){
+            rendez.dateStar = data.dateStar;
+        }
+        if(Keys.includes('dateFine')){
+            rendez.dateFine = data.dateFine;
+        }
+        if(Keys.includes('cause')){
+            rendez.cause = data.cause;
+        }
+        await rendez.save();
+        return res.json({rendez});
+        
+    } catch (error) {
+        return res.json({error});
+    }
 }

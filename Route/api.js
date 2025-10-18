@@ -122,9 +122,9 @@ router.put('/change-rendezvous-status',
     //  Modifier un rendez-vous
 router.put('/Modifier-rendez',
     [
-        body('rendezvousId').trim().notEmpty().withMessage('there is no rendez selected'),
-        body('medecinId').optional({checkFalsy: true}).trim().notEmpty().withMessage('maybe this is not metecin'),
-        body('patientId').optional({checkFalsy: true}).trim().notEmpty().withMessage('there is no patient'),
+        body('rendezvousId').isMongoId().withMessage('there is no rendez selected'),
+        body('medecinId').optional({checkFalsy: true}).isMongoId().withMessage('maybe this is not metecin'),
+        body('patientId').optional({checkFalsy: true}).isMongoId().withMessage('there is no patient'),
         body('status').optional({checkFalsy: true}).trim().notEmpty().escape().withMessage("there is problem in  status's section!"),
         body('dateStar').optional({checkFalsy: true}).isDate().escape().withMessage('error at date of start'),
         body('dateFine').optional({checkFalsy: true}).isDate().escape().withMessage('error at date of fine'),

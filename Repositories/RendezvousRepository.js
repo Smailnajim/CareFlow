@@ -99,5 +99,11 @@ exports.VoirTousLesRendezVousDeLaClinique = async (req, res) => {
 }
 
 exports.getRendezvousById = async (rendezvousId) => {
-    return await Rendezvous.findById(rendezvousId);
+    try {
+        const rendez = await Rendezvous.findById(rendezvousId);
+        if (!rendez) return res.json({error: 'there is an error this rendezvou not found or id not corect'});
+        return rendez;
+    } catch (error) {
+        return res.json({error});
+    }
 }

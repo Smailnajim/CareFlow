@@ -2,7 +2,6 @@ const Rendezvous = require('./../Models/RendezVous');
 const User = require('./../Models/User');
 const RendezvousService = require('./../Services/RendezvousService');
 const UserService = require('./../Services/UserService');
-const {matchedData} = require('express-validator');
 
 
 //create
@@ -31,8 +30,6 @@ exports.VoirTousLesRendezVousDeLaClinique = async (req, res) => {
         RendezvousService.changeStatusRendezvous(req, res);
     }
     exports.updateRendez = (req, res) => {
-        const validData = matchedData(req, {locations: ['body']});
-        console.log(Object.keys(validData));
-        RendezvousService.updateRendez(validData);
+        RendezvousService.updateRendez(req, res);
     }
 }
