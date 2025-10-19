@@ -107,3 +107,42 @@ exports.getRendezvousById = async (rendezvousId) => {
         return res.json({error});
     }
 }
+
+exports.whoHasRendezAfter24And25 = async () => {
+    try {
+        const now = new Date();
+        const next24h = new Date(now.getTime() + 86400000);// 24h =>86 400 000 ms
+        console.log('22222222222222\n------------***-------------\nChecking for rendezvous to notify at:', now);
+        console.log('\n------------***-------------\nNext 24 hours window starts at:', next24h);
+        const users = await Rendezvous.aggregate([
+            {
+                $match: {
+                    dateStar: {
+                        $gte: next24h,
+                        $lt: new Date(next24h.getTime() + 3600000)
+                    }
+                }
+            },{
+                $lookup: {
+                    from: 'users',
+                    localField: 'patientId',
+                    foreignField: '_id',
+                    as: 'patient'
+                }
+            },{
+                $project: {
+                    dateStar: 1,
+                    dateFine: 1,
+                    'patient.email': 1,
+                    'patient.firstName': 1,
+                    'patient.lastName': 1,
+                    'patient.phone': 1,
+                    'patient.status': 1,
+                }
+            }
+        ]);
+        return users;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+}

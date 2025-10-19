@@ -5,6 +5,7 @@
     const routes = require('./Route/api');
     const Role = require('./Models/Role');
     const cookieParser = require('cookie-parser');
+    const MailService = require('./Services/MailService');
 
     const app = express();
 
@@ -29,6 +30,7 @@
     .catch(error => console.log('\nthere is error\n', error));
 
     app.use('/api', routes);
+    MailService.autoMails();
 
 
     app.listen(3000, ()=>console.log('app work on http://localhost:3000'));
