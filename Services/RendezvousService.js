@@ -81,8 +81,8 @@ exports.updateRendez = async (req, res) => {
             rendez.cause = data.cause;
         }
         if(Keys.includes('status')){
-            if(rendez.status == 'complex') return res.json({error: 'you cant change status of complex rendezvou'});
-            if(data.status == 'complex') return res.json({error: 'if you want change status to complex you nedd to create a tritment to this rendezvou'});
+            if(rendez.status == 'complete') return res.json({error: 'you cant change status of complete rendezvou'});
+            if(data.status == 'complete') return res.json({error: 'if you want change status to complete you nedd to create a tritment to this rendezvou'});
             rendez.status = data.status;
         }
         await rendez.save();

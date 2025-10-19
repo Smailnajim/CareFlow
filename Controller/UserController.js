@@ -144,14 +144,14 @@ exports.ConsulterProfilCompletPatient = async (req, res) => {
                 $lookup: {
                     from: 'tritments',
                     localField: 'mesRendezvous._id',
-                    foreignField: 'rendezVousId',
+                    foreignField: 'rendezvousId',
                     as: 'tritment'
                 }
             },{
                 $lookup: {
                     from: 'notifications',
                     localField: 'mesRendezvous._id',
-                    foreignField: 'rendezVousId',
+                    foreignField: 'rendezvousId',
                     as: 'notifications'
                 }
             },{

@@ -5,6 +5,7 @@ const { register, login, refreshTokens } = require('./../Controller/AuthControll
 const UserController = require('./../Controller/UserController');
 const RendezvousController = require('./../Controller/RendezvousController');
 const touteMiddelware = require('./../middleware');
+const TritmentsController = require('./../Controller/TritmentsController');
 
 const {body, param, validationResult} = require('express-validator');
 //filter
@@ -136,6 +137,20 @@ router.put('/Modifier-rendez',
         if(!errors.isEmpty()) return res.json({errors}); 
 
         RendezvousController.updateRendez(req, res);
+    }
+);
+
+//Marquer un rendez-vous comme complété
+router.post('/complete-rendezvous',
+    [
+        body('rendezvousId').isMongoId().withMessage('you must provide rendezvous id'),
+        body('description').trim().notEmpty().withMessage('the description is required'),
+    ],
+    function(req, res){
+        const errors = validationResult(req);
+        if(!errors.isEmpty()) return res.json({errors});
+        console.log('here---');
+        TritmentsController.createATritmentForRendezvou(req, res);
     }
 );
 
