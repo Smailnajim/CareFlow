@@ -35,3 +35,16 @@ exports.login = async (email, password) => {
     user.save();
     return {Access, Refresh};
 }
+
+exports.verifyRefreshToken = (token) => {
+    UserRepository.whoHaseRefresh(token);
+    try {
+        const payload = Token.verifyRefreshToken(token);
+        console.log('*payload****\n', payload);
+    
+        const access = Token.geanerateAccessToken(payload);
+        return access;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+}

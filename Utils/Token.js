@@ -16,3 +16,13 @@ exports.generateRefreshToken = function (user) {
         { expiresIn: "15d" }
     );
 };
+
+exports.verifyRefreshToken = (token) => {
+    try {
+        const decoded = jwt.verify(token, process.env.REFRESH_SECRET);
+        return decoded;
+    } catch (error) {
+        console.log('Token\n');
+        throw new Error('invalid refresh token');
+    }
+};

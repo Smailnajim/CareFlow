@@ -38,20 +38,12 @@ exports.refreshTokens = async (req, res) => {
     if (!tokenToRefresh) {
         console.log('re-----\n', tokenToRefresh);
         return res.json({error: 'refresh Token not faound'});
-}
+    }
 
     try {
-        const user = await User.findOne({refreshTokens: tokenToRefresh});     
-        jwt.verify(tokenToRefresh, process.env.REFRESH_SECRET, (er, decoded)=>{
-            if (er) {
-                console.log('error -----\n', er);
-                return res.json({error: 'your refresh token is expired'})
-            }
-
-            const access = geanerateAccessToken(user);
-            return res.json({newAccess: access});
-        })
+        const access = UserService.verifyRefreshToken(tokenToRefresh);
+        return res.json({accessToken: access});
     } catch (error) {
-        console.log('\nerrror\n', error);
+        return res.json({error: error.message});
     }
 }

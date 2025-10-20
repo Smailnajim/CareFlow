@@ -47,3 +47,6 @@ exports.updateById = async (userId, updateData) => {
 exports.getOneByEmail = async (email) => {
     return await User.findOne({email: email});
 }
+exports.whoHaseRefresh = async (refreshToken) => {
+    return await User.findOne({refreshTokens: refreshToken});
+}

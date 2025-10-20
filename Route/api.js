@@ -54,7 +54,7 @@ router.post('/login',
 });
 
 router.post('/refresh', function(req, res){
-    refreshTokens(req, res)
+    AuthController.refreshTokens(req, res)
 });
 
 
