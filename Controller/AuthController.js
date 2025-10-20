@@ -1,37 +1,16 @@
 require('dotenv').config();
-const User = require('./../Models/User');
-const Role = require('./../Models/Role');
 const {geanerateAccessToken, generateRefreshToken} = require('./../Utils/Token');
 const jwt = require('jsonwebtoken');
+const UserService = require('./../Services/UserService');
+const {matchedData} = require('express-validator');
 
 exports.register = async (req, res) => {
-    
+    const userData = matchedData(req, {locations: ['body']});
     try {
-        const {firstName, lastName, email, password} = req.body;
-        
-        if(!firstName || !lastName || !email || !password){
-            return res.send({'error': 'one or many filed not exist'});
-        }
-        
-        const alredyExist = await User.findOne({email});
-        if (alredyExist) {
-            return res.send({'error': 'this email exist'});
-        }
-    
-        console.log('zzz');
-        const roleId = await Role.findOne({name: 'Patient'}).select('_id');
-        console.log('zzz\n', roleId);
-
-        if(!roleId){
-            return res.status(500).send({'error': roleId});
-        }
-    
-        const user = new User({roleId, firstName, lastName, email, password, status: "active"});
-        await user.save();
-    
-        return res.status(200).json({valid: 'create user by good'});
+        const user = await UserService.register(userData);
+        return res.status(200).json({valid: `register ${user.firstName} is done by seccessflly`});
     } catch (error) {
-        console.log('errrrrrror', error);
+        return res.json({error: error.message});
     }
 }
 

@@ -1,7 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const router = express.Router();
-const { register, login, refreshTokens } = require('./../Controller/AuthController');
+// const { register, login, refreshTokens } = require('./../Controller/AuthController');
+const AuthController = require('./../Controller/AuthController');
 const UserController = require('./../Controller/UserController');
 const RendezvousController = require('./../Controller/RendezvousController');
 const touteMiddelware = require('./../middleware');
@@ -37,7 +38,7 @@ router.post('/register',
         if(!errors.isEmpty()){
             return res.json({errors})
         }
-        register(req, res);
+        AuthController.register(req, res);
 });
 
 router.post('/login',

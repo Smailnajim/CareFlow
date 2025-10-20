@@ -31,3 +31,16 @@ exports.getOneById = async (userId) => {
 exports.getUsersByRoleId = async (roleId) => {
     return await User.find({roleId: roleId});
 }
+exports.createUser = async (userData) => {
+    const user = new User(userData);
+    return await user.save();
+}
+exports.getAllUsers = async () => {
+    return await User.find();
+}
+exports.deleteById = async (userId) => {
+    return await User.findByIdAndDelete(userId);
+}
+exports.updateById = async (userId, updateData) => {
+    return await User.findByIdAndUpdate(userId, updateData, {new: true});
+}
