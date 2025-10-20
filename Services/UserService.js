@@ -1,6 +1,10 @@
 const RoleService = require('./RoleService');
 const UserRepository = require('./../Repositories/UserRepository');
 const Token = require('./../Utils/Token');
+
+
+
+
 exports.getAllHasRole = async (roleName) => {
     const role = await RoleService.getRoleByName(roleName);
     const users = await UserRepository.getUsersByRoleId(role._id);
@@ -47,4 +51,12 @@ exports.verifyRefreshToken = (token) => {
     } catch (error) {
         throw new Error(error.message);
     }
+}
+
+exports.updateUser = async (userData) => {
+    console.log('**********\n', userData);
+    console.log('**********\n', userData.userId);
+
+    const user = await UserRepository.updateById(userData.userId, userData);
+    if (!user) throw new Error('there is no user updated check if Done');
 }

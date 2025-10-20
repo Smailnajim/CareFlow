@@ -81,13 +81,23 @@ router.post('/refresh', function(req, res){
 //     }
 // );//create user is register
 
+console.log();
+//************************ */
 //->Suspendre ou réactiver des comptes
-router.put('/comptes-status',                   
+//->update user mem tone
+router.put('/update-user',                   
     [
-        body('status').trim().notEmpty().withMessage('you must select a status'),
-        body('userId').trim().notEmpty().withMessage('select user')
+        body('userId').trim().notEmpty().isMongoId().withMessage('there is no userID'),
+        body('status').optional({checkFalsy: true}).trim().notEmpty().withMessage('you must select a status'),
+        body('roleName').optional({checkFalsy: true}).trim().notEmpty().withMessage('you must select a roleName'),
+        body('image').optional({checkFalsy: true}).trim().notEmpty().withMessage('you must add a image'),
+        body('firstName').optional({checkFalsy: true}).trim().notEmpty().withMessage('you must add a firstName'),
+        body('lastName').optional({checkFalsy: true}).trim().notEmpty().withMessage('you must add a lastName'),
+        body('email').optional({checkFalsy: true}).trim().notEmpty().isEmail().withMessage('is this a email'),
+        body('phone').optional({checkFalsy: true}).trim().notEmpty().withMessage('you must add a phone'),
+        body('dateNasonse').optional({checkFalsy: true}).isDate().withMessage('this is not a dateNasonse'),
     ],
-    UserController.CompteStatus
+    UserController.updateUser
 );
 
 router.get('/profil/:id',

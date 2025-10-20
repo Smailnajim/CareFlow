@@ -160,20 +160,15 @@ exports.deletUserById = async (id) => {
 
 // Update
 {
-exports.CompteStatus = async (req, res) => {
-    const {status, userId} = matchedData(req, {location: ['body']});
-
-    if (!userStatus.includes(status)) return res.json({error: `you must chois one of :${[...userStatus]}`});
+exports.updateUser = async (req, res) => {
+    const userData = matchedData(req, {location: ['body']});
+    console.log('**********\n', userData);
     try {
-        const user = await User.findById(userId);
-        if (!user) return res.json({error: 'ther is no user has '+ userId});
+        await UserService.updateUser(userData);
 
-        user.status = status;
-        user.save();
-        return res.json({valid: 'update status to '+status+' by seccessfly'});
-        
-    } catch (er) {
-        return res.json({error: er});
+        return res.json({valid: 'updated by seccessfly'});
+    } catch (errror) {
+        return res.json({error: errror.message});
     }
 }
 }
