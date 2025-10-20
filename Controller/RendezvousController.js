@@ -20,7 +20,12 @@ exports.medecinsDisponibilites = async (req, res) => {
 }
 
 exports.VoirTousLesRendezVousDeLaClinique = async (req, res) => {
-    RendezvousService.VoirTousLesRendezVousDeLaClinique(req, res);
+    try {
+        RendezvousService.VoirTousLesRendezVousDeLaClinique(req, res);
+        
+    } catch (error) {
+        
+    }
 }
 }
 

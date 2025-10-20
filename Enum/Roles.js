@@ -1,1 +1,1 @@
-module.exports = ['Patient', 'Admin', 'Infirmiers', 'medecin', 'secritaire'];
+module.exports = ['patient', 'admin', 'infirmiers', 'medecin', 'secritaire'];

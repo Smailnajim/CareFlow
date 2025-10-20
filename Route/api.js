@@ -14,7 +14,11 @@ router.get('/filter-role/:roleName',
     [
         param('roleName').trim().notEmpty().withMessage('there is no role param'),
     ],
-    UserController.filterByRole
+    function (req, res) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.json({errors});
+        UserController.filterByRole(req, res);
+    }
 );
 router.get('/tous-rendezvous', RendezvousController.VoirTousLesRendezVousDeLaClinique);
 }

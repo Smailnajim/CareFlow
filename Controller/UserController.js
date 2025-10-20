@@ -1,10 +1,6 @@
-const Role = require('../Models/Role');
-const User = require('./../Models/User');
-const RendezVous = require('./../Models/RendezVous');
 const {Types} = require('mongoose');
-const userStatus = require('../Enum/Status');
-
 const {matchedData, validationResult} = require('express-validator');
+const UserService = require('./../Services/UserService');
 
 //create
 {
@@ -84,14 +80,15 @@ exports.getOne = async (req, res) => {// .../:id
     });
 }
 exports.filterByRole = async (req, res) => {
-    const {roleName} = req.params;
+    const {roleName} = matchedData(req, {locations: ['params']});
+    console.log('-----\n', roleName);
 
-    const role = await Role.findOne({name: roleName});
-    if(!role) return res.json({error: 'no rol : '+roleName})
-    
-    const users = await User.find({roleId: role._id});
-
-    return res.json({users: users});
+    try {
+        const users = await UserService.getAllHasRole(roleName);
+        return res.json({users: users});
+    } catch (error) {
+        return res.json({error: error.message});
+    }
 }
 exports.patientHasRendezvous = async (req, res) => {
     try {

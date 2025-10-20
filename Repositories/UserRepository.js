@@ -3,7 +3,7 @@ const User = require('./../Models/User');
 const Role = require('../Models/Role');
 
 
-exports.getOne = async (userId, res) => {
+exports.getOneById = async (userId) => {
     try {
         console.log('start user\n');
         const user = await User.findById(userId);
@@ -27,4 +27,7 @@ exports.getOne = async (userId, res) => {
     } catch (error) {
         return res.json({error});
     }
+}
+exports.getUsersByRoleId = async (roleId) => {
+    return await User.find({roleId: roleId});
 }

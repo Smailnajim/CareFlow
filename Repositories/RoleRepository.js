@@ -31,3 +31,9 @@ exports.roleDeUser = async (id) => {
     }
 
 }
+exports.getByName = async (roleName) => {
+    return await Role.findOne({name: roleName});
+}
+exports.getById = async (roleId) => {
+    return await Role.findById(roleId);
+}
