@@ -7,7 +7,7 @@ exports.register = async (req, res) => {
     const userData = matchedData(req, {locations: ['body']});
     try {
         const user = await UserService.register(userData);
-        return res.status(200).json({valid: `register ${user.firstName} is done by seccessflly`});
+        return res.status(200).json({valid: `register is done by seccessflly`});
     } catch (error) {
         return res.json({error: error.message});
     }

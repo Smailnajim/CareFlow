@@ -9,7 +9,7 @@ exports.getAllHasRole = async (roleName) => {
 }
 
 exports.register = async (userData) => {
-    const role = await RoleService.getRoleByName('patient');
+    const role = await RoleService.getRoleByName(userData.roleName ?? 'patient');
     userData.roleId = role._id;
     userData.status = 'active';
     const user = await UserRepository.createUser(userData);

@@ -4,27 +4,6 @@ const UserService = require('./../Services/UserService');
 
 //create
 {
-exports.createUser = async (req, res) => {
-    try {
-        console.log('--------\n');
-        const {roleName, firstName, lastName, email, password} = req.body;
-        
-        const role = await Role.findOne({name: roleName});
-        if(!role) res.json({error: 'ther is no role has name: '+roleName});
-
-        await User.create({
-            roleId: role._id,
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            password: password,
-            status: "active",
-        });
-        res.json({valid: 'create user seccessfly ;)'});
-    } catch (error) {
-        console.log('--------\n', error);
-    }
-}
 exports.createUsers = async (req, res) => {
     try {
         await User.insertMany([
