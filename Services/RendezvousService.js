@@ -36,8 +36,10 @@ exports.medecinsDisponibilites = async (req, res) => {
     return Disponibilites;
 }
 
-exports.VoirTousLesRendezVousDeLaClinique = async (req, res) => {
-    RendezvousRepository.VoirTousLesRendezVousDeLaClinique(req, res);
+exports.VoirTousLesRendezVousDeLaClinique = async () => {
+    const touteRendezvous = await RendezvousRepository.VoirTousLesRendezVousDeLaClinique();
+    if (touteRendezvous.length == 0) throw new Error('there is no rendezvous in the clinic');
+    return touteRendezvous;
 }
 
 exports.changeStatusRendezvous = async (req, res) => {

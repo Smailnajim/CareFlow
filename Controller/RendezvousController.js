@@ -21,10 +21,10 @@ exports.medecinsDisponibilites = async (req, res) => {
 
 exports.VoirTousLesRendezVousDeLaClinique = async (req, res) => {
     try {
-        RendezvousService.VoirTousLesRendezVousDeLaClinique(req, res);
-        
+        const touteRendezvous = await RendezvousService.VoirTousLesRendezVousDeLaClinique();
+        return res.json({touteRendezvous});
     } catch (error) {
-        
+        return res.json({error: error.message});
     }
 }
 }
