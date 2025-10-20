@@ -50,7 +50,7 @@ router.post('/login',
         const errors = validationResult(req);
         if (!errors.isEmpty()) return res.json({errors});
 
-        login(req, res);
+        AuthController.login(req, res);
 });
 
 router.post('/refresh', function(req, res){

@@ -44,3 +44,6 @@ exports.deleteById = async (userId) => {
 exports.updateById = async (userId, updateData) => {
     return await User.findByIdAndUpdate(userId, updateData, {new: true});
 }
+exports.getOneByEmail = async (email) => {
+    return await User.findOne({email: email});
+}
