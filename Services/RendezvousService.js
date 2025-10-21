@@ -33,8 +33,10 @@ exports.CreerUnRendezvous = async (rendezData) => {
     return rendez;
 }
 
-exports.medecinsDisponibilites = async (req, res) => {
-    const Disponibilites = await RendezvousRepository.medecinsDisponibilites(req, res);
+exports.medecinsDisponibilites = async () => {
+    const Disponibilites = await RendezvousRepository.medecinsDisponibilites();
+    console.log();
+    if (Disponibilites.length == 0) throw new Error('ther is no medecin in thece clinic :(');
     return Disponibilites;
 }
 

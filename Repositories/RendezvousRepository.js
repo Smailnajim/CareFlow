@@ -6,8 +6,8 @@ exports.createRendezvou = async (data) => {
         return await Rendezvous.create(data);
 }
 
-exports.medecinsDisponibilites = async (req, res) => {
-    const Disponibilites = await User.aggregate([
+exports.medecinsDisponibilites = async () => {
+    return await User.aggregate([
         {
             $lookup: {
                 from: 'roles',
@@ -50,7 +50,6 @@ exports.medecinsDisponibilites = async (req, res) => {
             }
         }
     ]);
-    return Disponibilites;
 }
 
 exports.VoirTousLesRendezVousDeLaClinique = async () => {

@@ -25,8 +25,12 @@ exports.CreerUnRendezvousPourPatient = async (req, res) => {
 //reade
 {
 exports.medecinsDisponibilites = async (req, res) => {
-    const Disponibilites = await RendezvousService.medecinsDisponibilites(req, res);
-    return res.json({Disponibilites});
+    try {
+        const Disponibilites = await RendezvousService.medecinsDisponibilites();
+        return res.json({Disponibilites});
+    } catch (error) {
+        return res.json({error: Disponibilites});
+    }
 }
 
 exports.VoirTousLesRendezVousDeLaClinique = async (req, res) => {
