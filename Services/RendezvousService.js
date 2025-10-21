@@ -47,14 +47,16 @@ exports.VoirTousLesRendezVousDeLaClinique = async () => {
     return touteRendezvous;
 }
 
-exports.changeStatusRendezvous = async (req, res) => {
-    const rendezvousId = new Types.ObjectId(req.body.rendezvousId);
+exports.changeStatusRendezvous = async (data) => {
+    const rendezvousId = new Types.ObjectId(data.rendezvousId);
     const rendezvous = await RendezvousRepository.getRendezvousById(rendezvousId);
-    if(!rendezvous) return res.json({error: 'rendezvous not found'});
+    if(!rendezvous) throw new Error('rendezvous not found');
 
-    rendezvous.status = req.body.status;
+    if (rendezvous.status == 'complete') throw new Error('you cant update status from complete');
+    if (data.status == 'complete') throw new Error('you cant update status to complete *if you want add tritment to ');
+    rendezvous.status = data.status;
     await rendezvous.save();
-    return res.json({rendezvous});
+    return rendezvous;
 
 }
 

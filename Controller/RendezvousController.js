@@ -46,7 +46,12 @@ exports.VoirTousLesRendezVousDeLaClinique = async (req, res) => {
 //update
 {
     exports.changeStatusRendezvous = async (req, res) => {
-        RendezvousService.changeStatusRendezvous(req, res);
+        const data = matchedData(reportWebVitals, {locations: ['body']});
+        try {
+            RendezvousService.changeStatusRendezvous(data);
+        } catch (error) {
+            
+        }
     }
     exports.updateRendez = async (req, res) => {
     const data = matchedData(req, {locations: ['body']});
