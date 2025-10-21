@@ -127,3 +127,14 @@ exports.whoHasRendezAfter24And25 = async () => {
         throw new Error(error.message);
     }
 }
+
+exports.checkDateDisponible = async (dateStar, dateFine) => {
+    return await Rendezvous.findOne({
+        dateStar: {$lt: dateFine},
+        dateFine: {$gt: dateStar}
+    });
+}
+
+exports.updateRendez = async (rendez) => {
+    await Rendezvous.updateOne({_id: rendez.rendezvousId}, rendez);
+}

@@ -5,6 +5,7 @@ const {Types} = require('mongoose');
 const {matchedData} = require('express-validator');
 const UserRepository = require('./../Repositories/UserRepository');
 const statusEnum = require('./../Enum/RendezvouStatus');
+const TimeService = require('./TimeService');
 
 
 exports.CreerUnRendezvous = async (rendezData) => {
@@ -57,44 +58,47 @@ exports.changeStatusRendezvous = async (req, res) => {
 
 }
 
-exports.updateRendez = async (req, res) => {
-    const data = matchedData(req, {locations: ['body']});
+exports.updateRendez = async (data) => {
 
     const Keys = Object.keys(data);
-    try {
         const rendez = await RendezvousRepository.getRendezvousById(new Types.ObjectId(data.rendezvousId));
+        if (!rendez) throw new Error(`there is no rendez has this id: ${data.rendezvousId}`);
+
         if (Keys.includes('medecinId')){
-            const medecin = await UserRepository.getOne(new Types.ObjectId(data.medecinId), res);
-            if (!medecin) return res.json({error: 'there is no medecin with this id'});
+            const medecin = await RoleRepository.roleDeUser(data.medecinId);
+            if (medecin.length == 0) throw new Error('there is no medecin with this id');
+            if (medecin[0].roleName != 'medecin') throw new Error(`you want update medecin with user not a medecin this is not medcin: ${data.medecinId}`);
             rendez.medecinId = data.medecinId;
         }
         if (Keys.includes('patientId')){
-            const patient = await UserRepository.getOne(new Types.ObjectId(data.patientId), res);
-            console.log('patient--------\n',patient);
-            if (!patient) return res.json({error: 'there is no patient with this id'});
+            const patient = await RoleRepository.roleDeUser(data.patientId);
+            if (patient.length == 0) throw new Error('there is no patient with this id');
+            if (patient[0].roleName != 'patient') throw new Error(`you want update patient with user not a patient this is not patient: ${data.patientId}`);
             rendez.patientId = data.patientId;
         }
     
-        if(Keys.includes('dateStar'))
-        if(statusEnum.includes(data.status)){
-            rendez.status = data.status;
-        }
-    
-        if(Keys.includes('dateFine')){
+        if(Keys.includes('dateStar') && Keys.includes('dateFine')){
+            rendez.dateStar = data.dateStar;
             rendez.dateFine = data.dateFine;
+            await TimeService.checkRendezTime(rendez.dateStar, rendez.dateFine);
+            // try {
+            //     await TimeService.checkRendezTime(rendez.dateStar, rendez.dateFine)
+            // } catch (error) {
+            //     throw new Error(error.message);
+            // }
         }
+
+
         if(Keys.includes('cause')){
             rendez.cause = data.cause;
         }
         if(Keys.includes('status')){
-            if(rendez.status == 'complete') return res.json({error: 'you cant change status of complete rendezvou'});
-            if(data.status == 'complete') return res.json({error: 'if you want change status to complete you nedd to create a tritment to this rendezvou'});
+            if(rendez.status == 'complete') throw new Error('you cant change status From a status complete. *JUST WHEN ADD A TRITMENT');
+            if(data.status == 'complete') throw new Error('you cant change status to complete rendezvou *JUST WHEN ADD A TRITMENT');
             rendez.status = data.status;
         }
-        await rendez.save();
-        return res.json({rendez});
-        
-    } catch (error) {
-        return res.json({error});
-    }
+
+        const rendezUp = await RendezvousRepository.updateRendez(rendez);
+        if(!rendezUp) throw new Error('there is a error at upditing');
+        return rendezUp;
 }

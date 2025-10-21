@@ -48,7 +48,13 @@ exports.VoirTousLesRendezVousDeLaClinique = async (req, res) => {
     exports.changeStatusRendezvous = async (req, res) => {
         RendezvousService.changeStatusRendezvous(req, res);
     }
-    exports.updateRendez = (req, res) => {
-        RendezvousService.updateRendez(req, res);
+    exports.updateRendez = async (req, res) => {
+    const data = matchedData(req, {locations: ['body']});
+        try {
+            const rendez = await RendezvousService.updateRendez(data);
+            return res.json(rendez);
+        } catch (error) {
+            return res.json({error: error.message});
+        }
     }
 }
