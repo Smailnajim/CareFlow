@@ -1,18 +1,12 @@
-const { matchedData } = require('express-validator');
 const TritmentRepository = require('../Repositories/TritmentsRepository');
 
-exports.createATritmentForRendezvou = async (req, res) => {
-    
-    try {
-        const data = req.body;
-        
-        console.log('data tritment', data);
-        const tritment = await TritmentRepository.createATritment(data);
-        return res.json({tritment});
-    } catch (error) {
-        console.log('error in service tritment');
-        return res.json({error: error.message});
-    }
+exports.createATritmentForRendezvou = async (datTritment) => {
+
+
+    console.log('data tritment', datTritment);
+    const tritment = await TritmentRepository.createATritment(datTritment);
+    if (!tritment) throw new Error('tritment not created!');
+    return tritment;
 
     // const tritment = await TritmentRepository.createATritment(req, res);
     // return res.json({tritment});
