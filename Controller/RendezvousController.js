@@ -1,3 +1,4 @@
+const { matchedData } = require('express-validator');
 const Rendezvous = require('./../Models/RendezVous');
 const User = require('./../Models/User');
 const RendezvousService = require('./../Services/RendezvousService');
@@ -7,8 +8,17 @@ const UserService = require('./../Services/UserService');
 //create
 {
 exports.CreerUnRendezvousPourPatient = async (req, res) => {
-    const rendezvou = await RendezvousService.CreerUnRendezvousPourPatient(req, res);
-    return res.json({rendezvou});
+    const rendezData = matchedData(req, {locations: ['body']});
+    console.log('***\n',rendezData);
+    // rendezData.authId = req.user._id; //patient user can't create a rendez for anthor one
+    rendezData.authId = rendezData.patientId;
+    console.log('***\n',rendezData.authId);
+    try {
+        const rendezvou = await RendezvousService.CreerUnRendezvous(rendezData);
+        return res.json({rendezvou});
+    } catch (error) {
+        return res.json({error: error.message});
+    }
 }
 }
 

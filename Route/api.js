@@ -116,16 +116,13 @@ router.get('/profil/:id',
 //create rendezvou
 router.post('/create-rendezvou',
     [
-        body('medecinId').trim().notEmpty().withMessage('you must select medecin'),
-        body('patientId').trim().notEmpty().withMessage("you don't select patient"),
+        body('medecinId').isMongoId().withMessage('you must select medecin'),
+        body('patientId').isMongoId().withMessage("you don't select patient"),
         body('cause').trim().notEmpty().withMessage("what is your cause"),
     ],
     function(req, res){
         const errors = validationResult(req);
-        console.log(errors);
         if(!errors.isEmpty()) return res.json({errors});
-        console.log(errors.isEmpty());
-
         RendezvousController.CreerUnRendezvousPourPatient(req, res);
     });
 

@@ -4,8 +4,8 @@ const {Types} = require('mongoose');
 
 
 exports.roleDeUser = async (id) => {
-    try {
-        const role = await User.aggregate([
+
+        return await User.aggregate([
             {
                 $match: {
                     _id: new Types.ObjectId(id)
@@ -17,18 +17,15 @@ exports.roleDeUser = async (id) => {
                     foreignField: '_id',
                     as: 'role'
                 }
-            },{
+            },{ $unwind: '$role' }
+            ,{
                 $project: {
-                    'role.name': 1,
+                    roleName: '$role.name',
                 }
             }
-        ]);
-        // console.log('****\n', JSON.stringify(role));
-        return role[0].role[0].name;
-    } catch (error) {
-        console.log('eerr****\n', error);
-        
-    }
+            ]);
+        // console.log('roole****\n', JSON.stringify(role));
+        // return role[0].role[0].name; ex: [{"_id":"68f0e9fe5f90a12e56122a42","roleName":"role.name"}]
 
 }
 exports.getByName = async (roleName) => {

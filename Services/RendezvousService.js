@@ -7,28 +7,30 @@ const UserRepository = require('./../Repositories/UserRepository');
 const statusEnum = require('./../Enum/RendezvouStatus');
 
 
-exports.CreerUnRendezvousPourPatient = async (req, res) => {
-
-    // const role = await RoleRepository.roleDeUser(req.user.roleId);
-    // console.log(role);
-    const data = {};
-    data.medecinId = req.body.medecinId;
-    data.patientId = req.body.patientId;
-    data.dateStar = req.body.dateStar;
-    data.dateFine = req.body.dateFine;
-    data.cause = req.body.cause;
+exports.CreerUnRendezvous = async (rendezData) => {
+    const roleauth = await RoleRepository.roleDeUser(rendezData.authId);
+    console.log(roleauth[0].roleName,rendezData.patientId, '\nvs\n',rendezData.authId)
+    if(roleauth.length == 0) throw new Error('may be you are not connect');
+    if ((roleauth[0].roleName == 'patient') && (rendezData.patientId != rendezData.authId))
+        throw new Error('you cant create a rendez for anthor one');
     
-    if (RoleRepository.roleDeUser(req.body.pmedicalId) != 'medecin') return res.json({error: `this is ${req.body.pmedicalId} not medecin`});
+    const roleMedecin = await RoleRepository.roleDeUser(rendezData.medecinId);
+    console.log(roleMedecin, roleMedecin[0].roleName )
+    if(roleMedecin.length == 0) throw new Error('may be medecinId is not coorect');
+    if (roleMedecin[0].roleName != 'medecin')
+        throw new Error(`tis is ${rendezData.medecinId} not a medecin`);
+    
+    const rolePatient = await RoleRepository.roleDeUser(rendezData.patientId);
+    console.log(rolePatient, rolePatient[0].roleName)
+    if(rolePatient.length == 0 ) throw new Error('may be patientId is not coorect');
+    if (rolePatient[0].roleName != 'patient')
+        throw new Error(`this is ${rendezData.patientId} not patient`);
+        
+    rendezData.status = 'created';
 
-    const role = await RoleRepository.roleDeUser('68f0e9fe5f90a12e56122a42');
-    if (role == 'Patient') {
-        // if  (req.user._id != data.patientId) return res.json({error: 'you cant create rendezvou for another Patient'});
-        if  ("68f0e9fe5f90a12e56122a42" != req.body.patientId) return res.json({error: 'you cant create rendezvou for another Patient'});
-        data.dateStar = null;
-        data.dateFine = null;
-    }
-
-    await RendezvousRepository.createRendezvou(data);
+    const rendez = await RendezvousRepository.createRendezvou(rendezData);
+    console.log('****\n', rendez);
+    return rendez;
 }
 
 exports.medecinsDisponibilites = async (req, res) => {
