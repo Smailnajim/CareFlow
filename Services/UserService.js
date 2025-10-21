@@ -60,3 +60,10 @@ exports.updateUser = async (userData) => {
     const user = await UserRepository.updateById(userData.userId, userData);
     if (!user) throw new Error('there is no user updated check if Done');
 }
+
+exports.ConsulterProfilCompletPatient = async(userId) => {
+        // const user = await User.findOne({_id: id})
+        const profile = await UserRepository.userProfile(userId);
+        if (profile.length == 0) throw new Error('ther is no one has this id!');
+        return profile;
+    }

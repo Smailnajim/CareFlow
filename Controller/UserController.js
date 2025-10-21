@@ -92,54 +92,13 @@ exports.patientHasRendezvous = async (req, res) => {
 }
 
 exports.ConsulterProfilCompletPatient = async (req, res) => {
-    let {id} = req.params;
-    console.log('-----\n', id);
-    // id = parseInt(id);
+    let {id} = matchedData(req, {locations: ['params']});
+
     try {
-        // const user = await User.findOne({_id: id})
-        const user = await User.aggregate([
-            {
-                $match: {
-                    _id: new Types.ObjectId(id)
-                }
-            },{
-                $lookup: {
-                    from: 'roles',
-                    localField: 'roleId',
-                    foreignField: '_id',
-                    as: 'role'
-                }
-            },{
-                $lookup: {
-                    from: 'rendezVous',
-                    localField: '_id',
-                    foreignField: 'patientId',
-                    as: 'mesRendezvous'
-                }
-            },{
-                $lookup: {
-                    from: 'tritments',
-                    localField: 'mesRendezvous._id',
-                    foreignField: 'rendezvousId',
-                    as: 'tritment'
-                }
-            },{
-                $lookup: {
-                    from: 'notifications',
-                    localField: 'mesRendezvous._id',
-                    foreignField: 'rendezvousId',
-                    as: 'notifications'
-                }
-            },{
-                $project: {
-                    'password': 0,
-                }
-            }
-        ]);
-        return res.json({user: user});
+        const profile = await UserService.ConsulterProfilCompletPatient(id);
+        return res.json({profile});
     } catch (error) {
-        console.log(error);
-        return res.json({ff: error});
+        return res.json({error: error.message});
     }
 }
 } 

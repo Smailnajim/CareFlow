@@ -102,14 +102,14 @@ router.put('/update-user',
 
 router.get('/profil/:id',
     [
-        param("id").trim().notEmpty().withMessage('there is no param id at url')
+        param("id").isMongoId().withMessage('there is no param id at url')
     ],
     function(req, res) {
         const errors = validationResult(req)
         if(!errors.isEmpty()){
             return res.json({errors})
         }
-    UserController.ConsulterProfilCompletPatient;
+    UserController.ConsulterProfilCompletPatient(req, res);
     }
 );
 

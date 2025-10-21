@@ -50,3 +50,45 @@ exports.getOneByEmail = async (email) => {
 exports.whoHaseRefresh = async (refreshToken) => {
     return await User.findOne({refreshTokens: refreshToken});
 }
+exports.userProfile = async(userId) => {
+    return await User.aggregate([
+            {
+                $match: {
+                    _id: new Types.ObjectId(userId)
+                }
+            },{
+                $lookup: {
+                    from: 'roles',
+                    localField: 'roleId',
+                    foreignField: '_id',
+                    as: 'role'
+                }
+            },{
+                $lookup: {
+                    from: 'rendezVous',
+                    localField: '_id',
+                    foreignField: 'patientId',
+                    as: 'mesRendezvous'
+                }
+            },{
+                $lookup: {
+                    from: 'tritments',
+                    localField: 'mesRendezvous._id',
+                    foreignField: 'rendezvousId',
+                    as: 'tritment'
+                }
+            },{
+                $lookup: {
+                    from: 'notifications',
+                    localField: 'mesRendezvous._id',
+                    foreignField: 'rendezvousId',
+                    as: 'notifications'
+                }
+            },{
+                $project: {
+                    password: 0,
+                    refreshTokens: 0
+                }
+            }
+        ]);
+}
