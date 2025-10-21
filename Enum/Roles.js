@@ -1,0 +1,1 @@
+module.exports = ['patient', 'admin', 'infirmiers', 'medecin', 'secritaire'];
