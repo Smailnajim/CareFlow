@@ -46,7 +46,7 @@ exports.VoirTousLesRendezVousDeLaClinique = async (req, res) => {
 //update
 {
     exports.changeStatusRendezvous = async (req, res) => {
-        const data = matchedData(reportWebVitals, {locations: ['body']});
+        const data = matchedData(reportWebVitals, {locations: ['params']});
         try {
             RendezvousService.changeStatusRendezvous(data);
         } catch (error) {
@@ -54,7 +54,7 @@ exports.VoirTousLesRendezVousDeLaClinique = async (req, res) => {
         }
     }
     exports.updateRendez = async (req, res) => {
-    const data = matchedData(req, {locations: ['body']});
+    const data = matchedData(req, {locations: ['body', 'params']});
         try {
             const rendez = await RendezvousService.updateRendez(data);
             return res.json(rendez);

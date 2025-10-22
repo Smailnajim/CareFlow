@@ -10,7 +10,7 @@ const TimeService = require('./TimeService');
 
 exports.CreerUnRendezvous = async (rendezData) => {
     const roleauth = await RoleRepository.roleDeUser(rendezData.authId);
-    console.log(roleauth[0].roleName,rendezData.patientId, '\nvs\n',rendezData.authId)
+    console.log(roleauth[0].roleName,rendezData.patientId, '\nvs\n',rendezData.authId);
     if(roleauth.length == 0) throw new Error('may be you are not connect');
     if ((roleauth[0].roleName == 'patient') && (rendezData.patientId != rendezData.authId))
         throw new Error('you cant create a rendez for anthor one');
@@ -48,7 +48,7 @@ exports.VoirTousLesRendezVousDeLaClinique = async () => {
 }
 
 exports.changeStatusRendezvous = async (data) => {
-    const rendezvousId = new Types.ObjectId(data.rendezvousId);
+    const rendezvousId = new Types.ObjectId(data.rendezId);
     const rendezvous = await RendezvousRepository.getRendezvousById(rendezvousId);
     if(!rendezvous) throw new Error('rendezvous not found');
 

@@ -120,7 +120,8 @@ exports.deletUserById = async (id) => {
 // Update
 {
 exports.updateUser = async (req, res) => {
-    const userData = matchedData(req, {location: ['body']});
+    const userData = matchedData(req, {location: ['body', 'params']});
+    console.log('***\n', userData);
     console.log('**********\n', userData);
     try {
         await UserService.updateUser(userData);

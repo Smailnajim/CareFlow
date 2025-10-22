@@ -1,17 +1,17 @@
 require('dotenv').config();
 const express = require('express');
 const router = express.Router();
-// const { register, login, refreshTokens } = require('./../Controller/AuthController');
 const AuthController = require('./../Controller/AuthController');
 const UserController = require('./../Controller/UserController');
 const RendezvousController = require('./../Controller/RendezvousController');
 const touteMiddelware = require('./../middleware');
 const TritmentsController = require('./../Controller/TritmentsController');
-
 const {body, param, validationResult} = require('express-validator');
+
+
 //filter
 {
-router.get('/filter-role/:roleName', 
+router.get('/users/:roleName', 
     [
         param('roleName').trim().notEmpty().withMessage('there is no role param'),
     ],
@@ -21,10 +21,12 @@ router.get('/filter-role/:roleName',
         UserController.filterByRole(req, res);
     }
 );
-router.get('/tous-rendezvous', RendezvousController.VoirTousLesRendezVousDeLaClinique);
+router.get('/rendezvous',
+    RendezvousController.VoirTousLesRendezVousDeLaClinique
+);
 }
 
-router.post('/register',
+router.post('/users/register',
     [
         // {firstName, lastName, email, password}
         body('roleName').optional({checkFalsy: true}).trim().notEmpty().withMessage('role is require'),
@@ -42,7 +44,7 @@ router.post('/register',
         AuthController.register(req, res);
 });
 
-router.post('/login',
+router.post('/users/login',
     [
         body('email').isEmail().withMessage('email is not corect'),
         body('password').isLength({min: 6}).withMessage('password must be great then or equal 6 char'),
@@ -54,9 +56,9 @@ router.post('/login',
         AuthController.login(req, res);
 });
 
-router.post('/refresh', function(req, res){
-    AuthController.refreshTokens(req, res)
-});
+router.post('/users/refresh',
+    AuthController.refreshTokens
+);
 
 
 // router.get('/test', touteMiddelware.isAuth, function (req, res) {
@@ -85,9 +87,9 @@ console.log();
 //************************ */
 //->Suspendre ou réactiver des comptes
 //->update user mem tone
-router.put('/update-user',                   
+router.put('/users/:userId',                   
     [
-        body('userId').trim().notEmpty().isMongoId().withMessage('there is no userID'),
+        param('userId').trim().notEmpty().isMongoId().withMessage('there is no userID'),
         body('status').optional({checkFalsy: true}).trim().notEmpty().withMessage('you must select a status'),
         body('roleName').optional({checkFalsy: true}).trim().notEmpty().withMessage('you must select a roleName'),
         body('image').optional({checkFalsy: true}).trim().notEmpty().withMessage('you must add a image'),
@@ -97,24 +99,28 @@ router.put('/update-user',
         body('phone').optional({checkFalsy: true}).trim().notEmpty().withMessage('you must add a phone'),
         body('dateNasonse').optional({checkFalsy: true}).isDate().withMessage('this is not a dateNasonse'),
     ],
-    UserController.updateUser
+    function(req, res){
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.json({errors});
+        UserController.updateUser(req, res);
+    }
 );
 
-router.get('/profil/:id',
+router.get('/user-profils/:id',
     [
         param("id").isMongoId().withMessage('there is no param id at url')
     ],
     function(req, res) {
         const errors = validationResult(req)
         if(!errors.isEmpty()){
-            return res.json({errors})
+            return res.json({errors});
         }
     UserController.ConsulterProfilCompletPatient(req, res);
     }
 );
 
 //create rendezvou
-router.post('/create-rendezvou',
+router.post('/rendezvous',
     [
         body('medecinId').isMongoId().withMessage('you must select medecin'),
         body('patientId').isMongoId().withMessage("you don't select patient"),
@@ -124,20 +130,20 @@ router.post('/create-rendezvou',
         const errors = validationResult(req);
         if(!errors.isEmpty()) return res.json({errors});
         RendezvousController.CreerUnRendezvousPourPatient(req, res);
-    });
+});
 
 //Vérifier mes disponibilités et celles de mes collègues
-router.get('/medecins-disponibilites',
+router.get('/users/medecins/disponibilites',
     RendezvousController.medecinsDisponibilites
 );
 
 
 //Modifier ou annuler un rendez-vous
     //  change status-->annuler un rendez-vous
-router.put('/change-rendezvous-status',
+router.put('/rendezvous/:rendezId/:status',
     [
-        body('rendezvousId').trim().notEmpty().withMessage('you must chose a rendezvous'),
-        body('status').trim().notEmpty().withMessage('you must provide status'),
+        param('rendezId').trim().notEmpty().withMessage('you must chose a rendezvous'),
+        param('status').trim().notEmpty().withMessage('you must provide status'),
     ],
     function(req, res){
         const errors = validationResult(req);
@@ -147,9 +153,9 @@ router.put('/change-rendezvous-status',
 );
 
     //  Modifier un rendez-vous
-router.put('/Modifier-rendez',
+router.put('/rendezvous/:rendezId',
     [
-        body('rendezvousId').isMongoId().withMessage('there is no rendez selected'),
+        param('rendezId').isMongoId().withMessage('there is no rendez selected'),
         body('medecinId').optional({checkFalsy: true}).isMongoId().withMessage('maybe this is not metecin'),
         body('patientId').optional({checkFalsy: true}).isMongoId().withMessage('there is no patient'),
         body('status').optional({checkFalsy: true}).trim().notEmpty().escape().withMessage("there is problem in  status's section!"),
@@ -167,9 +173,9 @@ router.put('/Modifier-rendez',
 );
 
 //Marquer un rendez-vous comme complété
-router.post('/complete-rendezvous',
+router.post('/tritments/:rendezId',
     [
-        body('rendezvousId').isMongoId().withMessage('you must provide rendezvous id'),
+        param('rendezId').isMongoId().withMessage('you must provide rendezvous id'),
         body('description').trim().notEmpty().withMessage('the description is required'),
     ],
     function(req, res){
@@ -181,5 +187,5 @@ router.post('/complete-rendezvous',
 );
 
 //
-router.get('/test', RendezvousController.CreerUnRendezvousPourPatient);
+// router.get('/test', RendezvousController.CreerUnRendezvousPourPatient);
 module.exports = router;
