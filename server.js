@@ -7,6 +7,7 @@
     const cookieParser = require('cookie-parser');
     const MailService = require('./Services/MailService');
     const morgan = require('morgan');
+    const fs = require('fs');
 
     const app = express();
 
@@ -21,7 +22,10 @@
     app.use(express.urlencoded({extended: true}));
     app.use(express.json());
     app.use(cookieParser());
-    app.use(morgan('combined'));
+
+    //morgan
+    const logStream = fs.createWriteStream(path.join(__dirname, 'Logs/logs.log'), { flags: 'a' });
+    app.use(morgan('combined', { stream: logStream }));
 
 
 
