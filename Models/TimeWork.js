@@ -22,6 +22,6 @@ const TimeWorkSchema = new Schema({
             }
         }]
     }]
-}, {collection: 'timesworks',timestamps: true});
+}, {collection: 'timeworks',timestamps: true});
 
 module.exports = mongoose.model('TimeWork', TimeWorkSchema);

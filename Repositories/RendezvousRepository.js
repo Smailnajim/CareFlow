@@ -80,13 +80,7 @@ exports.VoirTousLesRendezVousDeLaClinique = async () => {
 }
 
 exports.getRendezvousById = async (rendezvousId) => {
-    try {
-        const rendez = await Rendezvous.findById(rendezvousId);
-        if (!rendez) return res.json({error: 'there is an error this rendezvou not found or id not corect'});
-        return rendez;
-    } catch (error) {
-        return res.json({error});
-    }
+    const rendez = await Rendezvous.findById(rendezvousId);
 }
 
 exports.whoHasRendezAfter24And25 = async () => {
