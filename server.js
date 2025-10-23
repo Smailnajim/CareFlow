@@ -6,6 +6,7 @@
     const Role = require('./Models/Role');
     const cookieParser = require('cookie-parser');
     const MailService = require('./Services/MailService');
+    const morgan = require('morgan');
 
     const app = express();
 
@@ -20,6 +21,8 @@
     app.use(express.urlencoded({extended: true}));
     app.use(express.json());
     app.use(cookieParser());
+    app.use(morgan('combined'));
+
 
 
 
