@@ -8,6 +8,8 @@
     const MailService = require('./Services/MailService');
     const morgan = require('morgan');
     const fs = require('fs');
+    const winston = require('winston');
+
 
     const app = express();
 
@@ -23,10 +25,35 @@
     app.use(express.json());
     app.use(cookieParser());
 
-    //morgan
-    const logStream = fs.createWriteStream(path.join(__dirname, 'Logs/logs.log'), { flags: 'a' });
-    app.use(morgan('combined', { stream: logStream }));
 
+
+//winston
+const logger = winston.createLogger({
+    level: 'info',
+    format: winston.format.combine(
+        winston.format.timestamp({ format: 'YYYY:MM:DD HH:mm:ss' }),
+        winston.format.printf(({ level, message, timestamp }) => `[${timestamp}] ${level}: ${message} PLACE: ${__filename}`)
+    ),
+    transports: [
+        new winston.transports.Console({
+            format: winston.format.combine(
+                winston.format.colorize(),
+                winston.format.simple()
+            )
+        }),
+        new winston.transports.File({ filename: path.join(__dirname, 'Logs/error.log'), level: 'error' }),
+        new winston.transports.File({ filename: path.join(__dirname, 'Logs/info.log')}),
+    ]
+});
+
+
+    //morgan
+app.use(morgan('combined', {
+    stream: {
+        write: (message) => logger.info(message.trim())
+    },
+    skip: req => req.method == 'GET'
+}));
 
 
 
@@ -40,4 +67,4 @@
     MailService.autoMails();
 
 
-    app.listen(3000, ()=>console.log('app work on http://localhost:3000'));
+    app.listen(3000, ()=>logger.info());
