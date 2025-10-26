@@ -8,7 +8,7 @@
     const MailService = require('./Services/MailService');
     const morgan = require('morgan');
     const fs = require('fs');
-    const winston = require('winston');
+    const logger = require('./Utils/Logger');
 
 
     const app = express();
@@ -27,26 +27,6 @@
 
 
 
-//winston
-const logger = winston.createLogger({
-    level: 'info',
-    format: winston.format.combine(
-        winston.format.timestamp({ format: 'YYYY:MM:DD HH:mm:ss' }),
-        winston.format.printf(({ level, message, timestamp }) => `[${timestamp}] ${level}: ${message} PLACE: ${__filename}`)
-    ),
-    transports: [
-        new winston.transports.Console({
-            format: winston.format.combine(
-                winston.format.colorize(),
-                winston.format.simple()
-            )
-        }),
-        new winston.transports.File({ filename: path.join(__dirname, 'Logs/error.log'), level: 'error' }),
-        new winston.transports.File({ filename: path.join(__dirname, 'Logs/info.log')}),
-    ]
-});
-
-
     //morgan
 app.use(morgan('combined', {
     stream: {
@@ -63,8 +43,11 @@ app.use(morgan('combined', {
     .then((res)=>console.log(res))
     .catch(error => console.log('\nthere is error\n', error));
 
+    app.get('/', (req, res)=>{
+        return res.send('app work');
+    });
     app.use('/api', routes);
     MailService.autoMails();
 
 
-    app.listen(3000, ()=>logger.info());
+    app.listen(3000, ()=>logger.info('work on http://localhost:3000'));

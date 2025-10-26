@@ -21,3 +21,11 @@
 [2025:10:24 15:20:00] info:  PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\server.js
 [2025:10:24 15:20:02] info:  PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\server.js
 [2025:10:24 15:20:04] info:  PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\server.js
+[2025:10:24 15:20:23] info:  PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\server.js
+[2025:10:24 15:38:28] info:  PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\server.js
+[2025:10:25 12:10:22] info:  PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\server.js
+[2025:10:25 12:10:36] info:  PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\server.js
+[2025:10:25 12:10:41] info: ::1 - - [25/Oct/2025:10:10:41 +0000] "POST /api/ HTTP/1.1" 404 144 "-" "PostmanRuntime/7.49.0" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\server.js
+[2025:10:25 12:10:48] info: ::1 - - [25/Oct/2025:10:10:48 +0000] "POST /api HTTP/1.1" 404 143 "-" "PostmanRuntime/7.49.0" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\server.js
+[2025:10:25 12:11:06] info: ::1 - - [25/Oct/2025:10:11:06 +0000] "POST /api/files HTTP/1.1" 500 353 "-" "PostmanRuntime/7.49.0" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\server.js
+[2025:10:25 12:16:07] info:  PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\server.js

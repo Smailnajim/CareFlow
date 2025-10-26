@@ -1,0 +1,45 @@
+[2025:10:25 12:20:17] info:  PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 12:20:35] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 12:20:35] info: ::1 - - [25/Oct/2025:10:20:35 +0000] "POST /api/files HTTP/1.1" 500 33 "-" "PostmanRuntime/7.49.0" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 12:24:03] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 12:24:03] info: ::1 - - [25/Oct/2025:10:24:03 +0000] "POST /api/files HTTP/1.1" 500 33 "-" "PostmanRuntime/7.49.0" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 12:24:05] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 12:24:05] info: ::1 - - [25/Oct/2025:10:24:05 +0000] "POST /api/files HTTP/1.1" 500 33 "-" "PostmanRuntime/7.49.0" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 11:24:29] info:  PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 11:24:33] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 11:24:33] info: ::1 - - [25/Oct/2025:10:24:33 +0000] "POST /api/files HTTP/1.1" 500 33 "-" "PostmanRuntime/7.49.0" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 11:27:40] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 11:27:40] info: ::1 - - [25/Oct/2025:10:27:40 +0000] "POST /api/files HTTP/1.1" 500 33 "-" "PostmanRuntime/7.49.0" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 11:32:04] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 11:32:04] info: ::1 - - [25/Oct/2025:10:32:04 +0000] "POST /api/files HTTP/1.1" 500 33 "-" "PostmanRuntime/7.49.0" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 11:32:05] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 11:32:05] info: ::1 - - [25/Oct/2025:10:32:05 +0000] "POST /api/files HTTP/1.1" 500 33 "-" "PostmanRuntime/7.49.0" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 11:32:28] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 11:32:28] info: ::1 - - [25/Oct/2025:10:32:28 +0000] "POST /api/files HTTP/1.1" 500 33 "-" "PostmanRuntime/7.49.0" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 11:32:30] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 11:32:30] info: ::1 - - [25/Oct/2025:10:32:30 +0000] "POST /api/files HTTP/1.1" 500 33 "-" "PostmanRuntime/7.49.0" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 11:33:08] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 11:33:08] info: ::1 - - [25/Oct/2025:10:33:08 +0000] "POST /api/files HTTP/1.1" 500 33 "-" "PostmanRuntime/7.49.0" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 11:33:09] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 11:33:09] info: ::1 - - [25/Oct/2025:10:33:09 +0000] "POST /api/files HTTP/1.1" 500 33 "-" "PostmanRuntime/7.49.0" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:26 13:42:09] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:26 13:42:09] info: ::1 - - [26/Oct/2025:12:42:09 +0000] "POST /api/files HTTP/1.1" 500 33 "-" "PostmanRuntime/7.49.0" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:26 13:42:10] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:26 13:42:10] info: ::1 - - [26/Oct/2025:12:42:10 +0000] "POST /api/files HTTP/1.1" 500 33 "-" "PostmanRuntime/7.49.0" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:26 13:42:12] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:26 13:42:12] info: ::1 - - [26/Oct/2025:12:42:12 +0000] "POST /api/files HTTP/1.1" 500 33 "-" "PostmanRuntime/7.49.0" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:26 16:04:07] info:  PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:26 16:24:13] info: w PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:26 16:24:20] info: work on http PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:26 16:24:25] info: work on http://lo PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:26 16:24:31] info: work on http://localhost: PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:26 16:24:34] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:26 16:24:57] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:26 16:25:06] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:26 16:25:15] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:26 16:25:22] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:26 16:25:25] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:26 16:25:35] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:26 16:25:39] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:26 16:25:45] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:26 16:25:49] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
