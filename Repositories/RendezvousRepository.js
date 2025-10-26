@@ -36,7 +36,7 @@ exports.medecinsDisponibilites = async () => {
         },{
             $addFields:{
                 iWantFirst: {
-                    // $cond: [{$eq:['$_id', req.user._id]}, 1, 0]
+                    // $cond: [{$eq:['$_id', new Types.ObjectId(req.user._id) ]}, 1, 0]
                     $cond: [{$eq:['$_id', new Types.ObjectId('68ec3d11a67f6d5bbff95279') ]}, 1, 0]
                 }
             }

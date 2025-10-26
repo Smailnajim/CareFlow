@@ -1,0 +1,1 @@
+module.exports = ["draft", "signed", "sent", "dispensed"];
