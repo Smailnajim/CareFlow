@@ -133,10 +133,10 @@ router.post('/rendezvous',
         const errors = validationResult(req);
         if (!errors.isEmpty()) return res.json({ errors });
         RendezvousController.CreerUnRendezvousPourPatient(req, res);
-    });
+});
 
 //Vérifier mes disponibilités et celles de mes collègues
-router.get('/users/medecins/disponibilites',
+router.get('/users/time-works',
     RendezvousController.medecinsDisponibilites
 );
 
@@ -176,7 +176,7 @@ router.put('/rendezvous/:rendezId',
 );
 
 //Marquer un rendez-vous comme complété
-router.post('/tritments/:rendezId',
+router.post('/tritments/rendesvous/:rendezId',
     [
         param('rendezId').isMongoId().withMessage('you must provide rendezvous id'),
         body('description').trim().notEmpty().withMessage('the description is required'),
