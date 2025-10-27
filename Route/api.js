@@ -11,9 +11,88 @@ const multer = require('multer');
 const minioClient = require('./../Config/minioClient');
 const logger = require("./../Utils/Logger");
 const PrescriptionController = require('./../Controller/PrescriptionController');
-const { isAuth } = require('../middleware/isAuth');
-// const isDoctor = require('./../middleware/isDoctor');
-const isPatient = require('../middleware/isPatient');
+const { isAuth } = require('./../middleware/isAuth');
+const isDoctor = require('./../middleware/isDoctor');
+const isPatient = require('./../middleware/isPatient');
+const ConsultationController = require('./../Controller/ConsultationController');
+
+// Consultation Routes
+{
+    router.post('/consultations',
+        // isAuth,
+        // isDoctor,
+        [
+            body('patientId').trim().notEmpty().withMessage('patient id is required'),
+            body('vitals').optional(),
+            body('vitals.temperature').optional().isNumeric().withMessage('temperature must be a number'),
+            body('vitals.bloodPressure').optional().trim(),
+            body('vitals.heartRate').optional().isNumeric().withMessage('heart rate must be a number'),
+            body('vitals.respiratoryRate').optional().isNumeric().withMessage('respiratory rate must be a number'),
+            body('vitals.weight').optional().isNumeric().withMessage('weight must be a number'),
+            body('vitals.height').optional().isNumeric().withMessage('height must be a number'),
+            body('symptoms').trim().notEmpty().withMessage('symptoms are required'),
+            body('diagnosis').optional().trim(),
+            body('notes').optional().trim()
+        ],
+        (req, res, next) => {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ errors: errors.array() });
+            }
+            next();
+        },
+        ConsultationController.createConsultation
+    );
+
+    router.get('/consultations/:id',
+        // isAuth,
+        [
+            param('id').trim().notEmpty().withMessage('consultation id is required'),
+        ],
+        ConsultationController.getConsultation
+    );
+
+    router.get('/consultations/patient/:patientId',
+        // isAuth,
+        [
+            param('patientId').trim().notEmpty().withMessage('patient id is required'),
+        ],
+        ConsultationController.getPatientConsultations
+    );
+
+    router.get('/doctor/consultations',
+        // isAuth,
+        // isDoctor,
+        ConsultationController.getDoctorConsultations
+    );
+
+    router.put('/consultations/:id',
+        // isAuth,
+        // isDoctor,
+        [
+            param('id').trim().notEmpty().withMessage('consultation id is required'),
+            body('vitals').optional(),
+            body('vitals.temperature').optional().isNumeric().withMessage('temperature must be a number'),
+            body('vitals.bloodPressure').optional().trim(),
+            body('vitals.heartRate').optional().isNumeric().withMessage('heart rate must be a number'),
+            body('vitals.respiratoryRate').optional().isNumeric().withMessage('respiratory rate must be a number'),
+            body('vitals.weight').optional().isNumeric().withMessage('weight must be a number'),
+            body('vitals.height').optional().isNumeric().withMessage('height must be a number'),
+            body('symptoms').optional().trim(),
+            body('diagnosis').optional().trim(),
+            body('notes').optional().trim(),
+            body('status').optional().isIn(['active', 'completed']).withMessage('invalid status')
+        ],
+        (req, res, next) => {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ errors: errors.array() });
+            }
+            next();
+        },
+        ConsultationController.updateConsultation
+    );
+}
 
 //filter
 {
