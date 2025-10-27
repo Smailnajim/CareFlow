@@ -2,7 +2,9 @@ const mongoose = require('mongoose');
 const status = require('./../Enum/PrescriptionsStatus');
 
 const PrescriptionsSchema = new mongoose.Schema({
-    tritmentId: {type: mongoose.Schema.Types.ObjectId, ref: 'Tritments', required: true},
+    tritmentId: {type: mongoose.Schema.Types.ObjectId, ref: 'Tritment', required: true},
+    patientId: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
+    doctorId: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
     medicaments: [{
         name: {type: String, required: true},
         dosage: {type: String, required: true},
@@ -11,7 +13,7 @@ const PrescriptionsSchema = new mongoose.Schema({
         duree: {type: String, required: true},
         renouvellements: {type: Number, required: true}
     }],
-    Statuts: {type: String, enum: status, default: 'draft'},
+    status: {type: String, enum: status, default: 'draft'},
 }, {collection: 'prescriptions', timestamps: true});
 
 module.exports = mongoose.model('Prescriptions', PrescriptionsSchema);

@@ -10,7 +10,10 @@ const { body, param, validationResult } = require('express-validator');
 const multer = require('multer');
 const minioClient = require('./../Config/minioClient');
 const logger = require("./../Utils/Logger");
-
+const PrescriptionController = require('./../Controller/PrescriptionController');
+const { isAuth } = require('../middleware/isAuth');
+// const isDoctor = require('./../middleware/isDoctor');
+const isPatient = require('../middleware/isPatient');
 
 //filter
 {
@@ -204,6 +207,67 @@ router.post('/files', upload.single('file'), async (req, res) => {
         res.status(500).json({ error: 'ERROR at uplode MinIO' });
     }
 });
+
+
+
+
+// Prescription Routes
+{
+    router.post('/prescriptions',
+        // isAuth,
+        // isDoctor,
+        [
+            body('patientId').trim().notEmpty().withMessage('patient id is required'),
+            body('tritmentId').trim().notEmpty().withMessage('tritment id is required'),
+            body('medicaments').isArray().withMessage('medicaments must be an array'),
+            body('medicaments.*.name').trim().notEmpty().withMessage('medication name is required'),
+            body('medicaments.*.dosage').trim().notEmpty().withMessage('dosage is required'),
+            body('medicaments.*.voieAdministration').trim().notEmpty().withMessage('voie administration is required'),
+            body('medicaments.*.frequence').trim().notEmpty().withMessage('frequence is required'),
+            body('medicaments.*.duree').trim().notEmpty().withMessage('duree is required'),
+            body('medicaments.*.renouvellements').isInt().withMessage('renouvellements must be a number'),
+        ],
+        (req, res, next) => {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.json({ errors: errors.array() });
+            }
+            next();
+        },
+        (req, res) => PrescriptionController.createPrescription(req, res)
+    );//valid
+
+    router.get('/prescriptions/:id',
+        // isAuth,
+        [
+            param('id').trim().notEmpty().withMessage('prescription id is required'),
+        ],
+        (req, res) => PrescriptionController.getPrescription(req, res)
+    );
+
+    router.get('/doctor/prescriptions',
+        // isAuth,
+        // isDoctor,
+        (req, res) => PrescriptionController.getDoctorPrescriptions(req, res)
+    );
+
+    router.get('/prescriptions/patient/:patientId',
+        // isAuth,
+        [
+            param('patientId').trim().notEmpty().withMessage('patient id is required'),
+        ],
+        (req, res) => PrescriptionController.getPatientPrescriptions(req, res)
+    );
+
+    router.put('/prescriptions/:id/status',
+        // isAuth,
+        [
+            param('id').trim().notEmpty().withMessage('prescription id is required'),
+            body('status').trim().notEmpty().withMessage('status is required'),
+        ],
+        (req, res) => PrescriptionController.updateStatus(req, res)
+    );
+}
 
 //
 // router.get('/test', RendezvousController.CreerUnRendezvousPourPatient);

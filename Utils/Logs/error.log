@@ -12,3 +12,5 @@
 [2025:10:26 13:42:09] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
 [2025:10:26 13:42:10] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
 [2025:10:26 13:42:12] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:26 21:57:35] error: Error getting prescription: Schema hasn't been registered for model "Tritments".
+Use mongoose.model(name, schema) PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
