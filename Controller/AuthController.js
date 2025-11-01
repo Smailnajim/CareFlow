@@ -5,6 +5,10 @@ const {matchedData} = require('express-validator');
 
 exports.register = async (req, res) => {
     const userData = matchedData(req, {locations: ['body']});
+    userData.roleName = userData.roleName ?? 'patient';
+    userData.roleName = userData.roleName.toLowerCase();
+    if(!req.user && userData.roleName == 'admin')
+        return res.json({error: `Admins Only have access to Register Admin`});
     try {
         const user = await UserService.register(userData);
         return res.status(200).json({valid: `register is done by seccessflly`});

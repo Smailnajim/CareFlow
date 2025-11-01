@@ -1,6 +1,7 @@
 const RoleService = require('./RoleService');
 const UserRepository = require('./../Repositories/UserRepository');
 const Token = require('./../Utils/Token');
+const Role = require('../Models/Role');
 
 
 
@@ -13,7 +14,7 @@ exports.getAllHasRole = async (roleName) => {
 }
 
 exports.register = async (userData) => {
-    const role = await RoleService.getRoleByName(userData.roleName ?? 'patient');
+    const role = await RoleService.getRoleByName(userData.roleName);
     userData.roleId = role._id;
     userData.status = 'active';
     const user = await UserRepository.createUser(userData);
@@ -53,9 +54,14 @@ exports.verifyRefreshToken = (token) => {
     }
 }
 
-exports.updateUser = async (userData) => {
+exports.updateUser = async (userData, userID) => {
     console.log('**********\n', userData);
     console.log('**********\n', userData.userId);
+    userData.roleName = userData.roleName.toLowerCase();
+    const ADMIN = RoleService.getRoleById(userID);
+    if (ADMIN.name !== 'admin' && userData.roleName == 'admin') {
+        throw new Error('only Admins can assign admin role to a user');
+    }
 
     const user = await UserRepository.updateById(userData.userId, userData);
     if (!user) throw new Error('there is no user updated check if Done');

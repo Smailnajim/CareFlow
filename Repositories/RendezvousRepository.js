@@ -6,7 +6,7 @@ exports.createRendezvou = async (data) => {
         return await Rendezvous.create(data);
 }
 
-exports.medecinsDisponibilites = async () => {
+exports.medecinsDisponibilites = async (userID) => {
     return await User.aggregate([
         {
             $lookup: {
@@ -80,7 +80,7 @@ exports.VoirTousLesRendezVousDeLaClinique = async () => {
 }
 
 exports.getRendezvousById = async (rendezvousId) => {
-    const rendez = await Rendezvous.findById(rendezvousId);
+    return await Rendezvous.findById(rendezvousId);
 }
 
 exports.whoHasRendezAfter24And25 = async () => {
@@ -130,5 +130,5 @@ exports.checkDateDisponible = async (dateStar, dateFine) => {
 }
 
 exports.updateRendez = async (rendez) => {
-    await Rendezvous.updateOne({_id: rendez.rendezvousId}, rendez);
+    return await Rendezvous.updateOne({_id: rendez.rendezvousId}, rendez);
 }

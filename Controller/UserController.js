@@ -124,7 +124,7 @@ exports.updateUser = async (req, res) => {
     console.log('***\n', userData);
     console.log('**********\n', userData);
     try {
-        await UserService.updateUser(userData);
+        await UserService.updateUser(userData, req.user.roleId);
 
         return res.json({valid: 'updated by seccessfly'});
     } catch (errror) {

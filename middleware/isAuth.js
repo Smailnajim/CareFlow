@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 module.exports = (req, res, next) => {
     const accessauth = req.headers['authorization'];
     const token = accessauth && accessauth.split(' ')[2];
-    if (!token) return res.json({ message: 'there is no token' });
+    if (!token) return res.json({ message: 'there is no access token' });
 
     // console.log(token, '\n-----');
     jwt.verify(token, process.env.ACCESS_SECRET, (err, user) => {

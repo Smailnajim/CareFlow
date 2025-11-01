@@ -11,14 +11,14 @@ const multer = require('multer');
 const minioClient = require('./../Config/minioClient');
 const logger = require("./../Utils/Logger");
 const PrescriptionController = require('./../Controller/PrescriptionController');
-const { isAuth } = require('./../middleware/isAuth');
-const isDoctor = require('./../middleware/isDoctor');
-const isPatient = require('./../middleware/isPatient');
-const ConsultationController = require('./../Controller/ConsultationController');
+const isAuth = require('./../middleware/isAuth');
+// const isDoctor = require('./../middleware/isDoctor');
+// const isPatient = require('./../middleware/isPatient');
+// const ConsultationController = require('./../Controller/ConsultationController');
 
 //filter
 {
-    router.get('/users/:roleName',
+    router.get('/users/filter/:roleName',
         [
             param('roleName').trim().notEmpty().withMessage('there is no role param'),
         ],
@@ -95,6 +95,7 @@ console.log();
 //->Suspendre ou réactiver des comptes
 //->update user mem tone
 router.put('/users/:userId',
+    isAuth,
     [
         param('userId').trim().notEmpty().isMongoId().withMessage('there is no userID'),
         body('status').optional({ checkFalsy: true }).trim().notEmpty().withMessage('you must select a status'),
@@ -141,6 +142,8 @@ router.post('/rendezvous',
 
 //Vérifier mes disponibilités et celles de mes collègues
 router.get('/users/time-works',
+    // isAuth,
+    // isDoctor,
     RendezvousController.medecinsDisponibilites
 );
 
@@ -149,7 +152,7 @@ router.get('/users/time-works',
 //  change status-->annuler un rendez-vous
 router.put('/rendezvous/:rendezId/:status',
     [
-        param('rendezId').trim().notEmpty().withMessage('you must chose a rendezvous'),
+        param('rendezId').isMongoId().withMessage('you must chose a rendezvous'),
         param('status').trim().notEmpty().withMessage('you must provide status'),
     ],
     function (req, res) {
@@ -195,7 +198,8 @@ router.post('/tritments/rendesvous/:rendezId',
 
 const upload = multer({ storage: multer.memoryStorage() });
 //minio
-router.post('/files', upload.single('file'), async (req, res) => {
+router.post('/files', 
+upload.single('file'), async (req, res) => {
     try {
         const bucketName = 'uploads';
         const file = req.file;
@@ -207,7 +211,8 @@ router.post('/files', upload.single('file'), async (req, res) => {
         logger.error(err);
         res.status(500).json({ error: 'ERROR at uplode MinIO' });
     }
-});
+}
+);
 
 
 
@@ -218,8 +223,8 @@ router.post('/files', upload.single('file'), async (req, res) => {
         // isAuth,
         // isDoctor,
         [
-            body('patientId').trim().notEmpty().withMessage('patient id is required'),
-            body('tritmentId').trim().notEmpty().withMessage('tritment id is required'),
+            body('patientId').isMongoId().withMessage('patient id is required'),
+            body('tritmentId').isMongoId().withMessage('tritment id is required'),
             body('medicaments').isArray().withMessage('medicaments must be an array'),
             body('medicaments.*.name').trim().notEmpty().withMessage('medication name is required'),
             body('medicaments.*.dosage').trim().notEmpty().withMessage('dosage is required'),
@@ -233,15 +238,16 @@ router.post('/files', upload.single('file'), async (req, res) => {
             if (!errors.isEmpty()) {
                 return res.json({ errors: errors.array() });
             }
-            next();
+            // next();
+            // (req, res) => PrescriptionController.createPrescription(req, res)
+            PrescriptionController.createPrescription(req, res)
         },
-        (req, res) => PrescriptionController.createPrescription(req, res)
     );//valid
 
     router.get('/prescriptions/:id',
         // isAuth,
         [
-            param('id').trim().notEmpty().withMessage('prescription id is required'),
+            param('id').isMongoId().withMessage('prescription id is required'),
         ],
         (req, res) => PrescriptionController.getPrescription(req, res)
     );
@@ -267,86 +273,6 @@ router.post('/files', upload.single('file'), async (req, res) => {
             body('status').trim().notEmpty().withMessage('status is required'),
         ],
         (req, res) => PrescriptionController.updateStatus(req, res)
-    );
-}
-
-
-
-// Consultation Routes
-{
-    router.post('/consultations',
-        // isAuth,
-        // isDoctor,
-        [
-            body('patientId').trim().notEmpty().withMessage('patient id is required'),
-            body('vitals').optional(),
-            body('vitals.temperature').optional().isNumeric().withMessage('temperature must be a number'),
-            body('vitals.bloodPressure').optional().trim(),
-            body('vitals.heartRate').optional().isNumeric().withMessage('heart rate must be a number'),
-            body('vitals.respiratoryRate').optional().isNumeric().withMessage('respiratory rate must be a number'),
-            body('vitals.weight').optional().isNumeric().withMessage('weight must be a number'),
-            body('vitals.height').optional().isNumeric().withMessage('height must be a number'),
-            body('symptoms').trim().notEmpty().withMessage('symptoms are required'),
-            body('diagnosis').optional().trim(),
-            body('notes').optional().trim()
-        ],
-        (req, res, next) => {
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                return res.status(400).json({ errors: errors.array() });
-            }
-            next();
-        },
-        ConsultationController.createConsultation
-    );
-
-    router.get('/consultations/:id',
-        // isAuth,
-        [
-            param('id').trim().notEmpty().withMessage('consultation id is required'),
-        ],
-        ConsultationController.getConsultation
-    );
-
-    router.get('/consultations/patient/:patientId',
-        // isAuth,
-        [
-            param('patientId').trim().notEmpty().withMessage('patient id is required'),
-        ],
-        ConsultationController.getPatientConsultations
-    );
-
-    router.get('/doctor/consultations',
-        // isAuth,
-        // isDoctor,
-        ConsultationController.getDoctorConsultations
-    );
-
-    router.put('/consultations/:id',
-        // isAuth,
-        // isDoctor,
-        [
-            param('id').trim().notEmpty().withMessage('consultation id is required'),
-            body('vitals').optional(),
-            body('vitals.temperature').optional().isNumeric().withMessage('temperature must be a number'),
-            body('vitals.bloodPressure').optional().trim(),
-            body('vitals.heartRate').optional().isNumeric().withMessage('heart rate must be a number'),
-            body('vitals.respiratoryRate').optional().isNumeric().withMessage('respiratory rate must be a number'),
-            body('vitals.weight').optional().isNumeric().withMessage('weight must be a number'),
-            body('vitals.height').optional().isNumeric().withMessage('height must be a number'),
-            body('symptoms').optional().trim(),
-            body('diagnosis').optional().trim(),
-            body('notes').optional().trim(),
-            body('status').optional().isIn(['active', 'completed']).withMessage('invalid status')
-        ],
-        (req, res, next) => {
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                return res.status(400).json({ errors: errors.array() });
-            }
-            next();
-        },
-        ConsultationController.updateConsultation
     );
 }
 

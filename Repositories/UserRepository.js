@@ -29,7 +29,7 @@ exports.getOneById = async (userId) => {
     }
 }
 exports.getUsersByRoleId = async (roleId) => {
-    return await User.find({roleId: roleId});
+    return await User.find({roleId: roleId}).select('-password -refreshTokens');
 }
 exports.createUser = async (userData) => {
     const user = new User(userData);

@@ -15,3 +15,5 @@ const PharmacieSchema = new mongoose.Schema({
         lastName:String
     }]
 }, {collection: 'pharmacies', timestamps: true});
+
+module.exports = mongoose.model('Pharmacie', PharmacieSchema);
