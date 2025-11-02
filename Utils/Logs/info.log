@@ -618,3 +618,15 @@ Use mongoose.model(name, schema) PLACE: C:\Users\Youcode\Desktop\Nouveau dossier
 [2025:11:02 22:33:25] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
 [2025:11:02 22:40:55] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
 [2025:11:02 22:40:59] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 22:41:02] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 22:42:20] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 22:44:39] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 22:45:47] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 22:47:09] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 22:49:56] error: connect ECONNREFUSED 127.0.0.1:9000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 22:49:56] info: ::1 - - [02/Nov/2025:21:49:56 +0000] "POST /api/files?file HTTP/1.1" 500 73 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 22:51:07] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 22:51:21] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 22:59:00] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 23:00:19] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 23:01:00] info: ::1 - - [02/Nov/2025:22:01:00 +0000] "POST /api/files?file HTTP/1.1" 200 38 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js

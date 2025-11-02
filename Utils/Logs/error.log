@@ -17,3 +17,4 @@ Use mongoose.model(name, schema) PLACE: C:\Users\Youcode\Desktop\Nouveau dossier
 [2025:11:01 20:33:49] error: Error getting prescription: Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "Prescriptions" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
 [2025:11:01 20:33:49] error: Error creating prescription: Operation `prescriptions.insertOne()` buffering timed out after 10000ms PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
 [2025:11:01 20:33:49] error: Error updating prescription status: Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "Prescriptions" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 22:49:56] error: connect ECONNREFUSED 127.0.0.1:9000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js

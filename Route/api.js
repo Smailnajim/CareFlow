@@ -239,21 +239,29 @@ router.post('/tritments/rendesvous/:rendezId',
 );
 
 const upload = multer({ storage: multer.memoryStorage() });
-//minio
 router.post('/files', 
-upload.single('file'), async (req, res) => {
-    try {
-        const bucketName = 'uploads';
-        const file = req.file;
+    // isAuth,
+    upload.single('file'), 
+    async (req, res) => {
+        try {
+            if (!req.file) {
+                return res.status(400).json({ error: 'No file uploaded' });
+            }
 
-        await minioClient.putObject(bucketName, file.originalname, file.buffer);
+            const bucketName = 'uploads';
+            const fileName = `${Date.now()}-${req.file.originalname}`;
 
-        res.json({ message: 'uplode by seccessfly TO MinIO!' });
-    } catch (err) {
-        logger.error(err);
-        res.status(500).json({ error: 'ERROR at uplode MinIO' });
+            await minioClient.putObject(bucketName, fileName, req.file.buffer);
+
+            res.json({ 
+                message: 'File uploaded successfully to MinIO',
+                fileName: fileName
+            });
+        } catch (err) {
+            logger.error(err);
+            res.status(500).json({ error: 'ERROR uploading to MinIO: ' + err.message });
+        }
     }
-}
 );
 
 
