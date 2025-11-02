@@ -73,3 +73,9 @@ exports.ConsulterProfilCompletPatient = async(userId) => {
         if (profile.length == 0) throw new Error('ther is no one has this id!');
         return profile;
     }
+
+exports.deleteUser = async(userId) => {
+    const user = await UserRepository.deleteById(userId);
+    if (!user) throw new Error('user not found');
+    return user;
+}

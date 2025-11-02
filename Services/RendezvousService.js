@@ -106,3 +106,9 @@ exports.updateRendez = async (data) => {
         await rendez.save();
         return rendez;
 }
+
+exports.deleteRendezvous = async(rendezId) => {
+    const rendez = await RendezvousRepository.deleteById(new Types.ObjectId(rendezId));
+    if (!rendez) throw new Error('rendezvous not found');
+    return rendez;
+}

@@ -132,3 +132,7 @@ exports.checkDateDisponible = async (dateStar, dateFine) => {
 exports.updateRendez = async (rendez) => {
     return await Rendezvous.updateOne({_id: rendez.rendezvousId}, rendez);
 }
+
+exports.deleteById = async (rendezId) => {
+    return await Rendezvous.findByIdAndDelete(rendezId);
+}

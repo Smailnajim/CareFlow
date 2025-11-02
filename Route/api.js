@@ -127,6 +127,19 @@ router.get('/user-profils/:id',
     }
 );
 
+router.delete('/users/:userId',
+    // isAuth,
+    //isCan
+    [
+        param('userId').isMongoId().withMessage('invalid user id')
+    ],
+    function (req, res) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.json({ errors });
+        UserController.deleteUser(req, res);
+    }
+);
+
 //create rendezvou
 router.post('/rendezvous',
     [
@@ -179,6 +192,19 @@ router.put('/rendezvous/:rendezId',
         if (!errors.isEmpty()) return res.json({ errors });
 
         RendezvousController.updateRendez(req, res);
+    }
+);
+
+router.delete('/rendezvous/:rendezId',
+    // isAuth,
+    //iCan
+    [
+        param('rendezId').isMongoId().withMessage('invalid rendezvous id')
+    ],
+    function (req, res) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.json({ errors });
+        RendezvousController.deleteRendezvous(req, res);
     }
 );
 
@@ -273,6 +299,19 @@ upload.single('file'), async (req, res) => {
             body('status').trim().notEmpty().withMessage('status is required'),
         ],
         (req, res) => PrescriptionController.updateStatus(req, res)
+    );
+
+    router.delete('/prescriptions/:id',
+        // isAuth,
+        // iCan,
+        [
+            param('id').isMongoId().withMessage('invalid prescription id')
+        ],
+        (req, res) => {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) return res.json({ errors: errors.array() });
+            PrescriptionController.deletePrescription(req, res);
+        }
     );
 }
 

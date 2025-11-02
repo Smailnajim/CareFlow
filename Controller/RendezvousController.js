@@ -66,3 +66,17 @@ exports.VoirTousLesRendezVousDeLaClinique = async (req, res) => {
         }
     }
 }
+
+//delete
+{
+    exports.deleteRendezvous = async (req, res) => {
+        const {rendezId} = req.params;
+        try {
+            const rendez = await RendezvousService.deleteRendezvous(rendezId);
+            if (!rendez) return res.json({error: 'rendezvous not found'});
+            return res.json({valid: 'rendezvous deleted successfully'});
+        } catch (error) {
+            return res.json({error: error.message});
+        }
+    }
+}

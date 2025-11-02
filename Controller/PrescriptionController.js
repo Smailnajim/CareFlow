@@ -98,3 +98,27 @@ exports.updateStatus = async(req, res) => {
         });
     }
 }
+
+exports.deletePrescription = async(req, res) => {
+    try {
+        const { id } = req.params;
+        const prescription = await PrescriptionService.deletePrescription(id);
+        
+        if (!prescription) {
+            return res.json({
+                success: false,
+                message: 'Prescription not found'
+            });
+        }
+
+        res.json({
+            success: true,
+            message: 'Prescription deleted successfully'
+        });
+    } catch (error) {
+        res.json({
+            success: false,
+            message: error.message
+        });
+    }
+}

@@ -1,4 +1,5 @@
 const Prescription = require('../Models/Prescriptions');
+const { Types } = require('mongoose');
 
 exports.create = async(data) => {
     return await Prescription.create(data);
@@ -29,5 +30,9 @@ exports.updateStatus = async(id, status) => {
         { status },
         { new: true }
     );
+}
+
+exports.deleteById = async(id) => {
+    return await Prescription.findByIdAndDelete(new Types.ObjectId(id));
 }
 

@@ -51,3 +51,15 @@ const Logger = require('../Utils/Logger');
         }
     }
 
+    exports.deletePrescription = async(id) => {
+        try {
+            const prescription = await PrescriptionRepository.deleteById(id);
+            if (!prescription) throw new Error('Prescription not found');
+            Logger.info(`Prescription ${id} deleted`);
+            return prescription;
+        } catch (error) {
+            Logger.error(`Error deleting prescription: ${error.message}`);
+            throw error;
+        }
+    }
+

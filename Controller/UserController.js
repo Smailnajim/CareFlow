@@ -105,14 +105,14 @@ exports.ConsulterProfilCompletPatient = async (req, res) => {
 
 //delete
 {
-exports.deletUserById = async (id) => {
-    var id = parseInt(id);
-
+exports.deleteUser = async (req, res) => {
+    const {userId} = req.params;
     try {
-        await User.findByIdAndDelete(id);
-        return res.json({valid: "delete user successfly"});
+        const user = await UserService.deleteUser(userId);
+        if (!user) return res.json({error: 'user not found'});
+        return res.json({valid: 'user deleted successfully'});
     } catch (err) {
-        return res.json({error: "delete user is bad :) becouse: "+err});
+        return res.json({error: err.message});
     }
 }
 }

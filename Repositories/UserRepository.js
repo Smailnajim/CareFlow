@@ -39,7 +39,7 @@ exports.getAllUsers = async () => {
     return await User.find();
 }
 exports.deleteById = async (userId) => {
-    return await User.findByIdAndDelete(userId);
+    return await User.findByIdAndDelete(new Types.ObjectId(userId));
 }
 exports.updateById = async (userId, updateData) => {
     return await User.findByIdAndUpdate(userId, updateData, {new: true});
