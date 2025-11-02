@@ -132,3 +132,13 @@ exports.updateUser = async (req, res) => {
     }
 }
 }
+
+// Init roles
+exports.initRoles = async (req, res) => {
+    try {
+        await UserService.initRoles();
+        return res.json({valid: 'Roles initialized successfully'});
+    } catch (error) {
+        return res.json({error: error.message});
+    }
+}

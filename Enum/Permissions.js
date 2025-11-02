@@ -21,4 +21,7 @@ module.exports = {
     // Treatment management
     CREATE_TREATMENT: 'create_treatment',
     VIEW_TREATMENT: 'view_treatment',
+    
+    // System management
+    INIT_ROLES: 'init_roles',
 };

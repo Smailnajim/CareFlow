@@ -79,3 +79,8 @@ exports.deleteUser = async(userId) => {
     if (!user) throw new Error('user not found');
     return user;
 }
+
+exports.initRoles = async() => {
+    const RoleService = require('./RoleService');
+    await RoleService.initializeRolesWithPermissions();
+}
