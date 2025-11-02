@@ -1,5 +1,6 @@
 const PrescriptionRepository = require('../Repositories/PrescriptionRepository');
 const Logger = require('../Utils/Logger');
+const RoleService = require('./RoleService');
 
 
 
@@ -26,7 +27,6 @@ const Logger = require('../Utils/Logger');
 
     exports.getPatientPrescriptions = async(patientId, authUser) => {
         try {
-            const RoleService = require('./RoleService');
             const role = await RoleService.getRoleById(authUser.roleId);
             
             if (role.name == 'patient' && authUser._id != patientId) {
