@@ -630,3 +630,8 @@ Use mongoose.model(name, schema) PLACE: C:\Users\Youcode\Desktop\Nouveau dossier
 [2025:11:02 22:59:00] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
 [2025:11:02 23:00:19] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
 [2025:11:02 23:01:00] info: ::1 - - [02/Nov/2025:22:01:00 +0000] "POST /api/files?file HTTP/1.1" 200 38 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 23:01:10] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 23:01:10] error: connect ECONNREFUSED 127.0.0.1:9000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 23:01:10] info: ::1 - - [02/Nov/2025:22:01:10 +0000] "POST /api/files?file HTTP/1.1" 500 73 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 23:29:53] error: The Access Key Id you provided does not exist in our records. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 23:29:53] info: ::1 - - [02/Nov/2025:22:29:53 +0000] "POST /api/files?file HTTP/1.1" 500 99 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
