@@ -12,9 +12,8 @@ const minioClient = require('./../Config/minioClient');
 const logger = require("./../Utils/Logger");
 const PrescriptionController = require('./../Controller/PrescriptionController');
 const isAuth = require('./../middleware/isAuth');
-// const isDoctor = require('./../middleware/isDoctor');
-// const isPatient = require('./../middleware/isPatient');
-// const ConsultationController = require('./../Controller/ConsultationController');
+const iCan = require('./../middleware/iCan');
+const PERMISSIONS = require('./../Enum/Permissions');
 
 //filter
 {
@@ -96,6 +95,7 @@ console.log();
 //->update user mem tone
 router.put('/users/:userId',
     isAuth,
+    iCan(PERMISSIONS.UPDATE_USER),
     [
         param('userId').trim().notEmpty().isMongoId().withMessage('there is no userID'),
         body('status').optional({ checkFalsy: true }).trim().notEmpty().withMessage('you must select a status'),
@@ -128,8 +128,8 @@ router.get('/user-profils/:id',
 );
 
 router.delete('/users/:userId',
-    // isAuth,
-    //isCan
+    isAuth,
+    iCan(PERMISSIONS.DELETE_USER),
     [
         param('userId').isMongoId().withMessage('invalid user id')
     ],
@@ -142,6 +142,8 @@ router.delete('/users/:userId',
 
 //create rendezvou
 router.post('/rendezvous',
+    isAuth,
+    iCan(PERMISSIONS.CREATE_RENDEZVOUS),
     [
         body('medecinId').isMongoId().withMessage('you must select medecin'),
         body('patientId').isMongoId().withMessage("you don't select patient"),
@@ -177,6 +179,8 @@ router.put('/rendezvous/:rendezId/:status',
 
 //  Modifier un rendez-vous
 router.put('/rendezvous/:rendezId',
+    isAuth,
+    iCan(PERMISSIONS.UPDATE_RENDEZVOUS),
     [
         param('rendezId').isMongoId().withMessage('there is no rendez selected'),
         body('medecinId').optional({ checkFalsy: true }).isMongoId().withMessage('maybe this is not metecin'),
@@ -196,8 +200,8 @@ router.put('/rendezvous/:rendezId',
 );
 
 router.delete('/rendezvous/:rendezId',
-    // isAuth,
-    //iCan
+    isAuth,
+    iCan(PERMISSIONS.DELETE_RENDEZVOUS),
     [
         param('rendezId').isMongoId().withMessage('invalid rendezvous id')
     ],
@@ -210,6 +214,8 @@ router.delete('/rendezvous/:rendezId',
 
 //Marquer un rendez-vous comme complété
 router.post('/tritments/rendesvous/:rendezId',
+    isAuth,
+    iCan(PERMISSIONS.CREATE_TREATMENT),
     [
         param('rendezId').isMongoId().withMessage('you must provide rendezvous id'),
         body('description').trim().notEmpty().withMessage('the description is required'),
@@ -246,8 +252,8 @@ upload.single('file'), async (req, res) => {
 // Prescription Routes
 {
     router.post('/prescriptions',
-        // isAuth,
-        // isDoctor,
+        isAuth,
+        iCan(PERMISSIONS.CREATE_PRESCRIPTION),
         [
             body('patientId').isMongoId().withMessage('patient id is required'),
             body('tritmentId').isMongoId().withMessage('tritment id is required'),
@@ -293,7 +299,8 @@ upload.single('file'), async (req, res) => {
     );
 
     router.put('/prescriptions/:id/status',
-        // isAuth,
+        isAuth,
+        iCan(PERMISSIONS.UPDATE_PRESCRIPTION),
         [
             param('id').trim().notEmpty().withMessage('prescription id is required'),
             body('status').trim().notEmpty().withMessage('status is required'),
@@ -302,8 +309,8 @@ upload.single('file'), async (req, res) => {
     );
 
     router.delete('/prescriptions/:id',
-        // isAuth,
-        // iCan,
+        isAuth,
+        iCan(PERMISSIONS.DELETE_PRESCRIPTION),
         [
             param('id').isMongoId().withMessage('invalid prescription id')
         ],

@@ -513,3 +513,30 @@ Use mongoose.model(name, schema) PLACE: C:\Users\Youcode\Desktop\Nouveau dossier
 [2025:11:02 17:22:26] info: ::1 - - [02/Nov/2025:16:22:26 +0000] "PUT /api/rendezvous/68ef92ca9f7c3d942bcebea5 HTTP/1.1" 200 249 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
 [2025:11:02 17:23:01] info: ::1 - - [02/Nov/2025:16:23:01 +0000] "DELETE /api/rendezvous/68ef92ca9f7c3d942bcebea5 HTTP/1.1" 200 43 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
 [2025:11:02 17:23:51] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 17:23:55] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 17:27:14] info: Prescription 69065974dfabf6b9137e8664 deleted PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 17:27:14] info: ::1 - - [02/Nov/2025:16:27:14 +0000] "DELETE /api/prescriptions/69065974dfabf6b9137e8664 HTTP/1.1" 200 62 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 17:31:23] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 17:31:30] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 17:31:36] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 17:31:43] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 17:31:48] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 17:32:08] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 17:34:34] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 17:34:39] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 17:34:49] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 17:35:15] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 17:35:18] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 17:35:34] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 17:35:38] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 17:35:41] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 17:35:51] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 17:35:54] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 17:45:43] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 17:45:49] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 17:45:52] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 17:45:54] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 17:46:06] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 17:46:11] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 17:46:15] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 17:46:21] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
