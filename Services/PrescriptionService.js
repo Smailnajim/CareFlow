@@ -24,8 +24,14 @@ const Logger = require('../Utils/Logger');
         }
     }
 
-    exports.getPatientPrescriptions = async(patientId) => {
+    exports.getPatientPrescriptions = async(patientId, authUser) => {
         try {
+            const RoleService = require('./RoleService');
+            const role = await RoleService.getRoleById(authUser.roleId);
+            
+            if (role.name == 'patient' && authUser._id != patientId) {
+                throw new Error('Patients can only view their prescriptions');
+            }
             return await PrescriptionRepository.getByPatient(patientId);
         } catch (error) {
             Logger.error(`Error getting patient prescriptions: ${error.message}`);

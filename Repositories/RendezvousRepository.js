@@ -47,6 +47,8 @@ exports.medecinsDisponibilites = async (userID) => {
         },{
             $project: {
                 'password': 0,
+                'refreshTokens': 0,
+                "role.permissions": 0
             }
         }
     ]);

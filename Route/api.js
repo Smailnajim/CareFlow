@@ -166,8 +166,7 @@ router.post('/rendezvous',
 
 //Vérifier mes disponibilités et celles de mes collègues
 router.get('/users/time-works',
-    // isAuth,
-    // isDoctor,
+    isAuth,
     RendezvousController.medecinsDisponibilites
 );
 
@@ -175,6 +174,8 @@ router.get('/users/time-works',
 //Modifier ou annuler un rendez-vous
 //  change status-->annuler un rendez-vous
 router.put('/rendezvous/:rendezId/:status',
+    isAuth,
+    iCan(PERMISSIONS.UPDATE_RENDEZVOUS),
     [
         param('rendezId').isMongoId().withMessage('you must chose a rendezvous'),
         param('status').trim().notEmpty().withMessage('you must provide status'),
@@ -286,7 +287,7 @@ upload.single('file'), async (req, res) => {
     );//valid
 
     router.get('/prescriptions/:id',
-        // isAuth,
+        isAuth,
         [
             param('id').isMongoId().withMessage('prescription id is required'),
         ],
@@ -300,7 +301,7 @@ upload.single('file'), async (req, res) => {
     );
 
     router.get('/prescriptions/patient/:patientId',
-        // isAuth,
+        isAuth,
         [
             param('patientId').trim().notEmpty().withMessage('patient id is required'),
         ],

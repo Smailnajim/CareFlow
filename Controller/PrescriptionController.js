@@ -48,7 +48,7 @@ exports.getPrescription = async(req, res) => {
 exports.getPatientPrescriptions = async(req, res) => {
     try {
         const { patientId } = req.params;
-        const prescriptions = await PrescriptionService.getPatientPrescriptions(patientId);
+        const prescriptions = await PrescriptionService.getPatientPrescriptions(patientId, req.user);
 
         res.json({
             success: true,
