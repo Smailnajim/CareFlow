@@ -73,8 +73,13 @@ exports.updateUser = async (userData, userID) => {
     if (!user) throw new Error('there is no user updated check if Done');
 }
 
-exports.ConsulterProfilCompletPatient = async(userId) => {
-        // const user = await User.findOne({_id: id})
+exports.ConsulterProfilCompletPatient = async(userId, authUser) => {
+        const role = await RoleService.getRoleById(authUser.roleId);
+        
+        if (role.name == 'patient' && authUser._id.toString() != userId) {
+            throw new Error('Patients can only view their own profile');
+        }
+        
         const profile = await UserRepository.userProfile(userId);
         if (profile.length == 0) throw new Error('ther is no one has this id!');
         return profile;

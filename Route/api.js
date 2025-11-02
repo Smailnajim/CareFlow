@@ -122,6 +122,8 @@ router.put('/users/:userId',
 );
 
 router.get('/user-profils/:id',
+    isAuth,
+    iCan(PERMISSIONS.VIEW_USER),
     [
         param("id").isMongoId().withMessage('there is no param id at url')
     ],

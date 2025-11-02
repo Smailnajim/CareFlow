@@ -94,7 +94,7 @@ exports.ConsulterProfilCompletPatient = async (req, res) => {
     let {id} = matchedData(req, {locations: ['params']});
 
     try {
-        const profile = await UserService.ConsulterProfilCompletPatient(id);
+        const profile = await UserService.ConsulterProfilCompletPatient(id, req.user);
         return res.json({profile});
     } catch (error) {
         return res.json({error: error.message});
