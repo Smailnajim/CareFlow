@@ -10,4 +10,4 @@ const rendezVousSchema = new mongoose.Schema({
     cause:{ type: String, required: true}
 },{collection: 'rendezvous', timeseries: true});
 
-module.exports = mongoose.model('RendezVous', rendezVousSchema);
+module.exports = mongoose.model('Rendezvous', rendezVousSchema);

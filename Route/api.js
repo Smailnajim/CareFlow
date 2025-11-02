@@ -10,11 +10,15 @@ const { body, param, validationResult } = require('express-validator');
 const multer = require('multer');
 const minioClient = require('./../Config/minioClient');
 const logger = require("./../Utils/Logger");
-
+const PrescriptionController = require('./../Controller/PrescriptionController');
+const isAuth = require('./../middleware/isAuth');
+const iCan = require('./../middleware/iCan');
+const PERMISSIONS = require('./../Enum/Permissions');
 
 //filter
 {
-    router.get('/users/:roleName',
+    router.get('/users/filter/:roleName',
+        isAuth,
         [
             param('roleName').trim().notEmpty().withMessage('there is no role param'),
         ],
@@ -63,6 +67,12 @@ router.post('/users/refresh',
     AuthController.refreshTokens
 );
 
+router.post('/init-roles', 
+    isAuth, 
+    iCan(PERMISSIONS.INIT_ROLES), 
+    UserController.initRoles
+);
+
 
 // router.get('/test', touteMiddelware.isAuth, function (req, res) {
 //     const u = req.user;
@@ -91,6 +101,8 @@ console.log();
 //->Suspendre ou réactiver des comptes
 //->update user mem tone
 router.put('/users/:userId',
+    isAuth,
+    iCan(PERMISSIONS.UPDATE_USER),
     [
         param('userId').trim().notEmpty().isMongoId().withMessage('there is no userID'),
         body('status').optional({ checkFalsy: true }).trim().notEmpty().withMessage('you must select a status'),
@@ -110,6 +122,8 @@ router.put('/users/:userId',
 );
 
 router.get('/user-profils/:id',
+    isAuth,
+    iCan(PERMISSIONS.VIEW_USER),
     [
         param("id").isMongoId().withMessage('there is no param id at url')
     ],
@@ -122,8 +136,23 @@ router.get('/user-profils/:id',
     }
 );
 
+router.delete('/users/:userId',
+    isAuth,
+    iCan(PERMISSIONS.DELETE_USER),
+    [
+        param('userId').isMongoId().withMessage('invalid user id')
+    ],
+    function (req, res) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.json({ errors });
+        UserController.deleteUser(req, res);
+    }
+);
+
 //create rendezvou
 router.post('/rendezvous',
+    isAuth,
+    iCan(PERMISSIONS.CREATE_RENDEZVOUS),
     [
         body('medecinId').isMongoId().withMessage('you must select medecin'),
         body('patientId').isMongoId().withMessage("you don't select patient"),
@@ -133,10 +162,11 @@ router.post('/rendezvous',
         const errors = validationResult(req);
         if (!errors.isEmpty()) return res.json({ errors });
         RendezvousController.CreerUnRendezvousPourPatient(req, res);
-    });
+});
 
 //Vérifier mes disponibilités et celles de mes collègues
-router.get('/users/medecins/disponibilites',
+router.get('/users/time-works',
+    isAuth,
     RendezvousController.medecinsDisponibilites
 );
 
@@ -144,8 +174,10 @@ router.get('/users/medecins/disponibilites',
 //Modifier ou annuler un rendez-vous
 //  change status-->annuler un rendez-vous
 router.put('/rendezvous/:rendezId/:status',
+    isAuth,
+    iCan(PERMISSIONS.UPDATE_RENDEZVOUS),
     [
-        param('rendezId').trim().notEmpty().withMessage('you must chose a rendezvous'),
+        param('rendezId').isMongoId().withMessage('you must chose a rendezvous'),
         param('status').trim().notEmpty().withMessage('you must provide status'),
     ],
     function (req, res) {
@@ -157,6 +189,8 @@ router.put('/rendezvous/:rendezId/:status',
 
 //  Modifier un rendez-vous
 router.put('/rendezvous/:rendezId',
+    isAuth,
+    iCan(PERMISSIONS.UPDATE_RENDEZVOUS),
     [
         param('rendezId').isMongoId().withMessage('there is no rendez selected'),
         body('medecinId').optional({ checkFalsy: true }).isMongoId().withMessage('maybe this is not metecin'),
@@ -175,8 +209,23 @@ router.put('/rendezvous/:rendezId',
     }
 );
 
+router.delete('/rendezvous/:rendezId',
+    isAuth,
+    iCan(PERMISSIONS.DELETE_RENDEZVOUS),
+    [
+        param('rendezId').isMongoId().withMessage('invalid rendezvous id')
+    ],
+    function (req, res) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.json({ errors });
+        RendezvousController.deleteRendezvous(req, res);
+    }
+);
+
 //Marquer un rendez-vous comme complété
-router.post('/tritments/:rendezId',
+router.post('/tritments/rendesvous/:rendezId',
+    isAuth,
+    iCan(PERMISSIONS.CREATE_TREATMENT),
     [
         param('rendezId').isMongoId().withMessage('you must provide rendezvous id'),
         body('description').trim().notEmpty().withMessage('the description is required'),
@@ -190,20 +239,106 @@ router.post('/tritments/:rendezId',
 );
 
 const upload = multer({ storage: multer.memoryStorage() });
-//minio
-router.post('/files', upload.single('file'), async (req, res) => {
-    try {
-        const bucketName = 'uploads';
-        const file = req.file;
+router.post('/files', 
+    // isAuth,
+    upload.single('file'), 
+    async (req, res) => {
+        try {
+            if (!req.file) {
+                return res.status(400).json({ error: 'No file uploaded' });
+            }
 
-        await minioClient.putObject(bucketName, file.originalname, file.buffer);
+            const bucketName = 'uploads';
+            const fileName = `${Date.now()}-${req.file.originalname}`;
 
-        res.json({ message: 'uplode by seccessfly TO MinIO!' });
-    } catch (err) {
-        logger.error(err);
-        res.status(500).json({ error: 'ERROR at uplode MinIO' });
+            await minioClient.putObject(bucketName, fileName, req.file.buffer);
+
+            res.json({ 
+                message: 'File uploaded successfully to MinIO',
+                fileName: fileName
+            });
+        } catch (err) {
+            logger.error(err);
+            res.status(500).json({ error: 'ERROR uploading to MinIO: ' + err.message });
+        }
     }
-});
+);
+
+
+
+
+// Prescription Routes
+{
+    router.post('/prescriptions',
+        isAuth,
+        iCan(PERMISSIONS.CREATE_PRESCRIPTION),
+        [
+            body('patientId').isMongoId().withMessage('patient id is required'),
+            body('tritmentId').isMongoId().withMessage('tritment id is required'),
+            body('medicaments').isArray().withMessage('medicaments must be an array'),
+            body('medicaments.*.name').trim().notEmpty().withMessage('medication name is required'),
+            body('medicaments.*.dosage').trim().notEmpty().withMessage('dosage is required'),
+            body('medicaments.*.voieAdministration').trim().notEmpty().withMessage('voie administration is required'),
+            body('medicaments.*.frequence').trim().notEmpty().withMessage('frequence is required'),
+            body('medicaments.*.duree').trim().notEmpty().withMessage('duree is required'),
+            body('medicaments.*.renouvellements').isInt().withMessage('renouvellements must be a number'),
+        ],
+        (req, res, next) => {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.json({ errors: errors.array() });
+            }
+            // next();
+            // (req, res) => PrescriptionController.createPrescription(req, res)
+            PrescriptionController.createPrescription(req, res)
+        },
+    );//valid
+
+    router.get('/prescriptions/:id',
+        isAuth,
+        [
+            param('id').isMongoId().withMessage('prescription id is required'),
+        ],
+        (req, res) => PrescriptionController.getPrescription(req, res)
+    );
+
+    router.get('/doctor/prescriptions',
+        // isAuth,
+        // isDoctor,
+        (req, res) => PrescriptionController.getDoctorPrescriptions(req, res)
+    );
+
+    router.get('/prescriptions/patient/:patientId',
+        isAuth,
+        [
+            param('patientId').trim().notEmpty().withMessage('patient id is required'),
+        ],
+        (req, res) => PrescriptionController.getPatientPrescriptions(req, res)
+    );
+
+    router.put('/prescriptions/:id/status',
+        isAuth,
+        iCan(PERMISSIONS.UPDATE_PRESCRIPTION),
+        [
+            param('id').trim().notEmpty().withMessage('prescription id is required'),
+            body('status').trim().notEmpty().withMessage('status is required'),
+        ],
+        (req, res) => PrescriptionController.updateStatus(req, res)
+    );
+
+    router.delete('/prescriptions/:id',
+        isAuth,
+        iCan(PERMISSIONS.DELETE_PRESCRIPTION),
+        [
+            param('id').isMongoId().withMessage('invalid prescription id')
+        ],
+        (req, res) => {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) return res.json({ errors: errors.array() });
+            PrescriptionController.deletePrescription(req, res);
+        }
+    );
+}
 
 //
 // router.get('/test', RendezvousController.CreerUnRendezvousPourPatient);

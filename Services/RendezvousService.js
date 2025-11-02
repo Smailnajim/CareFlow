@@ -34,8 +34,8 @@ exports.CreerUnRendezvous = async (rendezData) => {
     return rendez;
 }
 
-exports.medecinsDisponibilites = async () => {
-    const Disponibilites = await RendezvousRepository.medecinsDisponibilites();
+exports.medecinsDisponibilites = async (userID) => {
+    const Disponibilites = await RendezvousRepository.medecinsDisponibilites(userID);
     console.log();
     if (Disponibilites.length == 0) throw new Error('ther is no medecin in thece clinic :(');
     return Disponibilites;
@@ -50,6 +50,7 @@ exports.VoirTousLesRendezVousDeLaClinique = async () => {
 exports.changeStatusRendezvous = async (data) => {
     const rendezvousId = new Types.ObjectId(data.rendezId);
     const rendezvous = await RendezvousRepository.getRendezvousById(rendezvousId);
+    console.log('****\n', rendezvous);
     if(!rendezvous) throw new Error('rendezvous not found');
 
     if (rendezvous.status == 'complete') throw new Error('you cant update status from complete');
@@ -63,8 +64,8 @@ exports.changeStatusRendezvous = async (data) => {
 exports.updateRendez = async (data) => {
 
     const Keys = Object.keys(data);
-        const rendez = await RendezvousRepository.getRendezvousById(new Types.ObjectId(data.rendezvousId));
-        if (!rendez) throw new Error(`there is no rendez has this id: ${data.rendezvousId}`);
+        const rendez = await RendezvousRepository.getRendezvousById(new Types.ObjectId(data.rendezId));
+        if (!rendez) throw new Error(`there is no rendez has this id: ${data.rendezId}`);
 
         if (Keys.includes('medecinId')){
             const medecin = await RoleRepository.roleDeUser(data.medecinId);
@@ -100,7 +101,14 @@ exports.updateRendez = async (data) => {
             rendez.status = data.status;
         }
 
-        const rendezUp = await RendezvousRepository.updateRendez(rendez);
-        if(!rendezUp) throw new Error('there is a error at upditing');
-        return rendezUp;
+        // const rendezUp = await RendezvousRepository.updateRendez(rendez);
+        // if(!rendezUp) throw new Error('there is a error at upditing');
+        await rendez.save();
+        return rendez;
+}
+
+exports.deleteRendezvous = async(rendezId) => {
+    const rendez = await RendezvousRepository.deleteById(new Types.ObjectId(rendezId));
+    if (!rendez) throw new Error('rendezvous not found');
+    return rendez;
 }

@@ -60,10 +60,9 @@ exports.getOne = async (req, res) => {// .../:id
 }
 exports.filterByRole = async (req, res) => {
     const {roleName} = matchedData(req, {locations: ['params']});
-    console.log('-----\n', roleName);
 
     try {
-        const users = await UserService.getAllHasRole(roleName);
+        const users = await UserService.getAllHasRole(roleName, req.user.roleId);
         return res.json({users: users});
     } catch (error) {
         return res.json({error: error.message});
@@ -95,7 +94,7 @@ exports.ConsulterProfilCompletPatient = async (req, res) => {
     let {id} = matchedData(req, {locations: ['params']});
 
     try {
-        const profile = await UserService.ConsulterProfilCompletPatient(id);
+        const profile = await UserService.ConsulterProfilCompletPatient(id, req.user);
         return res.json({profile});
     } catch (error) {
         return res.json({error: error.message});
@@ -105,14 +104,14 @@ exports.ConsulterProfilCompletPatient = async (req, res) => {
 
 //delete
 {
-exports.deletUserById = async (id) => {
-    var id = parseInt(id);
-
+exports.deleteUser = async (req, res) => {
+    const {userId} = req.params;
     try {
-        await User.findByIdAndDelete(id);
-        return res.json({valid: "delete user successfly"});
+        const user = await UserService.deleteUser(userId);
+        if (!user) return res.json({error: 'user not found'});
+        return res.json({valid: 'user deleted successfully'});
     } catch (err) {
-        return res.json({error: "delete user is bad :) becouse: "+err});
+        return res.json({error: err.message});
     }
 }
 }
@@ -124,11 +123,21 @@ exports.updateUser = async (req, res) => {
     console.log('***\n', userData);
     console.log('**********\n', userData);
     try {
-        await UserService.updateUser(userData);
+        await UserService.updateUser(userData, req.user.roleId);
 
         return res.json({valid: 'updated by seccessfly'});
     } catch (errror) {
         return res.json({error: errror.message});
     }
 }
+}
+
+// Init roles
+exports.initRoles = async (req, res) => {
+    try {
+        await UserService.initRoles();
+        return res.json({valid: 'Roles initialized successfully'});
+    } catch (error) {
+        return res.json({error: error.message});
+    }
 }

@@ -26,6 +26,8 @@ exports.CreerUnRendezvousPourPatient = async (req, res) => {
 {
 exports.medecinsDisponibilites = async (req, res) => {
     try {
+        // const userID = req.user._id;
+        // const Disponibilites = await RendezvousService.medecinsDisponibilites(userID);
         const Disponibilites = await RendezvousService.medecinsDisponibilites();
         return res.json({Disponibilites});
     } catch (error) {
@@ -46,18 +48,33 @@ exports.VoirTousLesRendezVousDeLaClinique = async (req, res) => {
 //update
 {
     exports.changeStatusRendezvous = async (req, res) => {
-        const data = matchedData(reportWebVitals, {locations: ['params']});
+        const data = matchedData(req, {locations: ['params']});
         try {
-            RendezvousService.changeStatusRendezvous(data);
+            const rendesvous = await RendezvousService.changeStatusRendezvous(data);
+            return res.json({status: `status updated successfully`, rendez: rendesvous});
         } catch (error) {
-            
+            return res.json({error: error.message});
         }
     }
     exports.updateRendez = async (req, res) => {
     const data = matchedData(req, {locations: ['body', 'params']});
         try {
             const rendez = await RendezvousService.updateRendez(data);
-            return res.json(rendez);
+            return res.json({status: "valid", rendesvous: rendez});
+        } catch (error) {
+            return res.json({error: error.message});
+        }
+    }
+}
+
+//delete
+{
+    exports.deleteRendezvous = async (req, res) => {
+        const {rendezId} = req.params;
+        try {
+            const rendez = await RendezvousService.deleteRendezvous(rendezId);
+            if (!rendez) return res.json({error: 'rendezvous not found'});
+            return res.json({valid: 'rendezvous deleted successfully'});
         } catch (error) {
             return res.json({error: error.message});
         }

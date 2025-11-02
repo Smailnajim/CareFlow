@@ -29,7 +29,7 @@ exports.getOneById = async (userId) => {
     }
 }
 exports.getUsersByRoleId = async (roleId) => {
-    return await User.find({roleId: roleId});
+    return await User.find({roleId: roleId}).select('-password -refreshTokens');
 }
 exports.createUser = async (userData) => {
     const user = new User(userData);
@@ -39,7 +39,7 @@ exports.getAllUsers = async () => {
     return await User.find();
 }
 exports.deleteById = async (userId) => {
-    return await User.findByIdAndDelete(userId);
+    return await User.findByIdAndDelete(new Types.ObjectId(userId));
 }
 exports.updateById = async (userId, updateData) => {
     return await User.findByIdAndUpdate(userId, updateData, {new: true});

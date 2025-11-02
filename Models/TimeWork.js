@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const TimeWorkSchema = new Schema({
-    medecinId: {
+    userId: {
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true
