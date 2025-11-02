@@ -60,10 +60,9 @@ exports.getOne = async (req, res) => {// .../:id
 }
 exports.filterByRole = async (req, res) => {
     const {roleName} = matchedData(req, {locations: ['params']});
-    console.log('-----\n', roleName);
 
     try {
-        const users = await UserService.getAllHasRole(roleName);
+        const users = await UserService.getAllHasRole(roleName, req.user.roleId);
         return res.json({users: users});
     } catch (error) {
         return res.json({error: error.message});

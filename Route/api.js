@@ -13,12 +13,12 @@ const logger = require("./../Utils/Logger");
 const PrescriptionController = require('./../Controller/PrescriptionController');
 const isAuth = require('./../middleware/isAuth');
 const iCan = require('./../middleware/iCan');
-const isAdmin = require('./../middleware/isAdmin');
 const PERMISSIONS = require('./../Enum/Permissions');
 
 //filter
 {
     router.get('/users/filter/:roleName',
+        isAuth,
         [
             param('roleName').trim().notEmpty().withMessage('there is no role param'),
         ],

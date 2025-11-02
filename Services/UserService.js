@@ -6,9 +6,15 @@ const Role = require('../Models/Role');
 
 
 
-exports.getAllHasRole = async (roleName) => {
-    const role = await RoleService.getRoleByName(roleName);
-    const users = await UserRepository.getUsersByRoleId(role._id);
+exports.getAllHasRole = async (roleName, userRoleId) => {
+    const requestedRole = await RoleService.getRoleByName(roleName);
+    const userRole = await RoleService.getRoleById(userRoleId);
+    
+    if (roleName == 'admin' && userRole.name != 'admin') {
+        throw new Error('Only admin can filter admin users');
+    }
+    
+    const users = await UserRepository.getUsersByRoleId(requestedRole._id);
     if (users.length == 0) throw new Error('there is no users with role: '+roleName);
     return users;
 }
