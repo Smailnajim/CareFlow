@@ -20,11 +20,14 @@ exports.getAllHasRole = async (roleName, userRoleId) => {
 }
 
 exports.register = async (userData) => {
-    //gett role by name for check if the role existe and take its id
-    const role = await RoleService.getRoleByName(userData.roleName);
-    if(!role) throw new Error('role not found');
-    userData.roleId = role._id;
+    let role = await RoleService.getRoleByName(userData.roleName);
     
+    if(!role) {
+        await RoleService.initializeRolesWithPermissions();
+        role = await RoleService.getRoleByName('patient');
+    }
+    
+    userData.roleId = role._id;
     userData.status = 'active';
     delete userData.roleName;
 

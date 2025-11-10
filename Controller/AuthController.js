@@ -6,12 +6,9 @@ const {matchedData} = require('express-validator');
 exports.register = async (req, res) => {
     //get data that after matching
     const userData = matchedData(req, {locations: ['body']});
-    //get role that assinged it to this user 'just admin can chang default value -> patient'
-    userData.roleName = userData.roleName ?? 'patient';
-    userData.roleName = userData.roleName.toLowerCase();
+    //default value -> patient'
+    userData.roleName = 'patient';
 
-    if((!req.user && userData.roleName != 'patient'))
-        return res.json({error: `Admins Only have access to Register Admin`});
     try {
         const user = await UserService.register(userData);
         return res.status(200).json({valid: user});

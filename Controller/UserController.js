@@ -141,3 +141,14 @@ exports.initRoles = async (req, res) => {
         return res.json({error: error.message});
     }
 }
+
+// Create user by admin
+exports.createUser = async (req, res) => {
+    const userData = matchedData(req, {locations: ['body']});
+    try {
+        const user = await UserService.register(userData);
+        return res.json({valid: 'User created successfully', user});
+    } catch (error) {
+        return res.json({error: error.message});
+    }
+}

@@ -36,7 +36,6 @@ const PERMISSIONS = require('./../Enum/Permissions');
 router.post('/users/register',
     [
         // {firstName, lastName, email, password}
-        body('roleName').optional({ checkFalsy: true }).trim().notEmpty().withMessage('role is require'),
         body('email').isEmail().withMessage('email is not corect').escape(),
         body('password').isLength({ min: 6 }).withMessage('password must be greet thenor equal 6 charachters'),
         body('firstName').trim().notEmpty().withMessage('first name must be not empty').escape(),
@@ -71,6 +70,23 @@ router.post('/init-roles',
     isAuth, 
     iCan(PERMISSIONS.INIT_ROLES), 
     UserController.initRoles
+);
+
+router.post('/users',
+    isAuth,
+    iCan(PERMISSIONS.CREATE_USER),
+    [
+        body('roleName').trim().notEmpty().withMessage('role is required'),
+        body('email').isEmail().withMessage('email is not correct').escape(),
+        body('password').isLength({ min: 6 }).withMessage('password must be at least 6 characters'),
+        body('firstName').trim().notEmpty().withMessage('first name is required').escape(),
+        body('lastName').trim().notEmpty().withMessage('last name is required').escape(),
+    ],
+    function (req, res) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.json({ errors });
+        UserController.createUser(req, res);
+    }
 );
 
 
