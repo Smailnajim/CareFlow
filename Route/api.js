@@ -104,7 +104,7 @@ router.put('/users/:userId',
     isAuth,
     iCan(PERMISSIONS.UPDATE_USER),
     [
-        param('userId').trim().notEmpty().isMongoId().withMessage('there is no userID'),
+        param('userId').isMongoId().isMongoId().withMessage('there is no userID'),
         body('status').optional({ checkFalsy: true }).trim().notEmpty().withMessage('you must select a status'),
         body('roleName').optional({ checkFalsy: true }).trim().notEmpty().withMessage('you must select a roleName'),
         body('image').optional({ checkFalsy: true }).trim().notEmpty().withMessage('you must add a image'),

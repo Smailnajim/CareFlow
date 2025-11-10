@@ -9,8 +9,11 @@ const TimeService = require('./TimeService');
 
 
 exports.CreerUnRendezvous = async (rendezData) => {
+    console.log('CreerUnRendezvous');
     const roleauth = await RoleRepository.roleDeUser(rendezData.authId);
+    console.log('CreerUnRendezvous', roleauth);
     console.log(roleauth[0].roleName,rendezData.patientId, '\nvs\n',rendezData.authId);
+    console.log('CreerUnRendezvous');
     if(roleauth.length == 0) throw new Error('may be you are not connect');
     if ((roleauth[0].roleName == 'patient') && (rendezData.patientId != rendezData.authId))
         throw new Error('you cant create a rendez for anthor one');
