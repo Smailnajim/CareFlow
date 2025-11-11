@@ -20,6 +20,8 @@ module.exports = {
     
     
     CREATE_TREATMENT: 'create_treatment',
+    UPDATE_TREATMENT: 'update_treatment',
+    DELETE_TREATMENT: 'delete_treatment',
     VIEW_TREATMENT: 'view_treatment',
     
     

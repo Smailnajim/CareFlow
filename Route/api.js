@@ -67,8 +67,8 @@ router.post('/users/refresh',
 );
 
 router.post('/init-roles', 
-    isAuth, 
-    iCan(PERMISSIONS.INIT_ROLES), 
+    // isAuth, 
+    // iCan(PERMISSIONS.INIT_ROLES), 
     UserController.initRoles
 );
 
@@ -251,6 +251,45 @@ router.post('/tritments/rendesvous/:rendezId',
         if (!errors.isEmpty()) return res.json({ errors });
         console.log('here---');
         TritmentsController.createATritmentForRendezvou(req, res);
+    }
+);
+
+router.get('/tritments/:tritmentId',
+    isAuth,
+    iCan(PERMISSIONS.VIEW_TREATMENT),
+    [
+        param('tritmentId').isMongoId().withMessage('invalid treatment id')
+    ],
+    function (req, res) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.json({ errors });
+        TritmentsController.getTritment(req, res);
+    }
+);
+
+router.put('/tritments/:tritmentId',
+    isAuth,
+    iCan(PERMISSIONS.UPDATE_TREATMENT),
+    [
+        param('tritmentId').isMongoId().withMessage('invalid treatment id')
+    ],
+    function (req, res) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.json({ errors });
+        TritmentsController.updateTritment(req, res);
+    }
+);
+
+router.delete('/tritments/:tritmentId',
+    isAuth,
+    iCan(PERMISSIONS.DELETE_TREATMENT),
+    [
+        param('tritmentId').isMongoId().withMessage('invalid treatment id')
+    ],
+    function (req, res) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.json({ errors });
+        TritmentsController.deleteTritment(req, res);
     }
 );
 
