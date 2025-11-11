@@ -5,6 +5,7 @@ const PrescriptionsSchema = new mongoose.Schema({
     tritmentId: {type: mongoose.Schema.Types.ObjectId, ref: 'Tritment', required: true},
     patientId: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
     doctorId: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
+    pharmacyId: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     medicaments: [{
         name: {type: String, required: true},
         dosage: {type: String, required: true},

@@ -9,8 +9,11 @@ const TimeService = require('./TimeService');
 
 
 exports.CreerUnRendezvous = async (rendezData) => {
+    console.log('CreerUnRendezvous');
     const roleauth = await RoleRepository.roleDeUser(rendezData.authId);
+    console.log('CreerUnRendezvous', roleauth);
     console.log(roleauth[0].roleName,rendezData.patientId, '\nvs\n',rendezData.authId);
+    console.log('CreerUnRendezvous');
     if(roleauth.length == 0) throw new Error('may be you are not connect');
     if ((roleauth[0].roleName == 'patient') && (rendezData.patientId != rendezData.authId))
         throw new Error('you cant create a rendez for anthor one');
@@ -110,5 +113,20 @@ exports.updateRendez = async (data) => {
 exports.deleteRendezvous = async(rendezId) => {
     const rendez = await RendezvousRepository.deleteById(new Types.ObjectId(rendezId));
     if (!rendez) throw new Error('rendezvous not found');
+    return rendez;
+}
+
+exports.getRendezvousById = async(rendezId, authUser) => {
+    const RoleService = require('./RoleService');
+    const rendez = await RendezvousRepository.getRendezvousById(new Types.ObjectId(rendezId));
+    if (!rendez) throw new Error('rendezvous not found');
+    
+    const role = await RoleService.getRoleById(authUser.roleId);
+    if (role.name === 'patient') {
+        if (rendez.patientId.toString() !== authUser._id.toString()) {
+            throw new Error('You can only view your own rendezvous');
+        }
+    }
+    
     return rendez;
 }

@@ -69,3 +69,26 @@ const RoleService = require('./RoleService');
         }
     }
 
+    exports.getPharmacyPrescriptions = async(pharmacyId) => {
+        try {
+            return await PrescriptionRepository.getByPharmacy(pharmacyId);
+        } catch (error) {
+            Logger.error(`Error getting pharmacy prescriptions: ${error.message}`);
+            throw error;
+        }
+    }
+
+    exports.dispensePrescription = async(id, pharmacyId) => {
+        try {
+            const prescription = await PrescriptionRepository.getById(id);
+            if (!prescription) throw new Error('Prescription not found');
+            if (prescription.pharmacyId && prescription.pharmacyId.toString() !== pharmacyId) {
+                throw new Error('This prescription is assigned to another pharmacy');
+            }
+            return await PrescriptionRepository.updateStatus(id, 'dispensed');
+        } catch (error) {
+            Logger.error(`Error dispensing prescription: ${error.message}`);
+            throw error;
+        }
+    }
+

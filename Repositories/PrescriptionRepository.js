@@ -24,6 +24,13 @@ exports.getByDoctor = async(doctorId) => {
         .populate('tritmentId');
 }
 
+exports.getByPharmacy = async(pharmacyId) => {
+    return await Prescription.find({ pharmacyId })
+        .populate('patientId', 'name email')
+        .populate('doctorId', 'name email')
+        .populate('tritmentId');
+}
+
 exports.updateStatus = async(id, status) => {
     return await Prescription.findByIdAndUpdate(
         id,

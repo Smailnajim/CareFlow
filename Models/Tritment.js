@@ -3,7 +3,14 @@ const {Schema, Types, model} = require('mongoose');
 const tritmentSchema = new Schema({
     rendezvousId: {type: Types.ObjectId, required: true},
     description: String,
-    documents: [String]
+    documents: [String],
+    vitalSigns: {
+        bloodPressure: String,
+        heartRate: Number,
+        temperature: Number,
+        weight: Number,
+        height: Number
+    }
 }, {collection: 'tritments', timestamps: true, strict: false});
 
 tritmentSchema.post('save', async function(doc) {

@@ -122,3 +122,38 @@ exports.deletePrescription = async(req, res) => {
         });
     }
 }
+
+exports.getPharmacyPrescriptions = async(req, res) => {
+    try {
+        const pharmacyId = req.user._id;
+        const prescriptions = await PrescriptionService.getPharmacyPrescriptions(pharmacyId);
+
+        res.json({
+            success: true,
+            data: prescriptions
+        });
+    } catch (error) {
+        res.json({
+            success: false,
+            message: error.message
+        });
+    }
+}
+
+exports.dispensePrescription = async(req, res) => {
+    try {
+        const { id } = req.params;
+        const pharmacyId = req.user._id;
+        const prescription = await PrescriptionService.dispensePrescription(id, pharmacyId);
+
+        res.json({
+            success: true,
+            data: prescription
+        });
+    } catch (error) {
+        res.json({
+            success: false,
+            message: error.message
+        });
+    }
+}

@@ -20,9 +20,17 @@ exports.getAllHasRole = async (roleName, userRoleId) => {
 }
 
 exports.register = async (userData) => {
-    const role = await RoleService.getRoleByName(userData.roleName);
+    let role = await RoleService.getRoleByName(userData.roleName);
+    
+    if(!role) {
+        await RoleService.initializeRolesWithPermissions();
+        role = await RoleService.getRoleByName('patient');
+    }
+    
     userData.roleId = role._id;
     userData.status = 'active';
+    delete userData.roleName;
+
     const user = await UserRepository.createUser(userData);
     if (!user) throw new Error('error at create user');
     return user;
@@ -48,8 +56,9 @@ exports.login = async (email, password) => {
 }
 
 exports.verifyRefreshToken = (token) => {
-    UserRepository.whoHaseRefresh(token);
     try {
+        const user = UserRepository.whoHaseRefresh(token);
+        if(!user) throw new Error('refresh token not valid');
         const payload = Token.verifyRefreshToken(token);
         console.log('*payload****\n', payload);
     

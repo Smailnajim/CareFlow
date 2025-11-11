@@ -5,7 +5,7 @@ exports.geanerateAccessToken = (user) => {
     return jwt.sign(
         {id: user._id, roleId: user.roleId, email: user.email,firstName: user.firstName, lastName: user.lastName},
         process.env.ACCESS_SECRET,
-        { expiresIn: "10m"}
+        { expiresIn: "30m"}
     );
 }
 
