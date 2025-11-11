@@ -56,8 +56,9 @@ exports.login = async (email, password) => {
 }
 
 exports.verifyRefreshToken = (token) => {
-    UserRepository.whoHaseRefresh(token);
     try {
+        const user = UserRepository.whoHaseRefresh(token);
+        if(!user) throw new Error('refresh token not valid');
         const payload = Token.verifyRefreshToken(token);
         console.log('*payload****\n', payload);
     

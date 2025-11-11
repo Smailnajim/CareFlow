@@ -115,3 +115,18 @@ exports.deleteRendezvous = async(rendezId) => {
     if (!rendez) throw new Error('rendezvous not found');
     return rendez;
 }
+
+exports.getRendezvousById = async(rendezId, authUser) => {
+    const RoleService = require('./RoleService');
+    const rendez = await RendezvousRepository.getRendezvousById(new Types.ObjectId(rendezId));
+    if (!rendez) throw new Error('rendezvous not found');
+    
+    const role = await RoleService.getRoleById(authUser.roleId);
+    if (role.name === 'patient') {
+        if (rendez.patientId.toString() !== authUser._id.toString()) {
+            throw new Error('You can only view your own rendezvous');
+        }
+    }
+    
+    return rendez;
+}

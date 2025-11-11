@@ -43,6 +43,16 @@ exports.VoirTousLesRendezVousDeLaClinique = async (req, res) => {
         return res.json({error: error.message});
     }
 }
+
+exports.getRendezvousById = async (req, res) => {
+    const {rendezId} = matchedData(req, {locations: ['params']});
+    try {
+        const rendezvous = await RendezvousService.getRendezvousById(rendezId, req.user);
+        return res.json({rendezvous});
+    } catch (error) {
+        return res.json({error: error.message});
+    }
+}
 }
 
 //update

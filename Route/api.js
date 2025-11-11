@@ -11,6 +11,8 @@ const multer = require('multer');
 const minioClient = require('./../Config/minioClient');
 const logger = require("./../Utils/Logger");
 const PrescriptionController = require('./../Controller/PrescriptionController');
+const LabOrderController = require('./../Controller/LabOrderController');
+const DocumentController = require('./../Controller/DocumentController');
 const isAuth = require('./../middleware/isAuth');
 const iCan = require('./../middleware/iCan');
 const PERMISSIONS = require('./../Enum/Permissions');
@@ -179,6 +181,19 @@ router.post('/rendezvous',
         if (!errors.isEmpty()) return res.json({ errors });
         RendezvousController.CreerUnRendezvousPourPatient(req, res);
 });
+
+router.get('/rendezvous/:rendezId',
+    isAuth,
+    iCan(PERMISSIONS.VIEW_RENDEZVOUS),
+    [
+        param('rendezId').isMongoId().withMessage('invalid rendezvous id')
+    ],
+    function (req, res) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.json({ errors });
+        RendezvousController.getRendezvousById(req, res);
+    }
+);
 
 //Vérifier mes disponibilités et celles de mes collègues
 router.get('/users/time-works',
@@ -393,8 +408,126 @@ router.post('/files',
             PrescriptionController.deletePrescription(req, res);
         }
     );
+
+    router.get('/pharmacy/prescriptions',
+        isAuth,
+        iCan(PERMISSIONS.VIEW_PHARMACY_PRESCRIPTIONS),
+        (req, res) => PrescriptionController.getPharmacyPrescriptions(req, res)
+    );
+
+    router.put('/prescriptions/:id/dispense',
+        isAuth,
+        iCan(PERMISSIONS.DISPENSE_PRESCRIPTION),
+        [
+            param('id').isMongoId().withMessage('invalid prescription id')
+        ],
+        (req, res) => {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) return res.json({ errors: errors.array() });
+            PrescriptionController.dispensePrescription(req, res);
+        }
+    );
 }
 
-//
-// router.get('/test', RendezvousController.CreerUnRendezvousPourPatient);
+// Lab Order Routes
+router.post('/lab-orders',
+    isAuth,
+    iCan(PERMISSIONS.CREATE_LAB_ORDER),
+    [
+        body('patientId').isMongoId().withMessage('patient id is required'),
+        body('tests').isArray().withMessage('tests must be an array'),
+    ],
+    function (req, res) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.json({ errors });
+        LabOrderController.createLabOrder(req, res);
+    }
+);
+
+router.get('/lab-orders/:labOrderId',
+    isAuth,
+    iCan(PERMISSIONS.VIEW_LAB_ORDER),
+    [
+        param('labOrderId').isMongoId().withMessage('invalid lab order id')
+    ],
+    function (req, res) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.json({ errors });
+        LabOrderController.getLabOrder(req, res);
+    }
+);
+
+router.put('/lab-orders/:labOrderId',
+    isAuth,
+    iCan(PERMISSIONS.UPDATE_LAB_ORDER),
+    [
+        param('labOrderId').isMongoId().withMessage('invalid lab order id')
+    ],
+    function (req, res) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.json({ errors });
+        LabOrderController.updateLabOrder(req, res);
+    }
+);
+
+router.get('/lab-orders/patient/:patientId',
+    isAuth,
+    iCan(PERMISSIONS.VIEW_LAB_ORDER),
+    [
+        param('patientId').isMongoId().withMessage('invalid patient id')
+    ],
+    function (req, res) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.json({ errors });
+        LabOrderController.getPatientLabOrders(req, res);
+    }
+);
+
+router.get('/lab-orders/:labOrderId/download',
+    isAuth,
+    iCan(PERMISSIONS.VIEW_LAB_ORDER),
+    [
+        param('labOrderId').isMongoId().withMessage('invalid lab order id')
+    ],
+    function (req, res) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.json({ errors });
+        LabOrderController.downloadLabReport(req, res);
+    }
+);
+
+// Document Routes
+router.post('/documents',
+    isAuth,
+    iCan(PERMISSIONS.UPLOAD_DOCUMENT),
+    upload.single('file'),
+    DocumentController.uploadDocument
+);
+
+router.get('/documents/patient/:patientId',
+    isAuth,
+    iCan(PERMISSIONS.VIEW_DOCUMENT),
+    [
+        param('patientId').isMongoId().withMessage('invalid patient id')
+    ],
+    function (req, res) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.json({ errors });
+        DocumentController.getPatientDocuments(req, res);
+    }
+);
+
+router.delete('/documents/:documentId',
+    isAuth,
+    iCan(PERMISSIONS.DELETE_DOCUMENT),
+    [
+        param('documentId').isMongoId().withMessage('invalid document id')
+    ],
+    function (req, res) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.json({ errors });
+        DocumentController.deleteDocument(req, res);
+    }
+);
+
 module.exports = router;
