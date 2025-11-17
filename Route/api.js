@@ -530,4 +530,20 @@ router.delete('/documents/:documentId',
     }
 );
 
+// Enums Route
+router.get('/enums', 
+    isAuth,
+    iCan(PERMISSIONS.VIEW_ENUMS),
+    (req, res) => {
+        res.json({
+            roles: require('./../Enum/Roles'),
+            userStatus: require('./../Enum/status'),
+            rendezvousStatus: require('./../Enum/RendezvouStatus'),
+            prescriptionStatus: require('./../Enum/PrescriptionsStatus'),
+            labOrderStatus: require('./../Enum/LabOrder'),
+            permissions: require('./../Enum/Permissions')
+        });
+    }
+);
+
 module.exports = router;

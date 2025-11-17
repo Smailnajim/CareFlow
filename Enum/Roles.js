@@ -1,11 +1,11 @@
-module.exports = ['patient', 'admin', 'infirmiers', 'medecin', 'secritaire'];
+module.exports = ['patient', 'admin', 'medecin', "laboratoire"];
 
     //medecin
 //6912fbc1f999ab3574d37b01
 // "email": "medecin.1@gmail.com",
 // "password": "medecin",
 
-
+    //admin
 // {
 //     "valid": {
 //         "roleId": "68ec1f6e918d473d23cebea4",
@@ -21,3 +21,19 @@ module.exports = ['patient', 'admin', 'infirmiers', 'medecin', 'secritaire'];
 //         "__v": 0
 //     }
 // }
+
+    //  laboratoir
+
+    // "valid": {
+    //     "roleId": "68ec1f6e918d473d23cebea4",
+    //     "firstName": "laboratoire",
+    //     "lastName": "laboratoire",
+    //     "email": "laboratoire@gmail.com",
+    //     "password": "$2b$10$IUzknTJSGVw.dQFHI5bWqeT01lvz2i3SUgM4LZOvACdY3U5aw553a",
+    //     "status": "active",
+    //     "refreshTokens": [],
+    //     "_id": "69143d0bb5ae0773ad46d340",
+    //     "createdAt": "2025-11-12T07:53:47.882Z",
+    //     "updatedAt": "2025-11-12T07:53:47.882Z",
+    //     "__v": 0
+    // }

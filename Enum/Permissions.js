@@ -11,6 +11,7 @@ module.exports = {
     DELETE_RENDEZVOUS: 'delete_rendezvous',
     VIEW_RENDEZVOUS: 'view_rendezvous',
     VIEW_ALL_RENDEZVOUS: 'view_all_rendezvous',
+    VIEW_ENUMS: "VIEW_ENUMS",
     
     
     CREATE_PRESCRIPTION: 'create_prescription',

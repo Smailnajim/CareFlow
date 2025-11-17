@@ -1,4 +1,5 @@
 const {Schema, Types, model} = require('mongoose');
+const LabOrderE = require('./../Enum/LabOrder');
 
 const testSchema = new Schema({
     name: String,
@@ -18,7 +19,7 @@ const labOrderSchema = new Schema({
     medecinId: {type: Types.ObjectId, ref: 'User', required: true},
     tritmentId: {type: Types.ObjectId, ref: 'Tritment'},
     tests: [testSchema],
-    status: {type: String, enum: ['pending', 'completed', 'cancelled'], default: 'pending'},
+    status: {type: String, enum: LabOrderE, default: 'pending'},
     results: [resultSchema],
     pdfReport: String
 }, {timestamps: true});

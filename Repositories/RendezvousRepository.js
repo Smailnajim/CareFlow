@@ -6,7 +6,7 @@ exports.createRendezvou = async (data) => {
         return await Rendezvous.create(data);
 }
 
-exports.medecinsDisponibilites = async (userID) => {
+exports.medecinsDisponibilites = async () => {
     return await User.aggregate([
         {
             $lookup: {

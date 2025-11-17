@@ -1,0 +1,450 @@
+{
+	"info": {
+		"name": "CareFlow API",
+		"description": "Complete API collection for CareFlow EHR system",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000/api",
+			"type": "string"
+		},
+		{
+			"key": "accessToken",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTMxNzVkZDllM2NiZDM4MzM3MzRhMyIsInJvbGVJZCI6IjY4ZWMxZjZlOTE4ZDQ3M2QyM2NlYmVhNSIsImVtYWlsIjoiYWRtaW4uMDBAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoiYWRtaW5GaXJzdE5hbWUiLCJsYXN0TmFtZSI6ImFkbWluTGFzdE5hbWUiLCJpYXQiOjE3NjI5MzczMzgsImV4cCI6MTc2MjkzOTEzOH0.vKAUjfAEgsjsPOgz-AH-oAyRYB95TIGB2sA_c0YJxGM",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\"\n}",
+							"options": {"raw": {"language": "json"}}
+						},
+						"url": "{{baseUrl}}/users/register"
+					}
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin.00@gmail.com\",\n  \"password\": \"adminadmin\"\n}",
+							"options": {"raw": {"language": "json"}}
+						},
+						"url": "{{baseUrl}}/users/login"
+					}
+				},
+				{
+					"name": "Refresh Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"refreshToken\": \"your_refresh_token\"\n}",
+							"options": {"raw": {"language": "json"}}
+						},
+						"url": "{{baseUrl}}/users/refresh"
+					}
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Init Roles",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "{{baseUrl}}/init-roles"
+					}
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"roleName\": \"patient\",\n  \"email\": \"patient@example.com\",\n  \"password\": \"password123\",\n  \"firstName\": \"Jane\",\n  \"lastName\": \"Smith\"\n}",
+							"options": {"raw": {"language": "json"}}
+						},
+						"url": "{{baseUrl}}/users"
+					}
+				},
+				{
+					"name": "Get User Profile",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"url": "{{baseUrl}}/user-profils/:id"
+					}
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"active\",\n  \"firstName\": \"Updated Name\"\n}",
+							"options": {"raw": {"language": "json"}}
+						},
+						"url": "{{baseUrl}}/users/:userId"
+					}
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"url": "{{baseUrl}}/users/:userId"
+					}
+				},
+				{
+					"name": "Filter Users by Role",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"url": "{{baseUrl}}/users/filter/:roleName"
+					}
+				}
+			]
+		},
+		{
+			"name": "Rendezvous",
+			"item": [
+				{
+					"name": "Create Rendezvous",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"medecinId\": \"6912fbc1f999ab3574d37b01\",\n  \"patientId\": \"patient_id_here\",\n  \"cause\": \"Consultation\"\n}",
+							"options": {"raw": {"language": "json"}}
+						},
+						"url": "{{baseUrl}}/rendezvous"
+					}
+				},
+				{
+					"name": "Get All Rendezvous",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/rendezvous"
+					}
+				},
+				{
+					"name": "Get Rendezvous by ID",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"url": "{{baseUrl}}/rendezvous/:rendezId"
+					}
+				},
+				{
+					"name": "Update Rendezvous",
+					"request": {
+						"method": "PUT",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cause\": \"Updated cause\"\n}",
+							"options": {"raw": {"language": "json"}}
+						},
+						"url": "{{baseUrl}}/rendezvous/:rendezId"
+					}
+				},
+				{
+					"name": "Change Rendezvous Status",
+					"request": {
+						"method": "PUT",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"url": "{{baseUrl}}/rendezvous/:rendezId/:status"
+					}
+				},
+				{
+					"name": "Delete Rendezvous",
+					"request": {
+						"method": "DELETE",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"url": "{{baseUrl}}/rendezvous/:rendezId"
+					}
+				},
+				{
+					"name": "Get Time Works",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"url": "{{baseUrl}}/users/time-works"
+					}
+				}
+			]
+		},
+		{
+			"name": "Treatments",
+			"item": [
+				{
+					"name": "Create Treatment",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"description\": \"Treatment description\",\n  \"vitalSigns\": {\n    \"bloodPressure\": \"120/80\",\n    \"heartRate\": 75,\n    \"temperature\": 37.5\n  }\n}",
+							"options": {"raw": {"language": "json"}}
+						},
+						"url": "{{baseUrl}}/tritments/rendesvous/:rendezId"
+					}
+				},
+				{
+					"name": "Get Treatment",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"url": "{{baseUrl}}/tritments/:tritmentId"
+					}
+				},
+				{
+					"name": "Update Treatment",
+					"request": {
+						"method": "PUT",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"description\": \"Updated description\"\n}",
+							"options": {"raw": {"language": "json"}}
+						},
+						"url": "{{baseUrl}}/tritments/:tritmentId"
+					}
+				},
+				{
+					"name": "Delete Treatment",
+					"request": {
+						"method": "DELETE",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"url": "{{baseUrl}}/tritments/:tritmentId"
+					}
+				}
+			]
+		},
+		{
+			"name": "Prescriptions",
+			"item": [
+				{
+					"name": "Create Prescription",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"patientId\": \"patient_id\",\n  \"tritmentId\": \"treatment_id\",\n  \"medicaments\": [\n    {\n      \"name\": \"Paracetamol\",\n      \"dosage\": \"500mg\",\n      \"voieAdministration\": \"oral\",\n      \"frequence\": \"3 times daily\",\n      \"duree\": \"7 days\",\n      \"renouvellements\": 0\n    }\n  ]\n}",
+							"options": {"raw": {"language": "json"}}
+						},
+						"url": "{{baseUrl}}/prescriptions"
+					}
+				},
+				{
+					"name": "Get Prescription",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"url": "{{baseUrl}}/prescriptions/:id"
+					}
+				},
+				{
+					"name": "Get Doctor Prescriptions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/doctor/prescriptions"
+					}
+				},
+				{
+					"name": "Get Patient Prescriptions",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"url": "{{baseUrl}}/prescriptions/patient/:patientId"
+					}
+				},
+				{
+					"name": "Update Prescription Status",
+					"request": {
+						"method": "PUT",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"dispensed\"\n}",
+							"options": {"raw": {"language": "json"}}
+						},
+						"url": "{{baseUrl}}/prescriptions/:id/status"
+					}
+				},
+				{
+					"name": "Delete Prescription",
+					"request": {
+						"method": "DELETE",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"url": "{{baseUrl}}/prescriptions/:id"
+					}
+				},
+				{
+					"name": "Get Pharmacy Prescriptions",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"url": "{{baseUrl}}/pharmacy/prescriptions"
+					}
+				},
+				{
+					"name": "Dispense Prescription",
+					"request": {
+						"method": "PUT",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"url": "{{baseUrl}}/prescriptions/:id/dispense"
+					}
+				}
+			]
+		},
+		{
+			"name": "Lab Orders",
+			"item": [
+				{
+					"name": "Create Lab Order",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"patientId\": \"patient_id\",\n  \"tritmentId\": \"treatment_id\",\n  \"tests\": [\n    {\"name\": \"Blood Test\", \"type\": \"hematology\"},\n    {\"name\": \"Urine Test\", \"type\": \"urinalysis\"}\n  ]\n}",
+							"options": {"raw": {"language": "json"}}
+						},
+						"url": "{{baseUrl}}/lab-orders"
+					}
+				},
+				{
+					"name": "Get Lab Order",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"url": "{{baseUrl}}/lab-orders/:labOrderId"
+					}
+				},
+				{
+					"name": "Update Lab Order",
+					"request": {
+						"method": "PUT",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"completed\",\n  \"results\": [\n    {\n      \"testName\": \"Blood Test\",\n      \"value\": \"Normal\",\n      \"unit\": \"mg/dL\",\n      \"normalRange\": \"70-100\",\n      \"isAbnormal\": false\n    }\n  ],\n  \"pdfReport\": \"report_url.pdf\"\n}",
+							"options": {"raw": {"language": "json"}}
+						},
+						"url": "{{baseUrl}}/lab-orders/:labOrderId"
+					}
+				},
+				{
+					"name": "Get Patient Lab Orders",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"url": "{{baseUrl}}/lab-orders/patient/:patientId"
+					}
+				},
+				{
+					"name": "Download Lab Report",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"url": "{{baseUrl}}/lab-orders/:labOrderId/download"
+					}
+				}
+			]
+		},
+		{
+			"name": "Documents",
+			"item": [
+				{
+					"name": "Upload Document",
+					"request": {
+						"method": "POST",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{"key": "file", "type": "file", "src": ""},
+								{"key": "patientId", "value": "patient_id", "type": "text"},
+								{"key": "tritmentId", "value": "treatment_id", "type": "text"},
+								{"key": "category", "value": "imagerie", "type": "text"}
+							]
+						},
+						"url": "{{baseUrl}}/documents"
+					}
+				},
+				{
+					"name": "Get Patient Documents",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"url": "{{baseUrl}}/documents/patient/:patientId"
+					}
+				},
+				{
+					"name": "Delete Document",
+					"request": {
+						"method": "DELETE",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"url": "{{baseUrl}}/documents/:documentId"
+					}
+				}
+			]
+		},
+		{
+			"name": "Files",
+			"item": [
+				{
+					"name": "Upload File to MinIO",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{"key": "file", "type": "file", "src": ""}
+							]
+						},
+						"url": "{{baseUrl}}/files"
+					}
+				}
+			]
+		},
+		{
+			"name": "Enums",
+			"item": [
+				{
+					"name": "Get All Enums",
+					"request": {
+						"method": "GET",
+						"header": [{"key": "Authorization", "value": "Bearer {{accessToken}}"}],
+						"url": "{{baseUrl}}/enums"
+					}
+				}
+			]
+		}
+	]
+}
