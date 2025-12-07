@@ -133,6 +133,7 @@ router.put('/users/:userId',
         body('dateNasonse').optional({ checkFalsy: true }).isDate().withMessage('this is not a dateNasonse'),
     ],
     function (req, res) {
+        console.log('**********\n');
         const errors = validationResult(req);
         if (!errors.isEmpty()) return res.json({ errors });
         UserController.updateUser(req, res);

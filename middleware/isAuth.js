@@ -3,9 +3,10 @@ const jwt = require('jsonwebtoken');
 
 
 module.exports = (req, res, next) => {
+    console.log('a**********\n');
     const accessauth = req.headers['authorization'];
     const token = accessauth && accessauth.split(' ')[2];
-    if (!token) return res.json({ message: 'there is no access token' });
+    if (!token) return res.json({message: 'there is no access token'});
 
 
     console.log('Token:', token);
