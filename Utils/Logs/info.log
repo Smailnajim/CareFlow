@@ -1193,3 +1193,76 @@ Use mongoose.model(name, schema) PLACE: C:\Users\Youcode\Desktop\Nouveau dossier
 [2025:11:12 10:29:53] info: ::1 - - [12/Nov/2025:09:29:53 +0000] "POST /api/users HTTP/1.1" 200 129 "-" "PostmanRuntime/7.50.0" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
 [2025:11:12 10:30:08] info: ::1 - - [12/Nov/2025:09:30:08 +0000] "POST /api/users HTTP/1.1" 200 402 "-" "PostmanRuntime/7.50.0" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
 [2025:11:12 10:41:21] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:22:36] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:23:50] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:24:08] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:24:13] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:24:17] info: ::1 - - [17/Nov/2025:14:24:17 +0000] "POST /api/users/login HTTP/1.1" 200 350 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:40:10] info: ::1 - - [17/Nov/2025:14:40:10 +0000] "POST /api/users/register HTTP/1.1" 200 225 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:40:53] info: ::1 - - [17/Nov/2025:14:40:53 +0000] "POST /api/users/register HTTP/1.1" 200 345 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:41:08] info: ::1 - - [17/Nov/2025:14:41:08 +0000] "POST /api/users/login HTTP/1.1" 200 327 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:41:23] info: ::1 - - [17/Nov/2025:14:41:23 +0000] "POST /api/users/refresh HTTP/1.1" 200 285 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:42:41] info: ::1 - - [17/Nov/2025:14:42:41 +0000] "POST /api/rendezvous HTTP/1.1" 200 27 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:42:58] info: ::1 - - [17/Nov/2025:14:42:58 +0000] "POST /api/rendezvous HTTP/1.1" 200 68 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:44:09] info: ::1 - - [17/Nov/2025:14:44:09 +0000] "POST /api/rendezvous HTTP/1.1" 200 68 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:45:40] info: ::1 - - [17/Nov/2025:14:45:40 +0000] "POST /api/init-roles HTTP/1.1" 200 42 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:45:46] info: ::1 - - [17/Nov/2025:14:45:46 +0000] "POST /api/rendezvous HTTP/1.1" 200 68 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:46:09] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:46:09] info: ::1 - - [17/Nov/2025:14:46:09 +0000] "POST /api/rendezvous HTTP/1.1" - - "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:46:12] info: ::1 - - [17/Nov/2025:14:46:12 +0000] "POST /api/rendezvous HTTP/1.1" 200 68 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:46:27] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:46:32] info: ::1 - - [17/Nov/2025:14:46:32 +0000] "POST /api/rendezvous HTTP/1.1" 200 68 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:49:02] info: ::1 - - [17/Nov/2025:14:49:02 +0000] "POST /api/rendezvous HTTP/1.1" 200 177 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:49:58] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:50:01] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:50:12] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:50:13] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:50:17] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:50:26] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:51:12] info: ::1 - - [17/Nov/2025:14:51:12 +0000] "DELETE /api/rendezvous/691b35de5a7b79f7d2761181 HTTP/1.1" 200 38 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:51:58] info: ::1 - - [17/Nov/2025:14:51:58 +0000] "POST /api/users/login HTTP/1.1" 200 350 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:52:16] info: ::1 - - [17/Nov/2025:14:52:16 +0000] "DELETE /api/rendezvous/691b35de5a7b79f7d2761181 HTTP/1.1" 200 43 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:53:36] info: ::1 - - [17/Nov/2025:14:53:36 +0000] "POST /api/rendezvous HTTP/1.1" 200 177 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:53:45] info: ::1 - - [17/Nov/2025:14:53:45 +0000] "PUT /api/rendezvous/691b36f06fb14eccab6c7bc8/enCoure HTTP/1.1" 200 213 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 15:54:01] info: ::1 - - [17/Nov/2025:14:54:01 +0000] "PUT /api/rendezvous/691b36f06fb14eccab6c7bc8/anneler HTTP/1.1" 200 213 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 16:02:12] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 16:02:17] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 16:04:10] info: ::1 - - [17/Nov/2025:15:04:10 +0000] "POST /api/tritments/rendesvous/691b36f06fb14eccab6c7bc8 HTTP/1.1" 200 38 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 16:04:22] info: ::1 - - [17/Nov/2025:15:04:22 +0000] "POST /api/tritments/rendesvous/691b36f06fb14eccab6c7bc8 HTTP/1.1" 200 130 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 16:05:19] info: ::1 - - [17/Nov/2025:15:05:19 +0000] "POST /api/tritments/rendesvous/691b36f06fb14eccab6c7bc8 HTTP/1.1" 200 334 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 16:08:05] info: ::1 - - [17/Nov/2025:15:08:05 +0000] "POST /api/lab-orders HTTP/1.1" 200 27 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 16:08:17] info: ::1 - - [17/Nov/2025:15:08:17 +0000] "POST /api/users/refresh HTTP/1.1" 200 307 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 16:08:34] info: ::1 - - [17/Nov/2025:15:08:34 +0000] "POST /api/lab-orders HTTP/1.1" 200 80 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 16:10:44] info: ::1 - - [17/Nov/2025:15:10:44 +0000] "POST /api/lab-orders HTTP/1.1" 200 80 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 16:10:48] info: ::1 - - [17/Nov/2025:15:10:48 +0000] "POST /api/lab-orders HTTP/1.1" 200 80 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 16:12:17] info: ::1 - - [17/Nov/2025:15:12:17 +0000] "POST /api/lab-orders HTTP/1.1" 200 80 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 16:13:20] info: ::1 - - [17/Nov/2025:15:13:20 +0000] "POST /api/lab-orders HTTP/1.1" 200 80 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 16:14:07] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 16:14:07] info: ::1 - - [17/Nov/2025:15:14:07 +0000] "POST /api/lab-orders HTTP/1.1" 200 398 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 16:14:20] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:17 16:23:42] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:12:07 08:36:59] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:12:07 08:55:08] info: ::ffff:127.0.0.1 - - [07/Dec/2025:07:55:08 +0000] "OPTIONS /users/register HTTP/1.1" 404 157 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:140.0) Gecko/20100101 Firefox/140.0" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:12:07 08:58:04] info: ::ffff:127.0.0.1 - - [07/Dec/2025:07:58:04 +0000] "OPTIONS /users/login HTTP/1.1" 404 154 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:140.0) Gecko/20100101 Firefox/140.0" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:12:07 08:58:13] info: ::1 - - [07/Dec/2025:07:58:13 +0000] "POST /api/users/login HTTP/1.1" 200 350 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:12:07 08:58:16] info: ::1 - - [07/Dec/2025:07:58:16 +0000] "POST /api/users/login HTTP/1.1" 200 350 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:12:07 08:58:18] info: ::1 - - [07/Dec/2025:07:58:18 +0000] "POST /api/users/login HTTP/1.1" 200 350 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:12:07 09:00:32] info: ::ffff:127.0.0.1 - - [07/Dec/2025:08:00:32 +0000] "OPTIONS /api/users/login HTTP/1.1" 200 17 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:140.0) Gecko/20100101 Firefox/140.0" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:12:07 09:00:33] info: ::ffff:127.0.0.1 - - [07/Dec/2025:08:00:33 +0000] "OPTIONS /api/users/login HTTP/1.1" 200 17 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:140.0) Gecko/20100101 Firefox/140.0" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:12:07 09:00:48] info: ::ffff:127.0.0.1 - - [07/Dec/2025:08:00:48 +0000] "OPTIONS /api/users/register HTTP/1.1" 200 17 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:140.0) Gecko/20100101 Firefox/140.0" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:12:07 09:02:39] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:12:07 09:03:02] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:12:07 09:03:43] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:12:07 09:03:48] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:12:07 09:03:54] info: ::ffff:127.0.0.1 - - [07/Dec/2025:08:03:54 +0000] "POST /api/users/register HTTP/1.1" 200 348 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:140.0) Gecko/20100101 Firefox/140.0" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:12:07 09:03:57] info: ::ffff:127.0.0.1 - - [07/Dec/2025:08:03:57 +0000] "POST /api/users/register HTTP/1.1" 200 128 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:140.0) Gecko/20100101 Firefox/140.0" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:12:07 09:03:58] info: ::ffff:127.0.0.1 - - [07/Dec/2025:08:03:58 +0000] "POST /api/users/register HTTP/1.1" 200 128 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:140.0) Gecko/20100101 Firefox/140.0" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:12:07 09:04:19] info: ::ffff:127.0.0.1 - - [07/Dec/2025:08:04:19 +0000] "POST /api/users/login HTTP/1.1" 200 331 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:140.0) Gecko/20100101 Firefox/140.0" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:12:07 09:06:54] info: ::1 - - [07/Dec/2025:08:06:54 +0000] "POST /api/users/refresh HTTP/1.1" 200 307 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:12:07 09:06:56] info: ::1 - - [07/Dec/2025:08:06:56 +0000] "POST /api/users/refresh HTTP/1.1" 200 307 "-" "PostmanRuntime/7.49.1" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:12:07 09:35:55] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:12:07 09:36:30] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:12:07 09:36:36] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:12:07 09:41:14] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:12:07 09:41:22] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:12:07 09:41:26] info: work on http://localhost:3000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js

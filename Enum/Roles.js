@@ -6,6 +6,12 @@ module.exports = ['patient', 'admin', 'medecin', "laboratoire"];
 // "password": "medecin",
 
     //admin
+    // {
+// "roleName": "Admin",
+// "email": "admin.00@gmail.com",
+// "password": "adminadmin"
+
+// }
 // {
 //     "valid": {
 //         "roleId": "68ec1f6e918d473d23cebea4",
@@ -23,7 +29,12 @@ module.exports = ['patient', 'admin', 'medecin', "laboratoire"];
 // }
 
     //  laboratoir
-
+// {
+//     "email":"laboratoire@gmail.com",
+//     "password":"laboratoire",
+//     "firstName":"laboratoire",
+//     "lastName":"laboratoire"
+// }
     // "valid": {
     //     "roleId": "68ec1f6e918d473d23cebea4",
     //     "firstName": "laboratoire",

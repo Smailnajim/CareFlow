@@ -33,7 +33,7 @@ exports.autoMails = () => {
         const now2 = new Date();
         console.log('\n-------------------------\nChecking for rendezvous to notify at:', now2);
 
-    cron.schedule('0 * * * *', async () => {
+    cron.schedule('3 16 * * *', async () => {
         const now = new Date();
         const next24h = new Date(now.getTime() + 86400000);// 24h =>86 400 000 ms
 

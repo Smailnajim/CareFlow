@@ -17,6 +17,15 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cookieParser());
 
+const cors = require('cors');
+
+// Add this BEFORE your routes
+app.use(cors({
+    origin: 'http://localhost:5173',  // Vite's default port
+    credentials: true
+}));
+// app.use(cors());
+
 app.use(morgan('combined', {
     stream: {
         write: (message) => logger.info(message.trim())

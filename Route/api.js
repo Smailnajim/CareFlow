@@ -537,7 +537,7 @@ router.get('/enums',
     (req, res) => {
         res.json({
             roles: require('./../Enum/Roles'),
-            userStatus: require('./../Enum/status'),
+            userStatus: require('./../Enum/Status'),
             rendezvousStatus: require('./../Enum/RendezvouStatus'),
             prescriptionStatus: require('./../Enum/PrescriptionsStatus'),
             labOrderStatus: require('./../Enum/LabOrder'),
