@@ -1,9 +1,9 @@
 require('dotenv').config();
-const jwt = require('jsonwebToken');
+const jwt = require('jsonwebtoken');
 
-exports.geanerateAccessToken = (user) => {
+exports.generateAccessToken = (user) => {
     return jwt.sign(
-        {id: user._id, roleId: user.roleId, email: user.email,firstName: user.firstName, lastName: user.lastName},
+        {id: user._id, roleId: user.roleId, email: user.email,firstName: user.firstName, lastName: user.lastName, phone: user.phone},
         process.env.ACCESS_SECRET,
         { expiresIn: "30m"}
     );
