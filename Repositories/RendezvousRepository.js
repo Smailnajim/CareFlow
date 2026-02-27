@@ -36,7 +36,7 @@ exports.medecinsDisponibilites = async () => {
         },{
             $addFields:{
                 iWantFirst: {
-                    // $cond: [{$eq:['$_id', req.user._id]}, 1, 0]
+                    // $cond: [{$eq:['$_id', new Types.ObjectId(req.user._id) ]}, 1, 0]
                     $cond: [{$eq:['$_id', new Types.ObjectId('68ec3d11a67f6d5bbff95279') ]}, 1, 0]
                 }
             }
@@ -47,6 +47,8 @@ exports.medecinsDisponibilites = async () => {
         },{
             $project: {
                 'password': 0,
+                'refreshTokens': 0,
+                "role.permissions": 0
             }
         }
     ]);
@@ -80,13 +82,7 @@ exports.VoirTousLesRendezVousDeLaClinique = async () => {
 }
 
 exports.getRendezvousById = async (rendezvousId) => {
-    try {
-        const rendez = await Rendezvous.findById(rendezvousId);
-        if (!rendez) return res.json({error: 'there is an error this rendezvou not found or id not corect'});
-        return rendez;
-    } catch (error) {
-        return res.json({error});
-    }
+    return await Rendezvous.findById(rendezvousId);
 }
 
 exports.whoHasRendezAfter24And25 = async () => {
@@ -136,5 +132,9 @@ exports.checkDateDisponible = async (dateStar, dateFine) => {
 }
 
 exports.updateRendez = async (rendez) => {
-    await Rendezvous.updateOne({_id: rendez.rendezvousId}, rendez);
+    return await Rendezvous.updateOne({_id: rendez.rendezvousId}, rendez);
+}
+
+exports.deleteById = async (rendezId) => {
+    return await Rendezvous.findByIdAndDelete(rendezId);
 }

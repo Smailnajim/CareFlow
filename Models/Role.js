@@ -6,6 +6,10 @@ const schem = new mongoose.Schema({
         type: String,
         enum: roles,
         required: true
+    },
+    permissions: {
+        type: [String],
+        default: []
     }
 },{collection: 'roles', timestamps: true });
 

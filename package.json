@@ -4,7 +4,8 @@
   "description": "le socle backend d'un EHR (Electronic Health Record) destiné à des cliniques et cabinets. L'objectif est d'exposer une API REST versionnée permettant la gestion des utilisateurs, des patients et des rendez-vous avec prévention de conflits.",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./server.js"
+    "dev": "nodemon ./server.js",
+    "test": "mocha --timeout 10000 --exit"
   },
   "keywords": [],
   "author": "",
@@ -12,14 +13,24 @@
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-validator": "^7.2.1",
     "jsonwebtoken": "^9.0.2",
+    "minio": "^8.0.6",
     "mongoose": "^8.19.1",
+    "morgan": "^1.10.1",
+    "multer": "^2.0.2",
     "node-cron": "^4.2.1",
     "nodemailer": "^7.0.9",
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "winston": "^3.18.3"
+  },
+  "devDependencies": {
+    "chai": "^6.2.0",
+    "mocha": "^11.7.4",
+    "supertest": "^7.1.4"
   }
 }

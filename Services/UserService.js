@@ -1,21 +1,36 @@
 const RoleService = require('./RoleService');
 const UserRepository = require('./../Repositories/UserRepository');
 const Token = require('./../Utils/Token');
+const Role = require('../Models/Role');
 
 
 
 
-exports.getAllHasRole = async (roleName) => {
-    const role = await RoleService.getRoleByName(roleName);
-    const users = await UserRepository.getUsersByRoleId(role._id);
-    if (users.length == 0) throw new Error('there is no users with role: '+roleName);
+exports.getAllHasRole = async (roleName, userRoleId) => {
+    const requestedRole = await RoleService.getRoleByName(roleName);
+    const userRole = await RoleService.getRoleById(userRoleId);
+
+    if (roleName == 'admin' && userRole.name != 'admin') {
+        throw new Error('Only admin can filter admin users');
+    }
+
+    const users = await UserRepository.getUsersByRoleId(requestedRole._id);
+    if (users.length == 0) throw new Error('there is no users with role: ' + roleName);
     return users;
 }
 
 exports.register = async (userData) => {
-    const role = await RoleService.getRoleByName(userData.roleName ?? 'patient');
+    let role = await RoleService.getRoleByName(userData.roleName);
+
+    if (!role) {
+        await RoleService.initializeRolesWithPermissions();
+        role = await RoleService.getRoleByName('patient');
+    }
+
     userData.roleId = role._id;
     userData.status = 'active';
+    delete userData.roleName;
+
     const user = await UserRepository.createUser(userData);
     if (!user) throw new Error('error at create user');
     return user;
@@ -23,29 +38,30 @@ exports.register = async (userData) => {
 
 exports.login = async (email, password) => {
     const user = await UserRepository.getOneByEmail(email);
-    if(!user) throw new Error('email or password not corect');
+    if (!user) throw new Error('email or password not corect');
     const compar = await user.comparePassword(password);
-    if(!compar) throw new Error('email or password not corect');
+    if (!compar) throw new Error('email or password not corect');
 
-    if (user.status == 'suspended'){
+    if (user.status == 'suspended') {
         error = new Error('your account is suspended, please contact the administration');
         return error;
     }
 
-    const Access = Token.geanerateAccessToken(user);
+    const Access = Token.generateAccessToken(user);
     const Refresh = Token.generateRefreshToken(user);
 
     user.refreshTokens.push(Refresh);
     user.save();
-    return {Access, Refresh};
+    return { Access, Refresh };
 }
 
 exports.verifyRefreshToken = (token) => {
-    UserRepository.whoHaseRefresh(token);
     try {
+        const user = UserRepository.whoHaseRefresh(token);
+        if (!user) throw new Error('refresh token not valid');
         const payload = Token.verifyRefreshToken(token);
         console.log('*payload****\n', payload);
-    
+
         const access = Token.geanerateAccessToken(payload);
         return access;
     } catch (error) {
@@ -53,17 +69,50 @@ exports.verifyRefreshToken = (token) => {
     }
 }
 
-exports.updateUser = async (userData) => {
+exports.updateUser = async (userData, userID) => {
     console.log('**********\n', userData);
     console.log('**********\n', userData.userId);
 
+    // Only process roleName if it exists
+    if (userData.roleName) {
+        userData.roleName = userData.roleName.toLowerCase();
+        const ADMIN = await RoleService.getRoleById(userID);
+        if (ADMIN.name !== 'admin' && userData.roleName == 'admin') {
+            throw new Error('only Admins can assign admin role to a user');
+        }
+    }
+
     const user = await UserRepository.updateById(userData.userId, userData);
     if (!user) throw new Error('there is no user updated check if Done');
+
+    // Return user without sensitive fields
+    const userObj = user.toObject ? user.toObject() : user;
+    delete userObj.password;
+    delete userObj.refreshTokens;
+
+    console.log('new user************\n', userObj);
+    return userObj;
 }
 
-exports.ConsulterProfilCompletPatient = async(userId) => {
-        // const user = await User.findOne({_id: id})
-        const profile = await UserRepository.userProfile(userId);
-        if (profile.length == 0) throw new Error('ther is no one has this id!');
-        return profile;
+exports.ConsulterProfilCompletPatient = async (userId, authUser) => {
+    const role = await RoleService.getRoleById(authUser.roleId);
+
+    if (role.name == 'patient' && authUser._id.toString() != userId) {
+        throw new Error('Patients can only view their own profile');
     }
+
+    const profile = await UserRepository.userProfile(userId);
+    if (profile.length == 0) throw new Error('ther is no one has this id!');
+    return profile;
+}
+
+exports.deleteUser = async (userId) => {
+    const user = await UserRepository.deleteById(userId);
+    if (!user) throw new Error('user not found');
+    return user;
+}
+
+exports.initRoles = async () => {
+    const RoleService = require('./RoleService');
+    await RoleService.initializeRolesWithPermissions();
+}

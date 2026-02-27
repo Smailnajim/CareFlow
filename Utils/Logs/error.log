@@ -1,0 +1,22 @@
+[2025:10:25 12:20:35] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 12:24:03] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 12:24:05] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 11:24:33] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 11:27:40] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 11:32:04] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 11:32:05] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 11:32:28] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 11:32:30] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 11:33:08] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:25 11:33:09] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:26 13:42:09] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:26 13:42:10] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:26 13:42:12] error: The difference between the request time and the server's time is too large. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:10:26 21:57:35] error: Error getting prescription: Schema hasn't been registered for model "Tritments".
+Use mongoose.model(name, schema) PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:01 20:33:49] error: Error getting prescription: Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "Prescriptions" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:01 20:33:49] error: Error creating prescription: Operation `prescriptions.insertOne()` buffering timed out after 10000ms PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:01 20:33:49] error: Error updating prescription status: Cast to ObjectId failed for value "undefined" (type string) at path "_id" for model "Prescriptions" PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 22:49:56] error: connect ECONNREFUSED 127.0.0.1:9000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 23:01:10] error: connect ECONNREFUSED 127.0.0.1:9000 PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js
+[2025:11:02 23:29:53] error: The Access Key Id you provided does not exist in our records. PLACE: C:\Users\Youcode\Desktop\Nouveau dossier (3)\CareFlow\Utils\Logger.js

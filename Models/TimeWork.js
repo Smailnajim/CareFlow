@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const TimeWorkSchema = new Schema({
-    medecinId: {
+    userId: {
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true
@@ -22,6 +22,6 @@ const TimeWorkSchema = new Schema({
             }
         }]
     }]
-}, {collection: 'timesworks',timestamps: true});
+}, {collection: 'timeworks',timestamps: true});
 
 module.exports = mongoose.model('TimeWork', TimeWorkSchema);
